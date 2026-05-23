@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML Logo v2 — Iconic Marks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>
+  body { margin:0; background:#1a1a1a; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+/* ==========================================================
+   IAML ICONIC LOGO MARKS — v2
+   Simple, memorable, works on light & dark.
+   
+   Each concept: a single-color mark.
+   Shown on white (#fff) and dark (#111827) side by side.
+   ========================================================== */
+
+/* Helper: renders a mark on both backgrounds */
+function DualPreview({ children, label }) {
+  return (
+    <div style={{display:'flex',flexDirection:'column',width:540,height:420}}>
+      <div style={{display:'flex',flex:1}}>
+        {/* Light */}
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:'#ffffff'}}>
+          <svg viewBox="0 0 200 200" width="160" height="160">
+            {children('#111827')}
+          </svg>
+        </div>
+        {/* Dark */}
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:'#111827'}}>
+          <svg viewBox="0 0 200 200" width="160" height="160">
+            {children('#ffffff')}
+          </svg>
+        </div>
+      </div>
+      <div style={{display:'flex',height:44,alignItems:'center',justifyContent:'center',background:'#f5f5f5'}}>
+        <span style={{fontFamily:'DM Sans, sans-serif',fontSize:12,color:'#666',letterSpacing:1.5,textTransform:'uppercase'}}>{label}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ── Concept 1: Vertical Script Pen ──
+   A vertical stroke with a calligraphic tip — 
+   represents Mongolian vertical script as a single elegant stroke.
+   Like a pen that writes top-to-bottom. */
+function Mark1(fill) {
+  return (
+    <g>
+      {/* Main vertical stroke */}
+      <path d="M 100,28 
+               Q 100,28 100,150
+               Q 100,160 96,168
+               Q 92,176 100,180
+               " 
+            fill="none" stroke={fill} strokeWidth="6" strokeLinecap="round"/>
+      {/* Calligraphic head */}
+      <circle cx="100" cy="26" r="7" fill={fill}/>
+      {/* Small serif/tooth marks — like Mongolian script teeth */}
+      <line x1="106" y1="60" x2="114" y2="55" stroke={fill} strokeWidth="4" strokeLinecap="round"/>
+      <line x1="106" y1="95" x2="114" y2="90" stroke={fill} strokeWidth="4" strokeLinecap="round"/>
+      <line x1="106" y1="130" x2="114" y2="125" stroke={fill} strokeWidth="4" strokeLinecap="round"/>
+    </g>
+  );
+}
+
+/* ── Concept 2: Speech Scroll ──
+   A speech bubble made from a scroll/ribbon shape —
+   language + scholarly tradition. Clean silhouette. */
+function Mark2(fill) {
+  return (
+    <g>
+      <path d="
+        M 60,40 
+        L 140,40 
+        Q 160,40 160,60 
+        L 160,120 
+        Q 160,140 140,140 
+        L 110,140 
+        L 100,165 
+        L 90,140 
+        L 60,140 
+        Q 40,140 40,120 
+        L 40,60 
+        Q 40,40 60,40 Z
+      " fill={fill} opacity="1"/>
+      {/* Three horizontal lines inside — text/script */}
+      <line x1="65" y1="72" x2="135" y2="72" stroke={fill === '#ffffff' ? '#111827' : '#ffffff'} strokeWidth="4" strokeLinecap="round"/>
+      <line x1="65" y1="90" x2="125" y2="90" stroke={fill === '#ffffff' ? '#111827' : '#ffffff'} strokeWidth="4" strokeLinecap="round"/>
+      <line x1="65" y1="108" x2="115" y2="108" stroke={fill === '#ffffff' ? '#111827' : '#ffffff'} strokeWidth="4" strokeLinecap="round"/>
+    </g>
+  );
+}
+
+/* ── Concept 3: Abstract "M" with Vertical Axis ──
+   Letter M with a strong vertical spine down the center,
+   evoking both the initial of "Mongolic" and vertical script. */
+function Mark3(fill) {
+  return (
+    <g>
+      <path d="
+        M 45,165 
+        L 45,50 
+        L 100,105 
+        L 155,50 
+        L 155,165
+      " fill="none" stroke={fill} strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+      {/* Central vertical axis — the script spine */}
+      <line x1="100" y1="105" x2="100" y2="165" stroke={fill} strokeWidth="8" strokeLinecap="round"/>
+    </g>
+  );
+}
+
+
+/* ── Concept 4: Mongolian Script Letterform ──
+   A highly simplified, abstract shape inspired by Mongolian
+   vertical script — the 'ᠮ' (m) character abstracted into a logo. 
+   A single continuous flowing stroke. */
+function Mark4(fill) {
+  return (
+    <g>
+      {/* Flowing vertical script-like form */}
+      <path d="
+        M 100,22
+        L 100,60
+        Q 100,72 88,78
+        Q 76,84 76,96
+        Q 76,108 100,108
+        L 100,140
+        Q 100,152 112,156
+        Q 124,160 124,170
+        Q 124,180 100,180
+      " fill="none" stroke={fill} strokeWidth="7" strokeLinecap="round"/>
+      {/* Head dot */}
+      <circle cx="100" cy="18" r="6" fill={fill}/>
+    </g>
+  );
+}
+
+
+/* ── Concept 5: Open Book / Wings ──
+   An open book viewed from above, pages fanning out
+   like wings. Knowledge + flight. Extremely simple. */
+function Mark5(fill) {
+  return (
+    <g>
+      {/* Left page */}
+      <path d="M 100,160 L 100,55 Q 70,45 40,55 L 40,160 Q 70,150 100,160 Z" 
+            fill={fill} opacity="0.85"/>
+      {/* Right page */}
+      <path d="M 100,160 L 100,55 Q 130,45 160,55 L 160,160 Q 130,150 100,160 Z" 
+            fill={fill} opacity="1"/>
+      {/* Center spine */}
+      <line x1="100" y1="50" x2="100" y2="162" stroke={fill === '#ffffff' ? '#111827' : '#ffffff'} strokeWidth="2"/>
+    </g>
+  );
+}
+
+
+/* ── Concept 6: Linked Rings ──
+   Two interlocking rings — representing the connection between
+   languages and international cooperation. Timeless. */
+function Mark6(fill) {
+  return (
+    <g>
+      <circle cx="82" cy="100" r="40" fill="none" stroke={fill} strokeWidth="6"/>
+      <circle cx="118" cy="100" r="40" fill="none" stroke={fill} strokeWidth="6"/>
+      {/* Clean up intersection — add small vertical accent */}
+      <line x1="100" y1="68" x2="100" y2="132" stroke={fill} strokeWidth="3" strokeLinecap="round" opacity="0.5"/>
+    </g>
+  );
+}
+
+
+/* ── Concept 7: Stele / Monument ──
+   A tall narrow rectangle with a pointed top — like
+   a Mongolian stele or ancient inscription stone.
+   The simplest possible mark. */
+function Mark7(fill) {
+  return (
+    <g>
+      <path d="
+        M 82,170
+        L 82,55
+        Q 82,35 100,25
+        Q 118,35 118,55
+        L 118,170
+        Z
+      " fill={fill}/>
+      {/* Subtle horizontal notches — like inscribed lines */}
+      <line x1="82" y1="80" x2="118" y2="80" stroke={fill === '#ffffff' ? '#111827' : '#ffffff'} strokeWidth="2" opacity="0.3"/>
+      <line x1="82" y1="105" x2="118" y2="105" stroke={fill === '#ffffff' ? '#111827' : '#ffffff'} strokeWidth="2" opacity="0.3"/>
+      <line x1="82" y1="130" x2="118" y2="130" stroke={fill === '#ffffff' ? '#111827' : '#ffffff'} strokeWidth="2" opacity="0.3"/>
+    </g>
+  );
+}
+
+
+/* ── Concept 8: Abstract Knot / Endless Knot ──
+   Inspired by the Mongolian/Buddhist endless knot (ulzii),
+   simplified into a clean geometric interlocking form. */
+function Mark8(fill) {
+  return (
+    <g>
+      {/* Simplified endless knot — two interlocking rounded squares */}
+      <rect x="55" y="55" width="60" height="60" rx="12" fill="none" stroke={fill} strokeWidth="6"
+            transform="rotate(45,85,85) translate(0,0)"/>
+      <rect x="85" y="85" width="60" height="60" rx="12" fill="none" stroke={fill} strokeWidth="6"
+            transform="rotate(45,115,115) translate(0,0)"/>
+      {/* Central connecting dot */}
+      <circle cx="100" cy="100" r="5" fill={fill}/>
+    </g>
+  );
+}
+
+
+function App() {
+  return (
+    <DesignCanvas title="IAML — Iconic Logo Marks" subtitle="Simple, memorable, works on any background · 8 concepts">
+      <DCSection id="script-inspired" title="Script-Inspired">
+        <DCArtboard id="m1" label="Vertical Script Pen" width={540} height={420}>
+          <DualPreview label="Vertical Script Pen">{Mark1}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m4" label="Mongolian Letterform" width={540} height={420}>
+          <DualPreview label="Mongolian Letterform">{Mark4}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m7" label="Inscription Stele" width={540} height={420}>
+          <DualPreview label="Inscription Stele">{Mark7}</DualPreview>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="language-symbol" title="Language & Knowledge">
+        <DCArtboard id="m2" label="Speech Scroll" width={540} height={420}>
+          <DualPreview label="Speech Scroll">{Mark2}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m5" label="Open Book" width={540} height={420}>
+          <DualPreview label="Open Book">{Mark5}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m3" label="Abstract M" width={540} height={420}>
+          <DualPreview label="Abstract M">{Mark3}</DualPreview>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="abstract" title="Abstract Marks">
+        <DCArtboard id="m6" label="Linked Rings" width={540} height={420}>
+          <DualPreview label="Linked Rings">{Mark6}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m8" label="Endless Knot" width={540} height={420}>
+          <DualPreview label="Endless Knot">{Mark8}</DualPreview>
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

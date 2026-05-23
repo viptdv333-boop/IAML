@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML Logo v3 — Iconic Marks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>
+  body { margin:0; background:#1a1a1a; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+/* Helper: renders a mark on both backgrounds with branding text */
+function DualPreview({ children, label }) {
+  return (
+    <div style={{display:'flex',flexDirection:'column',width:640,height:520}}>
+      <div style={{display:'flex',flex:1}}>
+        {/* Light */}
+        <div style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',background:'#ffffff',gap:16,padding:24}}>
+          <svg viewBox="0 0 200 200" width="150" height="150">
+            {children('#0F172A')}
+          </svg>
+          <span style={{fontFamily:'DM Sans,sans-serif',fontSize:13,fontWeight:600,letterSpacing:2.5,color:'#0F172A'}}>IAML</span>
+        </div>
+        {/* Dark */}
+        <div style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',background:'#0F172A',gap:16,padding:24}}>
+          <svg viewBox="0 0 200 200" width="150" height="150">
+            {children('#F8FAFC')}
+          </svg>
+          <span style={{fontFamily:'DM Sans,sans-serif',fontSize:13,fontWeight:600,letterSpacing:2.5,color:'#F8FAFC'}}>IAML</span>
+        </div>
+      </div>
+      <div style={{display:'flex',height:40,alignItems:'center',justifyContent:'center',background:'#F1F5F9'}}>
+        <span style={{fontFamily:'DM Sans,sans-serif',fontSize:11,color:'#64748B',letterSpacing:1.5,textTransform:'uppercase'}}>{label}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT 1: CALLIGRAPHIC FLOW
+   
+   A single flowing calligraphic stroke inspired by Mongolian
+   vertical script — elegant, sweeping, like a master 
+   calligrapher's brush in one continuous motion. The shape
+   starts with a bold head, flows downward with graceful 
+   curves, and tapers to a refined finish.
+   ══════════════════════════════════════════════════════════ */
+function Mark1(fill) {
+  return (
+    <g>
+      <path d="
+        M 96,16
+        C 96,16 102,16 104,20
+        C 106,24 104,30 100,34
+        C 96,38 92,40 92,48
+        L 92,56
+        C 92,64 104,68 112,62
+        C 120,56 118,48 112,44
+        C 108,42 104,44 104,48
+        C 104,52 108,54 108,54
+        
+        M 92,56
+        L 92,100
+        C 92,108 84,116 84,124
+        C 84,132 92,136 100,136
+        C 108,136 116,132 116,124
+        C 116,116 108,112 100,112
+        C 92,112 88,120 92,128
+        
+        M 92,100
+        L 92,148
+        C 92,160 100,168 100,176
+        C 100,182 96,186 92,186
+        C 88,186 86,182 88,178
+      " fill="none" stroke={fill} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT 2: THE GOLDEN EAGLE
+   
+   Mongolia's golden eagle — a powerful, clean silhouette
+   viewed from the side, wings slightly raised. Represents
+   strength, vision, freedom. The eagle is THE symbol
+   of Mongolia. Refined curves, no unnecessary detail.
+   ══════════════════════════════════════════════════════════ */
+function Mark2(fill) {
+  return (
+    <g>
+      {/* Eagle body and wings — single filled shape */}
+      <path d="
+        M 100,35
+        C 96,35 90,38 88,42
+        C 86,46 86,50 88,52
+        L 86,52
+        C 78,52 60,58 42,78
+        C 32,90 28,100 30,104
+        C 32,108 36,108 42,104
+        C 50,98 60,88 72,82
+        L 68,88
+        C 62,98 58,112 60,120
+        C 62,126 66,128 70,126
+        C 76,122 82,112 86,102
+        L 88,96
+        C 90,108 92,124 90,140
+        C 88,152 86,160 86,164
+        C 86,168 88,170 92,170
+        C 96,170 98,164 100,156
+        C 102,164 104,170 108,170
+        C 112,170 114,168 114,164
+        C 114,160 112,152 110,140
+        C 108,124 110,108 112,96
+        L 114,102
+        C 118,112 124,122 130,126
+        C 134,128 138,126 140,120
+        C 142,112 138,98 132,88
+        L 128,82
+        C 140,88 150,98 158,104
+        C 164,108 168,108 170,104
+        C 172,100 168,90 158,78
+        C 140,58 122,52 114,52
+        L 112,52
+        C 114,50 114,46 112,42
+        C 110,38 104,35 100,35 Z
+        
+        M 93,44 C 93,42 95,40 97,40 C 99,40 100,42 100,44 C 100,46 99,47 97,47 C 95,47 93,46 93,44 Z
+      " fill={fill} fillRule="evenodd"/>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT 3: MODERN ULZII (ENDLESS KNOT)
+   
+   The ulzii (ᠥᠯᠵᠡᠢ) — the Mongolian endless knot — is one 
+   of the most sacred symbols. Here, reimagined as a clean,
+   modern continuous-line form. A single unbroken path that
+   weaves over and under itself. Harmony, eternity, wisdom.
+   ══════════════════════════════════════════════════════════ */
+function Mark3(fill) {
+  return (
+    <g>
+      {/* Modern endless knot — clean geometric weave */}
+      {/* Horizontal bars */}
+      <rect x="48" y="72" width="104" height="12" rx="6" fill={fill}/>
+      <rect x="48" y="116" width="104" height="12" rx="6" fill={fill}/>
+      
+      {/* Vertical bars */}
+      <rect x="62" y="48" width="12" height="104" rx="6" fill={fill}/>
+      <rect x="126" y="48" width="12" height="104" rx="6" fill={fill}/>
+      
+      {/* Corner connectors — top-left */}
+      <path d="M 48,72 Q 48,48 72,48 L 62,48 Q 48,48 48,62 Z" fill={fill}/>
+      <rect x="48" y="48" width="26" height="26" rx="12" fill={fill}/>
+      
+      {/* Corner connectors — top-right */}
+      <rect x="126" y="48" width="26" height="26" rx="12" fill={fill}/>
+      
+      {/* Corner connectors — bottom-left */}
+      <rect x="48" y="126" width="26" height="26" rx="12" fill={fill}/>
+      
+      {/* Corner connectors — bottom-right */}
+      <rect x="126" y="126" width="26" height="26" rx="12" fill={fill}/>
+
+      {/* Center cutout for weave effect */}
+      <rect x="74" y="84" width="52" height="32" rx="4" fill={fill === '#F8FAFC' ? '#0F172A' : '#ffffff'}/>
+      
+      {/* Center diamond accent */}
+      <rect x="93" y="93" width="14" height="14" rx="2" fill={fill} transform="rotate(45,100,100)"/>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT 4: SCRIPT TOWER
+   
+   Inspired by the vertical nature of Mongolian script AND
+   the form of a traditional Mongolian stele (inscribed stone).
+   A tall, elegant form — rounded top, straight sides,
+   with a subtle "window" negative space that suggests
+   both a doorway and the space between letters.
+   ══════════════════════════════════════════════════════════ */
+function Mark4(fill) {
+  return (
+    <g>
+      {/* Main stele form */}
+      <path d="
+        M 76,174
+        L 76,62
+        C 76,34 100,18 100,18
+        C 100,18 124,34 124,62
+        L 124,174
+        Z
+      " fill={fill}/>
+      {/* Negative space arch — door/window */}
+      <path d="
+        M 88,174
+        L 88,108
+        C 88,92 100,84 100,84
+        C 100,84 112,92 112,108
+        L 112,174
+        Z
+      " fill={fill === '#F8FAFC' ? '#0F172A' : '#ffffff'}/>
+      {/* Three small horizontal marks — inscriptions */}
+      <rect x="84" y="56" width="32" height="2.5" rx="1.25" fill={fill === '#F8FAFC' ? '#0F172A' : '#ffffff'} opacity="0.4"/>
+      <rect x="88" y="64" width="24" height="2.5" rx="1.25" fill={fill === '#F8FAFC' ? '#0F172A' : '#ffffff'} opacity="0.4"/>
+      <rect x="90" y="72" width="20" height="2.5" rx="1.25" fill={fill === '#F8FAFC' ? '#0F172A' : '#ffffff'} opacity="0.4"/>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT 5: SPEECH FORMS
+   
+   Two overlapping rounded organic forms — suggesting both
+   speech bubbles and the meeting of languages/cultures.
+   The overlap creates a distinctive shared space.
+   Organic, warm, approachable.
+   ══════════════════════════════════════════════════════════ */
+function Mark5(fill) {
+  return (
+    <g>
+      {/* Left form */}
+      <path d="
+        M 72,56
+        C 44,56 28,76 28,100
+        C 28,124 44,144 72,144
+        C 80,144 88,142 94,138
+        L 82,164
+        L 100,142
+        C 104,143 108,144 112,144
+        L 100,144
+        C 94,144 88,142 82,138
+      " fill="none" stroke={fill} strokeWidth="5.5" strokeLinejoin="round" strokeLinecap="round"/>
+      
+      {/* Full left bubble */}
+      <ellipse cx="78" cy="100" rx="46" ry="44" fill="none" stroke={fill} strokeWidth="5.5"/>
+      
+      {/* Full right bubble - overlapping */}
+      <ellipse cx="122" cy="100" rx="46" ry="44" fill="none" stroke={fill} strokeWidth="5.5"/>
+      
+      {/* Clear the overlap area and redraw to create venn effect */}
+      <clipPath id="leftClip">
+        <ellipse cx="78" cy="100" rx="46" ry="44"/>
+      </clipPath>
+      <clipPath id="rightClip">
+        <ellipse cx="122" cy="100" rx="46" ry="44"/>
+      </clipPath>
+      
+      {/* Intersection fill */}
+      <ellipse cx="122" cy="100" rx="46" ry="44" fill={fill} opacity="0.12" clipPath="url(#leftClip)"/>
+      
+      {/* Small tail on left bubble */}
+      <path d="M 62,140 L 52,168 L 78,142" fill="none" stroke={fill} strokeWidth="5.5" strokeLinejoin="round" strokeLinecap="round"/>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT 6: QUILL & CRESCENT
+   
+   A pen nib / quill point merged with a crescent moon — 
+   writing meets the night sky over Mongolia. The crescent 
+   wraps around the nib like a protective embrace. 
+   Sophisticated, literary, celestial.
+   ══════════════════════════════════════════════════════════ */
+function Mark6(fill) {
+  return (
+    <g>
+      {/* Quill / pen nib — elegant pointed shape */}
+      <path d="
+        M 100,24
+        C 96,24 90,32 88,44
+        C 86,56 86,72 88,88
+        L 88,140
+        C 88,148 92,156 96,164
+        L 100,176
+        L 104,164
+        C 108,156 112,148 112,140
+        L 112,88
+        C 114,72 114,56 112,44
+        C 110,32 104,24 100,24 Z
+      " fill={fill}/>
+      
+      {/* Ink slit in center */}
+      <path d="
+        M 100,80
+        L 100,156
+      " stroke={fill === '#F8FAFC' ? '#0F172A' : '#ffffff'} strokeWidth="2.5" strokeLinecap="round"/>
+      
+      {/* Crescent wrapping around — left side */}
+      <path d="
+        M 78,52
+        C 56,68 44,92 44,118
+        C 44,144 56,166 78,176
+      " fill="none" stroke={fill} strokeWidth="5" strokeLinecap="round"/>
+      
+      {/* Small crescent detail — inner edge */}
+      <path d="
+        M 82,64
+        C 68,76 60,94 60,114
+        C 60,134 68,150 82,162
+      " fill="none" stroke={fill} strokeWidth="2" strokeLinecap="round" opacity="0.35"/>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT 7: GER SILHOUETTE
+   
+   The Mongolian ger (yurt) — simplified to its essential
+   iconic silhouette. The crown wheel (toono) at top,
+   the lattice walls, the felt roof. A home, a center of
+   culture. Inside the door, a subtle vertical line
+   suggests text/script.
+   ══════════════════════════════════════════════════════════ */
+function Mark7(fill) {
+  return (
+    <g>
+      {/* Toono (crown wheel) */}
+      <circle cx="100" cy="52" r="14" fill="none" stroke={fill} strokeWidth="5"/>
+      <circle cx="100" cy="52" r="4" fill={fill}/>
+      
+      {/* Roof — elegant curve */}
+      <path d="
+        M 100,66
+        L 100,72
+        M 40,128
+        C 40,128 60,80 100,72
+        C 140,80 160,128 160,128
+      " fill="none" stroke={fill} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
+      
+      {/* Roof fill */}
+      <path d="
+        M 40,128
+        C 40,128 60,80 100,72
+        C 140,80 160,128 160,128
+        Z
+      " fill={fill} opacity="0.08"/>
+      
+      {/* Walls */}
+      <line x1="38" y1="128" x2="38" y2="168" stroke={fill} strokeWidth="5" strokeLinecap="round"/>
+      <line x1="162" y1="128" x2="162" y2="168" stroke={fill} strokeWidth="5" strokeLinecap="round"/>
+      
+      {/* Base */}
+      <line x1="34" y1="168" x2="166" y2="168" stroke={fill} strokeWidth="5" strokeLinecap="round"/>
+      
+      {/* Door — rectangular opening */}
+      <rect x="88" y="134" width="24" height="34" rx="3" fill={fill} opacity="0.15"/>
+      <rect x="88" y="134" width="24" height="34" rx="3" fill="none" stroke={fill} strokeWidth="2.5"/>
+      
+      {/* Script line inside door */}
+      <line x1="100" y1="140" x2="100" y2="160" stroke={fill} strokeWidth="2" strokeLinecap="round" opacity="0.6"/>
+      <circle cx="100" cy="138" r="1.5" fill={fill} opacity="0.6"/>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT 8: THE HORIZON LINE
+   
+   A bold horizontal line with a rising arc above — 
+   the Mongolian steppe meeting the eternal blue sky.
+   A single vertical stroke rises from the horizon: 
+   Mongolian script emerging from the land. Minimal, 
+   powerful, zen-like.
+   ══════════════════════════════════════════════════════════ */
+function Mark8(fill) {
+  return (
+    <g>
+      {/* The sky arc — bold, generous curve */}
+      <path d="
+        M 24,132
+        C 24,132 52,42 100,42
+        C 148,42 176,132 176,132
+      " fill="none" stroke={fill} strokeWidth="6" strokeLinecap="round"/>
+      
+      {/* The horizon — ground line */}
+      <line x1="24" y1="132" x2="176" y2="132" stroke={fill} strokeWidth="6" strokeLinecap="round"/>
+      
+      {/* The vertical script stroke rising from center */}
+      <line x1="100" y1="132" x2="100" y2="88" stroke={fill} strokeWidth="5" strokeLinecap="round"/>
+      {/* Script head */}
+      <circle cx="100" cy="82" r="5" fill={fill}/>
+      {/* Small tooth */}
+      <line x1="105" y1="104" x2="112" y2="100" stroke={fill} strokeWidth="3.5" strokeLinecap="round"/>
+    </g>
+  );
+}
+
+
+function App() {
+  return (
+    <DesignCanvas title="IAML — Logo Concepts v3" subtitle="Refined iconic marks · light + dark previews">
+      <DCSection id="cultural" title="Mongolian Heritage">
+        <DCArtboard id="m2" label="Golden Eagle" width={640} height={520}>
+          <DualPreview label="Golden Eagle">{Mark2}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m3" label="Modern Ulzii Knot" width={640} height={520}>
+          <DualPreview label="Modern Ulzii Knot">{Mark3}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m7" label="Ger Silhouette" width={640} height={520}>
+          <DualPreview label="Ger Silhouette">{Mark7}</DualPreview>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="script" title="Script & Writing">
+        <DCArtboard id="m1" label="Calligraphic Flow" width={640} height={520}>
+          <DualPreview label="Calligraphic Flow">{Mark1}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m4" label="Script Tower" width={640} height={520}>
+          <DualPreview label="Script Tower">{Mark4}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m6" label="Quill & Crescent" width={640} height={520}>
+          <DualPreview label="Quill & Crescent">{Mark6}</DualPreview>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="abstract" title="Abstract & Conceptual">
+        <DCArtboard id="m5" label="Speech Forms" width={640} height={520}>
+          <DualPreview label="Speech Forms">{Mark5}</DualPreview>
+        </DCArtboard>
+        <DCArtboard id="m8" label="Horizon Line" width={640} height={520}>
+          <DualPreview label="Horizon Line">{Mark8}</DualPreview>
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

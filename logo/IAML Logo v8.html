@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML Brand Identity v8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>
+body { margin: 0; background: #111; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+/* ═══════════════════════════════════════════════════════════
+   Official Mongolian Flag Colors:
+   Red:    #C4272F  (2/3 of flag — left and right stripes)
+   Blue:   #015197  (center stripe — Eternal Blue Sky)
+   Gold:   #F9CF02  (Soyombo symbol)
+   
+   + Sky tones: #2E7ABF, #5BA3D9
+   ═══════════════════════════════════════════════════════════ */
+const C = {
+  red: '#C4272F',
+  blue: '#015197',
+  gold: '#F9CF02',
+  goldDeep: '#D4AA00',
+  sky: '#2E7ABF',
+  skyL: '#5BA3D9',
+  ink: '#0A1628',
+  white: '#FFFFFF',
+  cream: '#F6F4EF',
+  warmGray: '#E8E5DE',
+};
+
+
+/* ── PRESENTATION CARD ── */
+function Brand({ children, markLight, markDark, lockupLight, lockupDark, name, rationale }) {
+  return (
+    <div style={{display:'flex',flexDirection:'column',width:940,fontFamily:'DM Sans,sans-serif',background:C.cream}}>
+      {/* Hero marks */}
+      <div style={{display:'flex',height:360}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.white}}>
+          <svg viewBox="0 0 280 280" width="260" height="260">{markLight}</svg>
+        </div>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.ink}}>
+          <svg viewBox="0 0 280 280" width="260" height="260">{markDark}</svg>
+        </div>
+      </div>
+      {/* Lockups */}
+      <div style={{display:'flex',height:88}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.cream,padding:'0 32px'}}>
+          <svg viewBox="0 0 500 70" width="460" height="64">{lockupLight}</svg>
+        </div>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.ink,padding:'0 32px'}}>
+          <svg viewBox="0 0 500 70" width="460" height="64">{lockupDark}</svg>
+        </div>
+      </div>
+      {/* Applications */}
+      <div style={{display:'flex',gap:16,padding:'24px 28px',alignItems:'flex-end',justifyContent:'center',background:C.warmGray}}>
+        {/* App icon */}
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:6}}>
+          <div style={{width:64,height:64,borderRadius:14,overflow:'hidden',boxShadow:'0 2px 10px rgba(0,0,0,0.15)',display:'flex',alignItems:'center',justifyContent:'center',background:C.blue}}>
+            <svg viewBox="0 0 280 280" width="50" height="50">{markDark}</svg>
+          </div>
+          <span style={{fontSize:9,color:'#999',letterSpacing:1}}>APP ICON</span>
+        </div>
+        {/* Conference badge */}
+        <div style={{width:220,height:310,background:C.white,borderRadius:8,boxShadow:'0 2px 12px rgba(0,0,0,0.1)',overflow:'hidden',display:'flex',flexDirection:'column',alignItems:'center'}}>
+          <div style={{width:'100%',height:8,background:C.red}}></div>
+          <div style={{padding:'14px 14px 0',display:'flex',flexDirection:'column',alignItems:'center',gap:6}}>
+            <svg viewBox="0 0 280 280" width="52" height="52">{markLight}</svg>
+            <div style={{fontSize:8,fontWeight:700,color:C.blue,letterSpacing:2}}>IAML ANNUAL CONFERENCE 2026</div>
+            <div style={{fontSize:6,color:C.goldDeep,letterSpacing:1}}>ULAANBAATAR · MONGOLIA</div>
+          </div>
+          <div style={{width:120,height:0.5,background:C.gold,margin:'10px 0'}}></div>
+          <div style={{width:72,height:72,borderRadius:36,background:C.warmGray,marginBottom:8}}></div>
+          <div style={{fontSize:12,fontWeight:700,color:C.ink}}>Dr. Name Surname</div>
+          <div style={{fontSize:7,color:'#999',textAlign:'center',padding:'0 10px'}}>University of Helsinki</div>
+          <div style={{marginTop:'auto',width:'100%',height:5,background:`linear-gradient(90deg, ${C.red}, ${C.blue}, ${C.red})`}}></div>
+        </div>
+        {/* Journal */}
+        <div style={{width:210,height:290,background:C.blue,borderRadius:4,boxShadow:'0 2px 12px rgba(0,0,0,0.2)',overflow:'hidden',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',fontFamily:'Cormorant Garamond,serif',position:'relative',padding:20}}>
+          <div style={{position:'absolute',inset:8,border:`1px solid ${C.gold}`,opacity:0.2,borderRadius:2,pointerEvents:'none'}}></div>
+          <svg viewBox="0 0 280 280" width="68" height="68">{markDark}</svg>
+          <div style={{width:50,height:0.5,background:C.gold,opacity:0.5,margin:'12px 0'}}></div>
+          <div style={{fontSize:17,fontWeight:600,color:C.white,textAlign:'center',lineHeight:1.3,letterSpacing:0.5}}>Journal of<br/>Mongolic<br/>Linguistics</div>
+          <div style={{fontSize:8,color:C.gold,marginTop:10,letterSpacing:2.5,fontFamily:'DM Sans,sans-serif'}}>VOL. I · 2026</div>
+        </div>
+        {/* Letterhead corner */}
+        <div style={{width:200,height:270,background:C.white,borderRadius:4,boxShadow:'0 2px 12px rgba(0,0,0,0.1)',padding:16,display:'flex',flexDirection:'column'}}>
+          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:10}}>
+            <svg viewBox="0 0 280 280" width="28" height="28">{markLight}</svg>
+            <div>
+              <div style={{fontSize:7,fontWeight:700,color:C.blue,letterSpacing:2}}>IAML</div>
+              <div style={{fontSize:4.5,color:'#999',letterSpacing:0.5}}>International Association for<br/>Mongolic Linguistics</div>
+            </div>
+          </div>
+          <div style={{width:'100%',height:0.5,background:C.red,opacity:0.3,marginBottom:12}}></div>
+          {[100,92,88,100,75,95,82,100,90,70,85,95].map((w,i) => (
+            <div key={i} style={{width:`${w}%`,height:2.5,background:C.warmGray,marginBottom:4.5,borderRadius:1}}></div>
+          ))}
+          <div style={{marginTop:'auto',display:'flex',gap:4}}>
+            <div style={{width:4,height:4,borderRadius:2,background:C.red}}></div>
+            <div style={{width:4,height:4,borderRadius:2,background:C.blue}}></div>
+            <div style={{width:4,height:4,borderRadius:2,background:C.gold}}></div>
+          </div>
+        </div>
+      </div>
+      {/* Rationale */}
+      <div style={{padding:'16px 32px',background:C.cream,borderTop:`1px solid ${C.warmGray}`,display:'flex',gap:24,alignItems:'baseline'}}>
+        <span style={{fontSize:13,fontWeight:700,color:C.blue,letterSpacing:2,textTransform:'uppercase',whiteSpace:'nowrap'}}>{name}</span>
+        <span style={{fontSize:11,color:'#6B7280',lineHeight:1.5}}>{rationale}</span>
+      </div>
+    </div>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT A: "THE CREST"
+   
+   A formal heraldic shield using the flag's RED-BLUE-RED
+   vertical stripe structure as the foundation. Inside the
+   blue center: a gold Soyombo-derived flame. The shield
+   says "institution" while the colors say "Mongolia" 
+   unmistakably.
+   ══════════════════════════════════════════════════════════ */
+function crestLight() {
+  return (
+    <g transform="translate(140,140)">
+      {/* Shield outline */}
+      <path d="M 0,-105 L 72,-85 L 72,30 Q 72,90 0,110 Q -72,90 -72,30 L -72,-85 Z" fill="none" stroke={C.blue} strokeWidth="2"/>
+      
+      {/* Red left stripe */}
+      <clipPath id="shieldClipL">
+        <path d="M 0,-105 L -72,-85 L -72,30 Q -72,90 0,110 Z"/>
+      </clipPath>
+      <rect x="-72" y="-105" width="72" height="220" fill={C.red} clipPath="url(#shieldClipL)"/>
+      
+      {/* Blue center stripe */}
+      <clipPath id="shieldClipC">
+        <path d="M -24,-95 L 24,-95 L 24,100 Q 12,108 0,110 Q -12,108 -24,100 Z"/>
+      </clipPath>
+      <rect x="-24" y="-105" width="48" height="220" fill={C.blue} clipPath="url(#shieldClipC)"/>
+      
+      {/* Red right stripe */}
+      <clipPath id="shieldClipR">
+        <path d="M 0,-105 L 72,-85 L 72,30 Q 72,90 0,110 Z"/>
+      </clipPath>
+      <rect x="0" y="-105" width="72" height="220" fill={C.red} clipPath="url(#shieldClipR)"/>
+      
+      {/* Blue center on top */}
+      <rect x="-24" y="-95" width="48" height="200" fill={C.blue} clipPath="url(#shieldClipC)"/>
+      
+      {/* Gold flame in center — stylized Soyombo element */}
+      <path d="
+        M 0,-70
+        C -2,-58 -10,-52 -12,-42
+        C -14,-32 -8,-26 -6,-26
+        C -4,-26 -4,-30 -2,-38
+        C 0,-44 0,-46 0,-46
+        C 0,-46 0,-44 2,-38
+        C 4,-30 4,-26 6,-26
+        C 8,-26 14,-32 12,-42
+        C 10,-52 2,-58 0,-70 Z
+      " fill={C.gold}/>
+      
+      {/* Gold sun */}
+      <circle cx="0" cy="-8" r="10" fill={C.gold}/>
+      
+      {/* Gold crescent */}
+      <defs>
+        <mask id="crescM">
+          <rect x="-100" y="-100" width="200" height="200" fill="white"/>
+          <circle cx="0" cy="22" r="11" fill="black"/>
+        </mask>
+      </defs>
+      <circle cx="0" cy="28" r="14" fill={C.gold} mask="url(#crescM)"/>
+      
+      {/* Gold bars */}
+      <rect x="-12" y="48" width="24" height="3" rx="1.5" fill={C.gold}/>
+      <rect x="-12" y="56" width="24" height="3" rx="1.5" fill={C.gold}/>
+      
+      {/* Shield border on top of everything */}
+      <path d="M 0,-105 L 72,-85 L 72,30 Q 72,90 0,110 Q -72,90 -72,30 L -72,-85 Z" fill="none" stroke={C.ink} strokeWidth="2.5" opacity="0.15"/>
+    </g>
+  );
+}
+function crestDark() {
+  return (
+    <g transform="translate(140,140)">
+      <path d="M 0,-105 L 72,-85 L 72,30 Q 72,90 0,110 Q -72,90 -72,30 L -72,-85 Z" fill="none" stroke={C.skyL} strokeWidth="1.5"/>
+      <clipPath id="shieldClipLD">
+        <path d="M 0,-105 L -72,-85 L -72,30 Q -72,90 0,110 Z"/>
+      </clipPath>
+      <rect x="-72" y="-105" width="72" height="220" fill={C.red} clipPath="url(#shieldClipLD)"/>
+      <clipPath id="shieldClipCD">
+        <path d="M -24,-95 L 24,-95 L 24,100 Q 12,108 0,110 Q -12,108 -24,100 Z"/>
+      </clipPath>
+      <rect x="-24" y="-105" width="48" height="220" fill={C.blue} clipPath="url(#shieldClipCD)"/>
+      <clipPath id="shieldClipRD">
+        <path d="M 0,-105 L 72,-85 L 72,30 Q 72,90 0,110 Z"/>
+      </clipPath>
+      <rect x="0" y="-105" width="72" height="220" fill={C.red} clipPath="url(#shieldClipRD)"/>
+      <rect x="-24" y="-95" width="48" height="200" fill={C.blue} clipPath="url(#shieldClipCD)"/>
+      <path d="M 0,-70 C -2,-58 -10,-52 -12,-42 C -14,-32 -8,-26 -6,-26 C -4,-26 -4,-30 -2,-38 C 0,-44 0,-46 0,-46 C 0,-46 0,-44 2,-38 C 4,-30 4,-26 6,-26 C 8,-26 14,-32 12,-42 C 10,-52 2,-58 0,-70 Z" fill={C.gold}/>
+      <circle cx="0" cy="-8" r="10" fill={C.gold}/>
+      <defs>
+        <mask id="crescMD">
+          <rect x="-100" y="-100" width="200" height="200" fill="white"/>
+          <circle cx="0" cy="22" r="11" fill="black"/>
+        </mask>
+      </defs>
+      <circle cx="0" cy="28" r="14" fill={C.gold} mask="url(#crescMD)"/>
+      <rect x="-12" y="48" width="24" height="3" rx="1.5" fill={C.gold}/>
+      <rect x="-12" y="56" width="24" height="3" rx="1.5" fill={C.gold}/>
+      <path d="M 0,-105 L 72,-85 L 72,30 Q 72,90 0,110 Q -72,90 -72,30 L -72,-85 Z" fill="none" stroke={C.white} strokeWidth="1" opacity="0.1"/>
+    </g>
+  );
+}
+function crestLockup(bg) {
+  const t = bg === 'dark' ? C.white : C.ink;
+  const s = bg === 'dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      <g transform="scale(0.22) translate(60,60)">
+        {bg === 'dark' ? crestDark() : crestLight()}
+      </g>
+      <line x1="68" y1="10" x2="68" y2="58" stroke={C.gold} strokeWidth="0.6" opacity="0.4"/>
+      <text x="80" y="30" fontFamily="Cormorant Garamond,serif" fontSize="22" fontWeight="700" fill={t} letterSpacing="4">IAML</text>
+      <text x="80" y="48" fontFamily="DM Sans,sans-serif" fontSize="6.5" fill={s} letterSpacing="1.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT B: "THE THREE STRIPES"
+   
+   Three bold vertical bars — red | blue | red — the 
+   Mongolian flag abstracted to its purest form. The 
+   central blue bar is taller, crowned with a gold 
+   circle (sun/Soyombo).
+   
+   No illustration, no drawing — just color and proportion.
+   The flag IS the logo.
+   ══════════════════════════════════════════════════════════ */
+function stripesLight() {
+  return (
+    <g transform="translate(140,140)">
+      {/* Left red bar */}
+      <rect x="-52" y="-70" width="28" height="150" rx="4" fill={C.red}/>
+      {/* Center blue bar — taller */}
+      <rect x="-14" y="-85" width="28" height="180" rx="4" fill={C.blue}/>
+      {/* Right red bar */}
+      <rect x="24" y="-70" width="28" height="150" rx="4" fill={C.red}/>
+      {/* Gold sun atop center */}
+      <circle cx="0" cy="-96" r="11" fill={C.gold}/>
+    </g>
+  );
+}
+function stripesDark() {
+  return (
+    <g transform="translate(140,140)">
+      <rect x="-52" y="-70" width="28" height="150" rx="4" fill={C.red}/>
+      <rect x="-14" y="-85" width="28" height="180" rx="4" fill={C.sky}/>
+      <rect x="24" y="-70" width="28" height="150" rx="4" fill={C.red}/>
+      <circle cx="0" cy="-96" r="11" fill={C.gold}/>
+    </g>
+  );
+}
+function stripesLockup(bg) {
+  const t = bg === 'dark' ? C.white : C.ink;
+  const s = bg === 'dark' ? C.skyL : C.sky;
+  const bl = bg === 'dark' ? C.sky : C.blue;
+  return (
+    <g>
+      {/* Mini stripes */}
+      <rect x="12" y="14" width="10" height="42" rx="2" fill={C.red}/>
+      <rect x="24" y="8" width="10" height="52" rx="2" fill={bl}/>
+      <rect x="36" y="14" width="10" height="42" rx="2" fill={C.red}/>
+      <circle cx="29" cy="5" r="4" fill={C.gold}/>
+      <line x1="60" y1="10" x2="60" y2="58" stroke={C.gold} strokeWidth="0.6" opacity="0.4"/>
+      <text x="72" y="30" fontFamily="Cormorant Garamond,serif" fontSize="22" fontWeight="700" fill={t} letterSpacing="4">IAML</text>
+      <text x="72" y="48" fontFamily="DM Sans,sans-serif" fontSize="6.5" fill={s} letterSpacing="1.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT C: "THE CIRCLE SEAL"
+   
+   A bold circular seal with the three-stripe structure
+   running through it. The gold Soyombo flame sits at 
+   center. A true institutional mark built from the flag.
+   
+   Red ring → blue center → gold emblem.
+   ══════════════════════════════════════════════════════════ */
+function circleSealLight() {
+  return (
+    <g transform="translate(140,140)">
+      {/* Outer red ring */}
+      <circle cx="0" cy="0" r="100" fill={C.red}/>
+      {/* Inner blue field */}
+      <circle cx="0" cy="0" r="78" fill={C.blue}/>
+      {/* Thin gold ring */}
+      <circle cx="0" cy="0" r="80" fill="none" stroke={C.gold} strokeWidth="1.5"/>
+      
+      {/* Circular text in red ring */}
+      <defs>
+        <path id="sealTopC" d="M 0,0 m -89,0 a 89,89 0 1,1 178,0"/>
+        <path id="sealBotC" d="M -89,0 a 89,89 0 0,0 178,0"/>
+      </defs>
+      <text fontFamily="DM Sans,sans-serif" fontSize="7.5" fontWeight="600" fill={C.gold} letterSpacing="2">
+        <textPath href="#sealTopC" startOffset="50%" textAnchor="middle">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</textPath>
+      </text>
+      <text fontFamily="DM Sans,sans-serif" fontSize="7" fontWeight="500" fill={C.gold} letterSpacing="3">
+        <textPath href="#sealBotC" startOffset="50%" textAnchor="middle">★ IAML ★</textPath>
+      </text>
+      
+      {/* Central gold emblem — flame + sun + crescent + bars */}
+      {/* Flame */}
+      <path d="
+        M 0,-52
+        C -2,-42 -9,-38 -10,-30
+        C -11,-22 -6,-18 -4,-18
+        C -3,-18 -3,-21 -2,-28
+        C -1,-33 0,-34 0,-34
+        C 0,-34 1,-33 2,-28
+        C 3,-21 3,-18 4,-18
+        C 6,-18 11,-22 10,-30
+        C 9,-38 2,-42 0,-52 Z
+      " fill={C.gold}/>
+      
+      {/* Sun */}
+      <circle cx="0" cy="-4" r="11" fill={C.gold}/>
+      
+      {/* Crescent */}
+      <defs>
+        <mask id="crescSeal">
+          <rect x="-50" y="-50" width="100" height="100" fill="white"/>
+          <circle cx="0" cy="22" r="10" fill="black"/>
+        </mask>
+      </defs>
+      <circle cx="0" cy="27" r="13" fill={C.gold} mask="url(#crescSeal)"/>
+      
+      {/* Bars */}
+      <rect x="-14" y="44" width="28" height="3.5" rx="1.75" fill={C.gold}/>
+      <rect x="-14" y="52" width="28" height="3.5" rx="1.75" fill={C.gold}/>
+    </g>
+  );
+}
+function circleSealDark() {
+  return (
+    <g transform="translate(140,140)">
+      <circle cx="0" cy="0" r="100" fill={C.red}/>
+      <circle cx="0" cy="0" r="78" fill={C.ink}/>
+      <circle cx="0" cy="0" r="80" fill="none" stroke={C.gold} strokeWidth="1.5"/>
+      <defs>
+        <path id="sealTopCD" d="M 0,0 m -89,0 a 89,89 0 1,1 178,0"/>
+        <path id="sealBotCD" d="M -89,0 a 89,89 0 0,0 178,0"/>
+      </defs>
+      <text fontFamily="DM Sans,sans-serif" fontSize="7.5" fontWeight="600" fill={C.gold} letterSpacing="2">
+        <textPath href="#sealTopCD" startOffset="50%" textAnchor="middle">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</textPath>
+      </text>
+      <text fontFamily="DM Sans,sans-serif" fontSize="7" fontWeight="500" fill={C.gold} letterSpacing="3">
+        <textPath href="#sealBotCD" startOffset="50%" textAnchor="middle">★ IAML ★</textPath>
+      </text>
+      <path d="M 0,-52 C -2,-42 -9,-38 -10,-30 C -11,-22 -6,-18 -4,-18 C -3,-18 -3,-21 -2,-28 C -1,-33 0,-34 0,-34 C 0,-34 1,-33 2,-28 C 3,-21 3,-18 4,-18 C 6,-18 11,-22 10,-30 C 9,-38 2,-42 0,-52 Z" fill={C.gold}/>
+      <circle cx="0" cy="-4" r="11" fill={C.gold}/>
+      <defs>
+        <mask id="crescSealD">
+          <rect x="-50" y="-50" width="100" height="100" fill="white"/>
+          <circle cx="0" cy="22" r="10" fill="black"/>
+        </mask>
+      </defs>
+      <circle cx="0" cy="27" r="13" fill={C.gold} mask="url(#crescSealD)"/>
+      <rect x="-14" y="44" width="28" height="3.5" rx="1.75" fill={C.gold}/>
+      <rect x="-14" y="52" width="28" height="3.5" rx="1.75" fill={C.gold}/>
+    </g>
+  );
+}
+function circleSealLockup(bg) {
+  const t = bg === 'dark' ? C.white : C.ink;
+  const s = bg === 'dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      <g transform="scale(0.21) translate(100,95)">
+        {bg === 'dark' ? circleSealDark() : circleSealLight()}
+      </g>
+      <line x1="62" y1="10" x2="62" y2="58" stroke={C.gold} strokeWidth="0.6" opacity="0.4"/>
+      <text x="74" y="30" fontFamily="Cormorant Garamond,serif" fontSize="22" fontWeight="700" fill={t} letterSpacing="4">IAML</text>
+      <text x="74" y="48" fontFamily="DM Sans,sans-serif" fontSize="6.5" fill={s} letterSpacing="1.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT D: "SOYOMBO MODERN"
+   
+   The full Soyombo column — flame, sun, moon, yin-yang, 
+   bars, pillars — redrawn with geometric precision in 
+   a modern style. Gold on blue, exactly as on the flag.
+   Framed in a red-bordered rectangle.
+   ══════════════════════════════════════════════════════════ */
+function soyomboLight() {
+  return (
+    <g transform="translate(140,140)">
+      {/* Red-bordered rectangle */}
+      <rect x="-44" y="-110" width="88" height="220" rx="4" fill={C.blue}/>
+      <rect x="-44" y="-110" width="88" height="220" rx="4" fill="none" stroke={C.red} strokeWidth="5"/>
+      
+      {/* === SOYOMBO ELEMENTS IN GOLD === */}
+      
+      {/* 1. Three-tongued flame */}
+      <path d="
+        M 0,-88
+        C -3,-74 -14,-68 -16,-56
+        C -18,-44 -10,-36 -7,-36
+        C -5,-36 -5,-40 -3,-50
+        C -1,-58 0,-60 0,-60
+        C 0,-60 1,-58 3,-50
+        C 5,-40 5,-36 7,-36
+        C 10,-36 18,-44 16,-56
+        C 14,-68 3,-74 0,-88 Z
+      " fill={C.gold}/>
+      {/* Center tongue highlight */}
+      <path d="M 0,-88 C -1,-78 -2,-70 0,-60 C 2,-70 1,-78 0,-88 Z" fill={C.white} opacity="0.25"/>
+      
+      {/* 2. Sun */}
+      <circle cx="0" cy="-22" r="14" fill={C.gold}/>
+      
+      {/* 3. Crescent (upward-facing) */}
+      <defs>
+        <mask id="crescSoy">
+          <rect x="-50" y="-50" width="100" height="100" fill="white"/>
+          <circle cx="0" cy="4" r="13" fill="black"/>
+        </mask>
+      </defs>
+      <circle cx="0" cy="12" r="17" fill={C.gold} mask="url(#crescSoy)"/>
+      
+      {/* 4. Two triangles (arrows/spears) */}
+      <polygon points="-10,38 0,50 10,38" fill={C.gold}/>
+      <polygon points="-10,56 0,68 10,56" fill={C.gold}/>
+      
+      {/* 5. Horizontal bars (earth) */}
+      <rect x="-22" y="74" width="44" height="5" rx="2.5" fill={C.gold}/>
+      <rect x="-22" y="84" width="44" height="5" rx="2.5" fill={C.gold}/>
+      
+      {/* 6. Side pillars */}
+      <rect x="-30" y="-34" width="5" height="80" rx="2.5" fill={C.gold}/>
+      <rect x="25" y="-34" width="5" height="80" rx="2.5" fill={C.gold}/>
+    </g>
+  );
+}
+function soyomboDark() {
+  return (
+    <g transform="translate(140,140)">
+      <rect x="-44" y="-110" width="88" height="220" rx="4" fill={C.ink}/>
+      <rect x="-44" y="-110" width="88" height="220" rx="4" fill="none" stroke={C.red} strokeWidth="5"/>
+      <path d="M 0,-88 C -3,-74 -14,-68 -16,-56 C -18,-44 -10,-36 -7,-36 C -5,-36 -5,-40 -3,-50 C -1,-58 0,-60 0,-60 C 0,-60 1,-58 3,-50 C 5,-40 5,-36 7,-36 C 10,-36 18,-44 16,-56 C 14,-68 3,-74 0,-88 Z" fill={C.gold}/>
+      <path d="M 0,-88 C -1,-78 -2,-70 0,-60 C 2,-70 1,-78 0,-88 Z" fill={C.white} opacity="0.15"/>
+      <circle cx="0" cy="-22" r="14" fill={C.gold}/>
+      <defs>
+        <mask id="crescSoyD">
+          <rect x="-50" y="-50" width="100" height="100" fill="white"/>
+          <circle cx="0" cy="4" r="13" fill="black"/>
+        </mask>
+      </defs>
+      <circle cx="0" cy="12" r="17" fill={C.gold} mask="url(#crescSoyD)"/>
+      <polygon points="-10,38 0,50 10,38" fill={C.gold}/>
+      <polygon points="-10,56 0,68 10,56" fill={C.gold}/>
+      <rect x="-22" y="74" width="44" height="5" rx="2.5" fill={C.gold}/>
+      <rect x="-22" y="84" width="44" height="5" rx="2.5" fill={C.gold}/>
+      <rect x="-30" y="-34" width="5" height="80" rx="2.5" fill={C.gold}/>
+      <rect x="25" y="-34" width="5" height="80" rx="2.5" fill={C.gold}/>
+    </g>
+  );
+}
+function soyomboLockup(bg) {
+  const t = bg === 'dark' ? C.white : C.ink;
+  const s = bg === 'dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      <g transform="scale(0.16) translate(80,170)">
+        {bg === 'dark' ? soyomboDark() : soyomboLight()}
+      </g>
+      <line x1="48" y1="10" x2="48" y2="58" stroke={C.gold} strokeWidth="0.6" opacity="0.4"/>
+      <text x="58" y="30" fontFamily="Cormorant Garamond,serif" fontSize="22" fontWeight="700" fill={t} letterSpacing="4">IAML</text>
+      <text x="58" y="48" fontFamily="DM Sans,sans-serif" fontSize="6.5" fill={s} letterSpacing="1.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+function App() {
+  return (
+    <DesignCanvas title="IAML — Brand Identity" subtitle="Mongolian flag colors: red #C4272F · blue #015197 · gold #F9CF02">
+      <DCSection id="concepts" title="Concepts">
+        <DCArtboard id="crest" label="A — The Crest" width={940} height={900}>
+          <Brand
+            markLight={crestLight()}
+            markDark={crestDark()}
+            lockupLight={crestLockup('light')}
+            lockupDark={crestLockup('dark')}
+            name="THE CREST"
+            rationale="Heraldic shield with the flag's red-blue-red stripe structure. Gold Soyombo elements (flame, sun, crescent, bars) at center. Institutional authority built directly from the national flag."
+          />
+        </DCArtboard>
+        
+        <DCArtboard id="stripes" label="B — Three Stripes" width={940} height={900}>
+          <Brand
+            markLight={stripesLight()}
+            markDark={stripesDark()}
+            lockupLight={stripesLockup('light')}
+            lockupDark={stripesLockup('dark')}
+            name="THREE STRIPES"
+            rationale="The Mongolian flag distilled to its essence: three vertical bars (red-blue-red) with the gold sun crowning the taller center bar. No illustration — pure color and proportion. The flag IS the logo."
+          />
+        </DCArtboard>
+        
+        <DCArtboard id="circle" label="C — Circle Seal" width={940} height={900}>
+          <Brand
+            markLight={circleSealLight()}
+            markDark={circleSealDark()}
+            lockupLight={circleSealLockup('light')}
+            lockupDark={circleSealLockup('dark')}
+            name="CIRCLE SEAL"
+            rationale="Red ring, blue field, gold Soyombo emblem — all three flag colors in equal weight. Organization name in the red border. A proper institutional seal built from national colors."
+          />
+        </DCArtboard>
+        
+        <DCArtboard id="soyombo" label="D — Soyombo Modern" width={940} height={900}>
+          <Brand
+            markLight={soyomboLight()}
+            markDark={soyomboDark()}
+            lockupLight={soyomboLockup('light')}
+            lockupDark={soyomboLockup('dark')}
+            name="SOYOMBO MODERN"
+            rationale="The full Soyombo symbol — flame, sun, moon, arrows, earth bars, pillars — redrawn with clean geometry. Gold on blue in a red-bordered column. Exactly as it appears on the flag, modernized for institutional use."
+          />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

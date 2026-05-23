@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML Logo v5 — Brand Marks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>
+  body { margin:0; background:#111; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+const C = {
+  blue: '#003F87',
+  sky: '#2E7ABF',
+  skyL: '#5BA3D9',
+  red: '#BC2026',
+  gold: '#C8A552',
+  ink: '#0C1B33',
+  white: '#FFFFFF',
+  off: '#F5F3EE',
+  darkBg: '#0C1B33',
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   BRAND CARD — shows mark large, + lockup with name, on 2 bgs
+   ═══════════════════════════════════════════════════════════════ */
+function BrandCard({ mark, lockup, name }) {
+  return (
+    <div style={{display:'flex',flexDirection:'column',width:800,height:700,fontFamily:'DM Sans,sans-serif'}}>
+      {/* Top half — mark on white */}
+      <div style={{flex:1,display:'flex',position:'relative'}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.off}}>
+          <svg viewBox="0 0 200 200" width="180" height="180">{mark('light')}</svg>
+        </div>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.darkBg}}>
+          <svg viewBox="0 0 200 200" width="180" height="180">{mark('dark')}</svg>
+        </div>
+      </div>
+      {/* Bottom — full lockup */}
+      <div style={{height:280,display:'flex',flexDirection:'column'}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.white,padding:'0 40px'}}>
+          <svg viewBox="0 0 600 100" width="560" height="92">{lockup('light')}</svg>
+        </div>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.darkBg,padding:'0 40px'}}>
+          <svg viewBox="0 0 600 100" width="560" height="92">{lockup('dark')}</svg>
+        </div>
+      </div>
+      {/* Label */}
+      <div style={{height:36,display:'flex',alignItems:'center',justifyContent:'center',background:'#E8E6E1'}}>
+        <span style={{fontSize:11,color:'#6B7280',letterSpacing:2,textTransform:'uppercase'}}>{name}</span>
+      </div>
+    </div>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT A: "THE SPINE"
+   
+   A bold vertical line — the axis of Mongolian script — 
+   bisects a precisely proportioned circle. Three small
+   horizontal teeth on the right side of the stem reference
+   the distinctive teeth of Mongolian letterforms.
+   
+   The circle = global (international), the spine = script,
+   the teeth = the specific characters of Mongolic writing.
+   
+   Geometric, confident, unmistakable at any size.
+   ══════════════════════════════════════════════════════════ */
+function markA(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  return (
+    <g>
+      {/* Circle */}
+      <circle cx="100" cy="100" r="68" fill="none" stroke={primary} strokeWidth="5"/>
+      {/* Vertical spine */}
+      <line x1="100" y1="24" x2="100" y2="176" stroke={primary} strokeWidth="6" strokeLinecap="round"/>
+      {/* Three teeth — right side */}
+      <line x1="100" y1="68" x2="120" y2="60" stroke={accent} strokeWidth="4.5" strokeLinecap="round"/>
+      <line x1="100" y1="100" x2="120" y2="92" stroke={accent} strokeWidth="4.5" strokeLinecap="round"/>
+      <line x1="100" y1="132" x2="120" y2="124" stroke={accent} strokeWidth="4.5" strokeLinecap="round"/>
+      {/* Head dot */}
+      <circle cx="100" cy="20" r="5.5" fill={primary}/>
+    </g>
+  );
+}
+function lockupA(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  const text = bg === 'dark' ? C.white : C.ink;
+  const sub = bg === 'dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Small mark */}
+      <circle cx="42" cy="50" r="28" fill="none" stroke={primary} strokeWidth="2.5"/>
+      <line x1="42" y1="18" x2="42" y2="82" stroke={primary} strokeWidth="3" strokeLinecap="round"/>
+      <line x1="42" y1="36" x2="51" y2="32.5" stroke={accent} strokeWidth="2.2" strokeLinecap="round"/>
+      <line x1="42" y1="50" x2="51" y2="46.5" stroke={accent} strokeWidth="2.2" strokeLinecap="round"/>
+      <line x1="42" y1="64" x2="51" y2="60.5" stroke={accent} strokeWidth="2.2" strokeLinecap="round"/>
+      <circle cx="42" cy="15.5" r="2.8" fill={primary}/>
+      {/* Separator */}
+      <line x1="82" y1="25" x2="82" y2="75" stroke={accent} strokeWidth="1" opacity="0.5"/>
+      {/* Name */}
+      <text x="96" y="48" fontFamily="Cormorant Garamond,serif" fontSize="32" fontWeight="700" fill={text} letterSpacing="4">IAML</text>
+      <text x="96" y="70" fontFamily="DM Sans,sans-serif" fontSize="9" fill={sub} letterSpacing="2.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT B: "CRESCENT & SUN"
+   
+   Drawn from the Soyombo's celestial elements: a crescent
+   moon cradling a circle (sun). In Mongolian cosmology, 
+   these represent eternity.
+   
+   Here: a thick crescent arc on the left with a solid 
+   circle resting in it. Dead simple, 2 shapes, iconic.
+   The crescent also subtly echoes the curve of a 
+   calligrapher's brush stroke.
+   ══════════════════════════════════════════════════════════ */
+function markB(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  return (
+    <g>
+      {/* Crescent — thick arc */}
+      <path d="
+        M 56,164
+        A 76,76 0 1,1 56,36
+        A 52,52 0 0,0 56,164
+        Z
+      " fill={primary}/>
+      {/* Sun circle */}
+      <circle cx="128" cy="100" r="24" fill={accent}/>
+    </g>
+  );
+}
+function lockupB(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  const text = bg === 'dark' ? C.white : C.ink;
+  const sub = bg === 'dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Small crescent + sun */}
+      <path d="M 28,74 A 30,30 0 1,1 28,26 A 20,20 0 0,0 28,74 Z" fill={primary}/>
+      <circle cx="56" cy="50" r="10" fill={accent}/>
+      {/* Separator */}
+      <line x1="82" y1="25" x2="82" y2="75" stroke={accent} strokeWidth="1" opacity="0.5"/>
+      {/* Name */}
+      <text x="96" y="48" fontFamily="Cormorant Garamond,serif" fontSize="32" fontWeight="700" fill={text} letterSpacing="4">IAML</text>
+      <text x="96" y="70" fontFamily="DM Sans,sans-serif" fontSize="9" fill={sub} letterSpacing="2.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT C: "THE GATE"
+   
+   A solid rounded rectangle with a tall arch cut out — 
+   referencing both the entrance of a Mongolian ger and
+   the vertical axis of Mongolian script. The negative 
+   space IS the mark: the doorway to language, the space
+   where meaning lives.
+   
+   Works as a favicon, app icon, or full-size brand mark.
+   ══════════════════════════════════════════════════════════ */
+function markC(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  const cutout = bg === 'dark' ? C.darkBg : C.off;
+  return (
+    <g>
+      {/* Solid rounded rect */}
+      <rect x="30" y="24" width="140" height="160" rx="18" fill={primary}/>
+      {/* Arch cutout */}
+      <path d="
+        M 72,184
+        L 72,88
+        C 72,60 100,44 100,44
+        C 100,44 128,60 128,88
+        L 128,184
+        Z
+      " fill={cutout}/>
+      {/* Gold keystone dot */}
+      <circle cx="100" cy="58" r="5" fill={accent}/>
+      {/* Three gold horizontal lines inside arch — inscription */}
+      <rect x="80" y="100" width="40" height="2.5" rx="1.25" fill={accent} opacity="0.6"/>
+      <rect x="84" y="112" width="32" height="2.5" rx="1.25" fill={accent} opacity="0.6"/>
+      <rect x="88" y="124" width="24" height="2.5" rx="1.25" fill={accent} opacity="0.6"/>
+    </g>
+  );
+}
+function lockupC(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  const text = bg === 'dark' ? C.white : C.ink;
+  const sub = bg === 'dark' ? C.skyL : C.sky;
+  const cutout = bg === 'dark' ? C.darkBg : C.white;
+  return (
+    <g>
+      {/* Small gate */}
+      <rect x="16" y="14" width="52" height="72" rx="8" fill={primary}/>
+      <path d="M 34,86 L 34,46 C 34,34 42,28 42,28 C 42,28 50,34 50,46 L 50,86 Z" fill={cutout}/>
+      <circle cx="42" cy="34" r="2.5" fill={accent}/>
+      {/* Separator */}
+      <line x1="82" y1="25" x2="82" y2="75" stroke={accent} strokeWidth="1" opacity="0.5"/>
+      {/* Name */}
+      <text x="96" y="48" fontFamily="Cormorant Garamond,serif" fontSize="32" fontWeight="700" fill={text} letterSpacing="4">IAML</text>
+      <text x="96" y="70" fontFamily="DM Sans,sans-serif" fontSize="9" fill={sub} letterSpacing="2.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT D: "INTERLOCKING ARCS"
+   
+   Two bold semicircular arcs, interlocking — one opening 
+   upward, one downward. They represent:
+   - Two halves joining = international cooperation
+   - The curves of Mongolian calligraphy
+   - Yin-yang balance of languages in contact
+   
+   The arcs overlap to form a distinctive knot-like mark 
+   at their intersection. Pure geometry, pure form.
+   ══════════════════════════════════════════════════════════ */
+function markD(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  return (
+    <g>
+      {/* Arc 1 — opens upward */}
+      <path d="M 36,120 A 50,50 0 0,1 136,120" fill="none" stroke={primary} strokeWidth="10" strokeLinecap="round"/>
+      {/* Arc 2 — opens downward */}
+      <path d="M 64,80 A 50,50 0 0,0 164,80" fill="none" stroke={C.sky} strokeWidth="10" strokeLinecap="round"/>
+      {/* Gold dot at intersection center */}
+      <circle cx="100" cy="100" r="6" fill={accent}/>
+    </g>
+  );
+}
+function lockupD(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  const text = bg === 'dark' ? C.white : C.ink;
+  const sub = bg === 'dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Small arcs */}
+      <path d="M 18,60 A 22,22 0 0,1 62,60" fill="none" stroke={primary} strokeWidth="5" strokeLinecap="round"/>
+      <path d="M 30,42 A 22,22 0 0,0 74,42" fill="none" stroke={C.sky} strokeWidth="5" strokeLinecap="round"/>
+      <circle cx="46" cy="50" r="3" fill={accent}/>
+      {/* Separator */}
+      <line x1="88" y1="25" x2="88" y2="75" stroke={accent} strokeWidth="1" opacity="0.5"/>
+      {/* Name */}
+      <text x="102" y="48" fontFamily="Cormorant Garamond,serif" fontSize="32" fontWeight="700" fill={text} letterSpacing="4">IAML</text>
+      <text x="102" y="70" fontFamily="DM Sans,sans-serif" fontSize="9" fill={sub} letterSpacing="2.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT E: "ULZII MINIMAL"
+   
+   The endless knot (ulzii) reduced to its absolute 
+   essence: two overlapping rounded squares, rotated 45°. 
+   Where they cross, a diamond is formed — the meeting 
+   point of cultures and languages. 
+   
+   This is the most geometric and modern concept.
+   ══════════════════════════════════════════════════════════ */
+function markE(bg) {
+  const primary = C.blue;
+  const secondary = C.sky;
+  const accent = C.gold;
+  return (
+    <g>
+      {/* Square 1 — rotated 45deg */}
+      <rect x="56" y="56" width="56" height="56" rx="8" fill="none" stroke={primary} strokeWidth="6" transform="rotate(45,84,84)"/>
+      {/* Square 2 — rotated 45deg, offset */}
+      <rect x="88" y="88" width="56" height="56" rx="8" fill="none" stroke={secondary} strokeWidth="6" transform="rotate(45,116,116)"/>
+      {/* Intersection diamond */}
+      <rect x="93" y="93" width="14" height="14" rx="2" fill={accent} transform="rotate(45,100,100)"/>
+    </g>
+  );
+}
+function lockupE(bg) {
+  const primary = C.blue;
+  const secondary = C.sky;
+  const accent = C.gold;
+  const text = bg === 'dark' ? C.white : C.ink;
+  const sub = bg === 'dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Small knot */}
+      <rect x="22" y="22" width="28" height="28" rx="4" fill="none" stroke={primary} strokeWidth="3" transform="rotate(45,36,36)"/>
+      <rect x="40" y="40" width="28" height="28" rx="4" fill="none" stroke={secondary} strokeWidth="3" transform="rotate(45,54,54)"/>
+      <rect x="41" y="41" width="8" height="8" rx="1" fill={accent} transform="rotate(45,45,45)"/>
+      {/* Separator */}
+      <line x1="88" y1="20" x2="88" y2="80" stroke={accent} strokeWidth="1" opacity="0.5"/>
+      {/* Name */}
+      <text x="102" y="48" fontFamily="Cormorant Garamond,serif" fontSize="32" fontWeight="700" fill={text} letterSpacing="4">IAML</text>
+      <text x="102" y="70" fontFamily="DM Sans,sans-serif" fontSize="9" fill={sub} letterSpacing="2.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT F: "CIRCLE & SCRIPT STROKE"
+   
+   A solid blue circle with a single white vertical 
+   brushstroke cut through it — the most essential 
+   representation of Mongolian vertical script within 
+   a universal form. The stroke has a calligraphic head 
+   and one tooth. 
+   
+   Think: the confidence of a seal stamp. Works at 
+   16×16 favicon or a billboard.
+   ══════════════════════════════════════════════════════════ */
+function markF(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  const stroke = bg === 'dark' ? C.darkBg : C.off;
+  return (
+    <g>
+      {/* Solid circle */}
+      <circle cx="100" cy="100" r="72" fill={primary}/>
+      {/* Vertical script stroke — cut through */}
+      <line x1="100" y1="36" x2="100" y2="164" stroke={stroke} strokeWidth="8" strokeLinecap="round"/>
+      {/* Head */}
+      <circle cx="100" cy="32" r="8" fill={stroke}/>
+      {/* Gold teeth */}
+      <line x1="100" y1="72" x2="118" y2="65" stroke={accent} strokeWidth="5" strokeLinecap="round"/>
+      <line x1="100" y1="104" x2="118" y2="97" stroke={accent} strokeWidth="5" strokeLinecap="round"/>
+      <line x1="100" y1="136" x2="118" y2="129" stroke={accent} strokeWidth="5" strokeLinecap="round"/>
+    </g>
+  );
+}
+function lockupF(bg) {
+  const primary = C.blue;
+  const accent = C.gold;
+  const stroke = bg === 'dark' ? C.darkBg : C.white;
+  const text = bg === 'dark' ? C.white : C.ink;
+  const sub = bg === 'dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Small circle mark */}
+      <circle cx="40" cy="50" r="30" fill={primary}/>
+      <line x1="40" y1="24" x2="40" y2="76" stroke={stroke} strokeWidth="3.5" strokeLinecap="round"/>
+      <circle cx="40" cy="22" r="3.5" fill={stroke}/>
+      <line x1="40" y1="38" x2="48" y2="35" stroke={accent} strokeWidth="2.5" strokeLinecap="round"/>
+      <line x1="40" y1="52" x2="48" y2="49" stroke={accent} strokeWidth="2.5" strokeLinecap="round"/>
+      <line x1="40" y1="66" x2="48" y2="63" stroke={accent} strokeWidth="2.5" strokeLinecap="round"/>
+      {/* Separator */}
+      <line x1="82" y1="25" x2="82" y2="75" stroke={accent} strokeWidth="1" opacity="0.5"/>
+      {/* Name */}
+      <text x="96" y="48" fontFamily="Cormorant Garamond,serif" fontSize="32" fontWeight="700" fill={text} letterSpacing="4">IAML</text>
+      <text x="96" y="70" fontFamily="DM Sans,sans-serif" fontSize="9" fill={sub} letterSpacing="2.5">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+function App() {
+  return (
+    <DesignCanvas title="IAML — Brand Identity" subtitle="6 refined concepts · mark + lockup · light & dark">
+      <DCSection id="typographic" title="Script-Based Marks">
+        <DCArtboard id="a" label="A — The Spine" width={800} height={700}>
+          <BrandCard mark={markA} lockup={lockupA} name="A — The Spine · circle + vertical script axis + teeth" />
+        </DCArtboard>
+        <DCArtboard id="f" label="F — Circle & Stroke" width={800} height={700}>
+          <BrandCard mark={markF} lockup={lockupF} name="F — Circle & Stroke · seal with script cut-through" />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="symbolic" title="Symbolic Marks">
+        <DCArtboard id="b" label="B — Crescent & Sun" width={800} height={700}>
+          <BrandCard mark={markB} lockup={lockupB} name="B — Crescent & Sun · Soyombo-inspired celestial pair" />
+        </DCArtboard>
+        <DCArtboard id="c" label="C — The Gate" width={800} height={700}>
+          <BrandCard mark={markC} lockup={lockupC} name="C — The Gate · doorway + arch + inscription" />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="geometric" title="Geometric Marks">
+        <DCArtboard id="d" label="D — Interlocking Arcs" width={800} height={700}>
+          <BrandCard mark={markD} lockup={lockupD} name="D — Interlocking Arcs · two cultures meeting" />
+        </DCArtboard>
+        <DCArtboard id="e" label="E — Ulzii Minimal" width={800} height={700}>
+          <BrandCard mark={markE} lockup={lockupE} name="E — Ulzii Minimal · endless knot essence" />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

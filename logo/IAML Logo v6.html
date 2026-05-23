@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML Brand Identity v6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>
+  body { margin:0; background:#111; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+/* ═══════════════════════════════════════════════════════════
+   IAML — THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS
+   Brand Identity v6
+   
+   Context: A serious global academic organization that 
+   promotes Mongolian culture and linguistics worldwide.
+   The logo must carry institutional weight, cultural 
+   authenticity, and international prestige.
+   
+   Palette (Mongolia flag + Eternal Blue Sky):
+   Blue:     #003F87   (authority, sky, tradition)
+   Sky:      #2E7ABF   (openness, horizon)
+   Gold:     #C8A552   (prestige, Soyombo, sun)
+   Red:      #BC2026   (flag, passion, fire)
+   ═══════════════════════════════════════════════════════════ */
+
+const C = {
+  blue: '#003F87',
+  sky: '#2E7ABF',
+  skyL: '#5BA3D9',
+  red: '#BC2026',
+  gold: '#C8A552',
+  ink: '#0C1B33',
+  white: '#FFFFFF',
+  cream: '#F7F5F0',
+  dark: '#0C1B33',
+};
+
+/* ── PRESENTATION CARD ── */
+function BrandSheet({ mark, lockup, name, rationale, bgMark }) {
+  return (
+    <div style={{display:'flex',flexDirection:'column',width:860,height:920,fontFamily:'DM Sans,sans-serif',background:C.cream}}>
+      {/* Hero — mark large, centered */}
+      <div style={{display:'flex',flex:1}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.cream}}>
+          <svg viewBox="0 0 240 240" width="220" height="220">{mark('light')}</svg>
+        </div>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.dark}}>
+          <svg viewBox="0 0 240 240" width="220" height="220">{mark('dark')}</svg>
+        </div>
+      </div>
+
+      {/* Lockup row */}
+      <div style={{display:'flex',height:140}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.white,padding:'0 32px'}}>
+          <svg viewBox="0 0 520 80" width="480" height="74">{lockup('light')}</svg>
+        </div>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.dark,padding:'0 32px'}}>
+          <svg viewBox="0 0 520 80" width="480" height="74">{lockup('dark')}</svg>
+        </div>
+      </div>
+
+      {/* Miniature applications row */}
+      <div style={{display:'flex',height:180,gap:1,background:'#E5E2DB'}}>
+        {/* Favicon / App icon */}
+        <div style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',background:C.cream,gap:8}}>
+          <div style={{width:56,height:56,borderRadius:12,overflow:'hidden',display:'flex',alignItems:'center',justifyContent:'center',background:C.blue,boxShadow:'0 2px 8px rgba(0,0,0,0.15)'}}>
+            <svg viewBox="0 0 240 240" width="44" height="44">{bgMark ? bgMark() : mark('dark')}</svg>
+          </div>
+          <span style={{fontSize:9,color:'#999',letterSpacing:1.5,textTransform:'uppercase'}}>App Icon</span>
+        </div>
+        {/* Badge mockup */}
+        <div style={{flex:2,display:'flex',alignItems:'center',justifyContent:'center',background:C.cream}}>
+          <div style={{width:260,height:130,background:C.white,borderRadius:8,boxShadow:'0 1px 6px rgba(0,0,0,0.1)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:6,padding:12}}>
+            <svg viewBox="0 0 240 240" width="48" height="48">{mark('light')}</svg>
+            <span style={{fontSize:8,color:C.blue,letterSpacing:2,textTransform:'uppercase',fontWeight:600}}>IAML 2026 · ULAANBAATAR</span>
+            <div style={{width:160,height:1,background:C.gold,opacity:0.4}}></div>
+            <span style={{fontSize:11,color:C.ink,fontWeight:600}}>Dr. Name Surname</span>
+            <span style={{fontSize:8,color:'#999'}}>University of Example</span>
+          </div>
+        </div>
+        {/* Stamp */}
+        <div style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',background:C.cream,gap:8}}>
+          <div style={{width:56,height:56,borderRadius:28,overflow:'hidden',display:'flex',alignItems:'center',justifyContent:'center',background:C.white,border:`2px solid ${C.blue}`}}>
+            <svg viewBox="0 0 240 240" width="38" height="38">{mark('light')}</svg>
+          </div>
+          <span style={{fontSize:9,color:'#999',letterSpacing:1.5,textTransform:'uppercase'}}>Stamp</span>
+        </div>
+      </div>
+
+      {/* Rationale bar */}
+      <div style={{height:52,display:'flex',alignItems:'center',justifyContent:'center',background:'#E8E5DE',padding:'0 24px'}}>
+        <span style={{fontSize:11,color:'#6B7280',textAlign:'center',lineHeight:1.4,maxWidth:700}}>{name} — {rationale}</span>
+      </div>
+    </div>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT A: "BICHIG" (THE SCRIPT COLUMN)
+   
+   The vertical stem of Mongolian bichig (traditional script)
+   is the most distinctive visual element of Mongolian writing.
+   No other major script in the world flows this way.
+   
+   This mark abstracts a single Mongolian script column into
+   a refined symbol: the vertical spine (нуруу), with three
+   teeth (шүд) on the right, a head (толгой) at top, and a
+   graceful tail (сүүл) curving at the bottom.
+   
+   Enclosed in a circle that represents the globe —
+   Mongolian script reaching the world.
+   ══════════════════════════════════════════════════════════ */
+function bichigMark(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  return (
+    <g transform="translate(120,120)">
+      {/* Circle — the world */}
+      <circle cx="0" cy="0" r="95" fill="none" stroke={p} strokeWidth="4"/>
+      
+      {/* Spine — vertical backbone of the script */}
+      <path d="M 0,-70 L 0,52 Q 0,68 -12,72 Q -18,74 -18,68" 
+        fill="none" stroke={p} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/>
+      
+      {/* Head — толгой */}
+      <circle cx="0" cy="-74" r="8" fill={p}/>
+      
+      {/* Teeth — шүд (the most distinctive feature of Mongolian script) */}
+      <line x1="0" y1="-44" x2="22" y2="-52" stroke={g} strokeWidth="5.5" strokeLinecap="round"/>
+      <line x1="0" y1="-12" x2="22" y2="-20" stroke={g} strokeWidth="5.5" strokeLinecap="round"/>
+      <line x1="0" y1="20" x2="22" y2="12" stroke={g} strokeWidth="5.5" strokeLinecap="round"/>
+      
+      {/* Belly curve — гэдэс (left bulge, a key script feature) */}
+      <path d="M 0,-28 Q -20,-20 -20,-12 Q -20,-4 0,4" 
+        fill="none" stroke={p} strokeWidth="5" strokeLinecap="round"/>
+    </g>
+  );
+}
+function bichigLockup(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  const t = bg==='dark' ? C.white : C.ink;
+  const s = bg==='dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Compact mark */}
+      <circle cx="36" cy="40" r="32" fill="none" stroke={p} strokeWidth="2"/>
+      <path d="M 36,12 L 36,58 Q 36,66 30,68 Q 27,69 27,66" fill="none" stroke={p} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="36" cy="10" r="3.5" fill={p}/>
+      <line x1="36" y1="22" x2="45" y2="19" stroke={g} strokeWidth="2.4" strokeLinecap="round"/>
+      <line x1="36" y1="36" x2="45" y2="33" stroke={g} strokeWidth="2.4" strokeLinecap="round"/>
+      <line x1="36" y1="50" x2="45" y2="47" stroke={g} strokeWidth="2.4" strokeLinecap="round"/>
+      <path d="M 36,28 Q 28,31 28,35 Q 28,39 36,42" fill="none" stroke={p} strokeWidth="2.2" strokeLinecap="round"/>
+      {/* Divider */}
+      <line x1="78" y1="12" x2="78" y2="68" stroke={g} strokeWidth="0.8" opacity="0.5"/>
+      {/* Text */}
+      <text x="92" y="38" fontFamily="Cormorant Garamond,serif" fontSize="28" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="92" y="58" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill={s} letterSpacing="2">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+function bichigIcon() {
+  return (
+    <g transform="translate(120,120)">
+      <path d="M 0,-70 L 0,52 Q 0,68 -12,72 Q -18,74 -18,68" fill="none" stroke={C.white} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="0" cy="-74" r="8" fill={C.white}/>
+      <line x1="0" y1="-44" x2="22" y2="-52" stroke={C.gold} strokeWidth="5.5" strokeLinecap="round"/>
+      <line x1="0" y1="-12" x2="22" y2="-20" stroke={C.gold} strokeWidth="5.5" strokeLinecap="round"/>
+      <line x1="0" y1="20" x2="22" y2="12" stroke={C.gold} strokeWidth="5.5" strokeLinecap="round"/>
+      <path d="M 0,-28 Q -20,-20 -20,-12 Q -20,-4 0,4" fill="none" stroke={C.white} strokeWidth="5" strokeLinecap="round"/>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT B: "SOYOMBO ESSENCE"
+   
+   The Soyombo (ᠰᠣᠶᠣᠮᠪᠣ) is Mongolia's national emblem — 
+   fire, sun, moon, earth, water, yin-yang. Created by 
+   Zanabazar in 1686. Recognized worldwide as THE symbol 
+   of Mongolia.
+   
+   This logo distills its three most iconic elements into 
+   a clean vertical stack:
+   — Three-tongued flame (fire/prosperity) at top
+   — Circle (sun/eternal life) in center
+   — Crescent (moon/eternal sky) at bottom
+   
+   The vertical arrangement echoes Mongolian script's 
+   top-to-bottom flow.
+   ══════════════════════════════════════════════════════════ */
+function soyomboMark(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  const r = C.red;
+  return (
+    <g transform="translate(120,120)">
+      {/* Outer frame — tall rectangle with notched top */}
+      <path d="
+        M -36,-90
+        L -36,90
+        L 36,90
+        L 36,-90
+        Z
+      " fill="none" stroke={p} strokeWidth="3.5"/>
+      
+      {/* Three-tongued flame — stylized */}
+      <path d="
+        M 0,-72
+        C -4,-60 -12,-56 -14,-48
+        C -16,-40 -10,-34 -8,-34
+        C -6,-34 -6,-38 -4,-44
+        C -2,-50 0,-52 0,-52
+        C 0,-52 2,-50 4,-44
+        C 6,-38 6,-34 8,-34
+        C 10,-34 16,-40 14,-48
+        C 12,-56 4,-60 0,-72
+        Z
+      " fill={r}/>
+      {/* Center tongue */}
+      <path d="M 0,-72 C -1,-64 -2,-58 0,-52 C 2,-58 1,-64 0,-72 Z" fill={g} opacity="0.7"/>
+      
+      {/* Sun — solid circle */}
+      <circle cx="0" cy="-8" r="16" fill={g}/>
+      
+      {/* Moon — crescent */}
+      <path d="
+        M -18,42
+        A 22,22 0 1,1 18,42
+        A 16,16 0 0,0 -18,42
+        Z
+      " fill={p}/>
+      
+      {/* Horizontal bars — earth */}
+      <rect x="-28" y="68" width="56" height="4" rx="2" fill={p}/>
+      <rect x="-28" y="78" width="56" height="4" rx="2" fill={p}/>
+    </g>
+  );
+}
+function soyomboLockup(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  const r = C.red;
+  const t = bg==='dark' ? C.white : C.ink;
+  const s = bg==='dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Compact Soyombo */}
+      <rect x="14" y="4" width="28" height="72" rx="2" fill="none" stroke={p} strokeWidth="1.8"/>
+      <path d="M 28,10 C 26,16 22,18 21,22 C 20,26 23,28 24,28 C 25,28 26,25 27,22 C 28,19 28,18 28,18 C 28,18 28,19 29,22 C 30,25 31,28 32,28 C 33,28 36,26 35,22 C 34,18 30,16 28,10 Z" fill={r}/>
+      <circle cx="28" cy="38" r="7" fill={g}/>
+      <path d="M 21,56 A 9,9 0 1,1 35,56 A 7,7 0 0,0 21,56 Z" fill={p}/>
+      <rect x="18" y="64" width="20" height="2" rx="1" fill={p}/>
+      <rect x="18" y="69" width="20" height="2" rx="1" fill={p}/>
+      {/* Divider */}
+      <line x1="54" y1="12" x2="54" y2="68" stroke={g} strokeWidth="0.8" opacity="0.5"/>
+      {/* Text */}
+      <text x="66" y="38" fontFamily="Cormorant Garamond,serif" fontSize="28" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="66" y="58" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill={s} letterSpacing="2">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+function soyomboIcon() {
+  return (
+    <g transform="translate(120,120)">
+      <path d="M -36,-90 L -36,90 L 36,90 L 36,-90 Z" fill="none" stroke={C.white} strokeWidth="3.5" opacity="0.5"/>
+      <path d="M 0,-72 C -4,-60 -12,-56 -14,-48 C -16,-40 -10,-34 -8,-34 C -6,-34 -6,-38 -4,-44 C -2,-50 0,-52 0,-52 C 0,-52 2,-50 4,-44 C 6,-38 6,-34 8,-34 C 10,-34 16,-40 14,-48 C 12,-56 4,-60 0,-72 Z" fill={C.gold}/>
+      <circle cx="0" cy="-8" r="16" fill={C.gold}/>
+      <path d="M -18,42 A 22,22 0 1,1 18,42 A 16,16 0 0,0 -18,42 Z" fill={C.white}/>
+      <rect x="-28" y="68" width="56" height="4" rx="2" fill={C.white}/>
+      <rect x="-28" y="78" width="56" height="4" rx="2" fill={C.white}/>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT C: "THE SEAL" (ТАМГА)
+   
+   Mongolian tamga seals have been used since the time of
+   Genghis Khan — marks of authority, identity, legitimacy.
+   
+   This concept: a bold circle containing a stylized 
+   Mongolian letter ᠮ (M for "Mongol") — abstracted into 
+   a refined calligraphic form. The circle acts as both 
+   a seal boundary and the globe.
+   
+   A single gold horizontal line through the center adds 
+   structure and references the horizon of the steppe.
+   ══════════════════════════════════════════════════════════ */
+function sealMark(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  const inner = bg === 'dark' ? C.dark : C.cream;
+  return (
+    <g transform="translate(120,120)">
+      {/* Seal circle — solid */}
+      <circle cx="0" cy="0" r="92" fill={p}/>
+      <circle cx="0" cy="0" r="82" fill="none" stroke={inner} strokeWidth="1.5" opacity="0.25"/>
+      
+      {/* Abstract ᠮ (Mongolian M) — the central character */}
+      {/* Main vertical stem */}
+      <path d="M 0,-60 L 0,44 Q 0,56 -10,58" 
+        fill="none" stroke={inner} strokeWidth="6.5" strokeLinecap="round" strokeLinejoin="round"/>
+      
+      {/* Head */}
+      <circle cx="0" cy="-64" r="7" fill={inner}/>
+      
+      {/* Left descender — the distinctive ᠮ curve */}
+      <path d="M 0,-30 Q -28,-22 -28,-4 Q -28,12 0,20" 
+        fill="none" stroke={inner} strokeWidth="5.5" strokeLinecap="round"/>
+      
+      {/* Right teeth */}
+      <line x1="0" y1="-40" x2="20" y2="-46" stroke={g} strokeWidth="5" strokeLinecap="round"/>
+      <line x1="0" y1="-6" x2="20" y2="-12" stroke={g} strokeWidth="5" strokeLinecap="round"/>
+      <line x1="0" y1="30" x2="20" y2="24" stroke={g} strokeWidth="5" strokeLinecap="round"/>
+      
+      {/* Horizon line */}
+      <line x1="-60" y1="70" x2="60" y2="70" stroke={g} strokeWidth="1.5" opacity="0.5"/>
+    </g>
+  );
+}
+function sealLockup(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  const inner = bg === 'dark' ? C.dark : C.white;
+  const t = bg==='dark' ? C.white : C.ink;
+  const s = bg==='dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Compact seal */}
+      <circle cx="36" cy="40" r="32" fill={p}/>
+      <path d="M 36,14 L 36,56 Q 36,62 31,63" fill="none" stroke={inner} strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="36" cy="12" r="3" fill={inner}/>
+      <path d="M 36,24 Q 24,28 24,34 Q 24,40 36,44" fill="none" stroke={inner} strokeWidth="2.2" strokeLinecap="round"/>
+      <line x1="36" y1="18" x2="44" y2="16" stroke={g} strokeWidth="2" strokeLinecap="round"/>
+      <line x1="36" y1="34" x2="44" y2="32" stroke={g} strokeWidth="2" strokeLinecap="round"/>
+      <line x1="36" y1="50" x2="44" y2="48" stroke={g} strokeWidth="2" strokeLinecap="round"/>
+      {/* Divider */}
+      <line x1="78" y1="12" x2="78" y2="68" stroke={g} strokeWidth="0.8" opacity="0.5"/>
+      {/* Text */}
+      <text x="92" y="38" fontFamily="Cormorant Garamond,serif" fontSize="28" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="92" y="58" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill={s} letterSpacing="2">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT D: "GATEWAY ARCH"
+   
+   A bold architectural arch — the gateway through which
+   Mongolic languages reach the world. 
+   
+   The arch form references:
+   — Temple and monastery entrances in Mongolia
+   — The Arc de Triomphe model of institutional authority
+   — A portal/threshold between cultures
+   
+   Inside the arch: three gold vertical lines representing
+   lines of Mongolian text — knowledge passing through 
+   the gateway.
+   ══════════════════════════════════════════════════════════ */
+function gateMark(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  const r = C.red;
+  const cut = bg === 'dark' ? C.dark : C.cream;
+  return (
+    <g transform="translate(120,120)">
+      {/* Main arch structure */}
+      <path d="
+        M -52,90
+        L -52,-40
+        Q -52,-80 0,-90
+        Q 52,-80 52,-40
+        L 52,90
+        Z
+      " fill={p}/>
+      
+      {/* Inner arch cutout */}
+      <path d="
+        M -28,90
+        L -28,-10
+        Q -28,-45 0,-55
+        Q 28,-45 28,-10
+        L 28,90
+        Z
+      " fill={cut}/>
+      
+      {/* Three lines of text — knowledge */}
+      <line x1="-12" y1="-20" x2="-12" y2="60" stroke={g} strokeWidth="3" strokeLinecap="round"/>
+      <line x1="0" y1="-30" x2="0" y2="60" stroke={g} strokeWidth="3" strokeLinecap="round"/>
+      <line x1="12" y1="-20" x2="12" y2="60" stroke={g} strokeWidth="3" strokeLinecap="round"/>
+      
+      {/* Head dots on lines */}
+      <circle cx="-12" cy="-24" r="2.5" fill={g}/>
+      <circle cx="0" cy="-34" r="2.5" fill={g}/>
+      <circle cx="12" cy="-24" r="2.5" fill={g}/>
+      
+      {/* Keystone accent */}
+      <circle cx="0" cy="-70" r="4.5" fill={r}/>
+      
+      {/* Base line */}
+      <line x1="-58" y1="90" x2="58" y2="90" stroke={p} strokeWidth="3"/>
+    </g>
+  );
+}
+function gateLockup(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  const r = C.red;
+  const cut = bg === 'dark' ? C.dark : C.white;
+  const t = bg==='dark' ? C.white : C.ink;
+  const s = bg==='dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Compact gate */}
+      <path d="M 16,72 L 16,22 Q 16,4 34,0 Q 52,4 52,22 L 52,72 Z" fill={p}/>
+      <path d="M 24,72 L 24,32 Q 24,18 34,14 Q 44,18 44,32 L 44,72 Z" fill={cut}/>
+      <line x1="31" y1="28" x2="31" y2="60" stroke={g} strokeWidth="1.5" strokeLinecap="round"/>
+      <line x1="34" y1="24" x2="34" y2="60" stroke={g} strokeWidth="1.5" strokeLinecap="round"/>
+      <line x1="37" y1="28" x2="37" y2="60" stroke={g} strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="34" cy="6" r="2" fill={r}/>
+      {/* Divider */}
+      <line x1="66" y1="12" x2="66" y2="68" stroke={g} strokeWidth="0.8" opacity="0.5"/>
+      {/* Text */}
+      <text x="80" y="38" fontFamily="Cormorant Garamond,serif" fontSize="28" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="80" y="58" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill={s} letterSpacing="2">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT E: "DOUBLE CRESCENT"
+   
+   Two interlocking crescents — each representing a 
+   hemisphere, together forming a complete form. The 
+   crescents reference the moon from the Soyombo and 
+   the sweep of a calligrapher's brush.
+   
+   Where the crescents overlap, a gold lens shape is
+   formed — the shared space of linguistic exchange.
+   
+   Elegant, balanced, works at any scale.
+   ══════════════════════════════════════════════════════════ */
+function crescentMark(bg) {
+  const p = C.blue;
+  const sk = C.sky;
+  const g = C.gold;
+  return (
+    <g transform="translate(120,120)">
+      {/* Left crescent */}
+      <path d="
+        M -10,-76
+        A 70,76 0 0,0 -10,76
+        A 48,76 0 0,1 -10,-76
+        Z
+      " fill={p}/>
+      
+      {/* Right crescent */}
+      <path d="
+        M 10,-76
+        A 70,76 0 0,1 10,76
+        A 48,76 0 0,0 10,-76
+        Z
+      " fill={sk}/>
+      
+      {/* Intersection lens — gold */}
+      <ellipse cx="0" cy="0" rx="16" ry="52" fill={g} opacity="0.85"/>
+      
+      {/* Center vertical accent — script reference */}
+      <line x1="0" y1="-36" x2="0" y2="36" stroke={C.white} strokeWidth="2.5" strokeLinecap="round"/>
+      <circle cx="0" cy="-40" r="3" fill={C.white}/>
+    </g>
+  );
+}
+function crescentLockup(bg) {
+  const p = C.blue;
+  const sk = C.sky;
+  const g = C.gold;
+  const t = bg==='dark' ? C.white : C.ink;
+  const s = bg==='dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Compact crescents */}
+      <path d="M 32,8 A 28,32 0 0,0 32,72 A 20,32 0 0,1 32,8 Z" fill={p}/>
+      <path d="M 38,8 A 28,32 0 0,1 38,72 A 20,32 0 0,0 38,8 Z" fill={sk}/>
+      <ellipse cx="35" cy="40" rx="7" ry="22" fill={g} opacity="0.85"/>
+      <line x1="35" y1="24" x2="35" y2="56" stroke={C.white} strokeWidth="1.2" strokeLinecap="round"/>
+      <circle cx="35" cy="22" r="1.5" fill={C.white}/>
+      {/* Divider */}
+      <line x1="74" y1="12" x2="74" y2="68" stroke={g} strokeWidth="0.8" opacity="0.5"/>
+      {/* Text */}
+      <text x="88" y="38" fontFamily="Cormorant Garamond,serif" fontSize="28" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="88" y="58" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill={s} letterSpacing="2">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CONCEPT F: "THE COLUMN" (PURE MONOGRAM)
+   
+   The letters I-A-M-L stacked vertically — like Mongolian 
+   script reads — inside a tall narrow rounded rectangle.
+   Each letter is precisely set in a serif face.
+   
+   The vertical reading direction IS the concept: you must
+   read this logo the Mongolian way, top to bottom. This 
+   simple act teaches something about the culture.
+   
+   The tallest, most distinctive silhouette of all concepts.
+   ══════════════════════════════════════════════════════════ */
+function columnMark(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  const letterColor = bg === 'dark' ? C.cream : C.white;
+  return (
+    <g transform="translate(120,120)">
+      {/* Tall rounded rectangle */}
+      <rect x="-28" y="-95" width="56" height="190" rx="10" fill={p}/>
+      
+      {/* Letters stacked vertically */}
+      <text x="0" y="-58" textAnchor="middle" fontFamily="Cormorant Garamond,serif" fontSize="34" fontWeight="700" fill={letterColor}>I</text>
+      <text x="0" y="-16" textAnchor="middle" fontFamily="Cormorant Garamond,serif" fontSize="34" fontWeight="700" fill={letterColor}>A</text>
+      <text x="0" y="28" textAnchor="middle" fontFamily="Cormorant Garamond,serif" fontSize="34" fontWeight="700" fill={letterColor}>M</text>
+      <text x="0" y="72" textAnchor="middle" fontFamily="Cormorant Garamond,serif" fontSize="34" fontWeight="700" fill={letterColor}>L</text>
+      
+      {/* Gold dividers between letters */}
+      <line x1="-16" y1="-42" x2="16" y2="-42" stroke={g} strokeWidth="1" opacity="0.5"/>
+      <line x1="-16" y1="0" x2="16" y2="0" stroke={g} strokeWidth="1" opacity="0.5"/>
+      <line x1="-16" y1="42" x2="16" y2="42" stroke={g} strokeWidth="1" opacity="0.5"/>
+    </g>
+  );
+}
+function columnLockup(bg) {
+  const p = C.blue;
+  const g = C.gold;
+  const lc = bg === 'dark' ? C.cream : C.white;
+  const t = bg==='dark' ? C.white : C.ink;
+  const s = bg==='dark' ? C.skyL : C.sky;
+  return (
+    <g>
+      {/* Compact column */}
+      <rect x="28" y="2" width="24" height="76" rx="5" fill={p}/>
+      <text x="40" y="20" textAnchor="middle" fontFamily="Cormorant Garamond,serif" fontSize="14" fontWeight="700" fill={lc}>I</text>
+      <text x="40" y="37" textAnchor="middle" fontFamily="Cormorant Garamond,serif" fontSize="14" fontWeight="700" fill={lc}>A</text>
+      <text x="40" y="54" textAnchor="middle" fontFamily="Cormorant Garamond,serif" fontSize="14" fontWeight="700" fill={lc}>M</text>
+      <text x="40" y="71" textAnchor="middle" fontFamily="Cormorant Garamond,serif" fontSize="14" fontWeight="700" fill={lc}>L</text>
+      <line x1="32" y1="23" x2="48" y2="23" stroke={g} strokeWidth="0.5" opacity="0.5"/>
+      <line x1="32" y1="40" x2="48" y2="40" stroke={g} strokeWidth="0.5" opacity="0.5"/>
+      <line x1="32" y1="57" x2="48" y2="57" stroke={g} strokeWidth="0.5" opacity="0.5"/>
+      {/* Divider */}
+      <line x1="66" y1="12" x2="66" y2="68" stroke={g} strokeWidth="0.8" opacity="0.5"/>
+      {/* Text */}
+      <text x="80" y="38" fontFamily="Cormorant Garamond,serif" fontSize="28" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="80" y="58" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill={s} letterSpacing="2">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+function App() {
+  return (
+    <DesignCanvas title="IAML — Brand Identity" subtitle="6 concepts for a serious global institution · mark + lockup + applications">
+      <DCSection id="script" title="Mongolian Script">
+        <DCArtboard id="a" label="A — Bichig (Script Column)" width={860} height={920}>
+          <BrandSheet 
+            mark={bichigMark} lockup={bichigLockup} bgMark={bichigIcon}
+            name="BICHIG"
+            rationale="The vertical backbone of Mongolian script — spine, teeth, and belly curve — enclosed in a circle representing the world. The most linguistically authentic mark."
+          />
+        </DCArtboard>
+        <DCArtboard id="c" label="C — The Seal (Тамга)" width={860} height={920}>
+          <BrandSheet 
+            mark={sealMark} lockup={sealLockup}
+            name="THE SEAL"
+            rationale="A Mongolian tamga — the ᠮ character abstracted inside a solid circle. Carries centuries of authority and authenticity. Works as a stamp, icon, or large-format mark."
+          />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="national" title="National Heritage">
+        <DCArtboard id="b" label="B — Soyombo Essence" width={860} height={920}>
+          <BrandSheet 
+            mark={soyomboMark} lockup={soyomboLockup} bgMark={soyomboIcon}
+            name="SOYOMBO ESSENCE"
+            rationale="Fire, Sun, Moon — the three celestial elements from Mongolia's national emblem, distilled into a clean vertical composition. Instantly recognized worldwide as Mongolian."
+          />
+        </DCArtboard>
+        <DCArtboard id="d" label="D — Gateway Arch" width={860} height={920}>
+          <BrandSheet 
+            mark={gateMark} lockup={gateLockup}
+            name="THE GATEWAY"
+            rationale="A monumental arch with three columns of gold script passing through — Mongolian languages entering the world stage. Institutional weight meets cultural symbolism."
+          />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="abstract" title="Abstract & Conceptual">
+        <DCArtboard id="e" label="E — Double Crescent" width={860} height={920}>
+          <BrandSheet 
+            mark={crescentMark} lockup={crescentLockup}
+            name="DOUBLE CRESCENT"
+            rationale="Two interlocking crescents — East and West, two hemispheres — with a gold lens at the intersection where linguistic exchange happens. Elegant and universally readable."
+          />
+        </DCArtboard>
+        <DCArtboard id="f" label="F — The Column" width={860} height={920}>
+          <BrandSheet 
+            mark={columnMark} lockup={columnLockup}
+            name="THE COLUMN"
+            rationale="I-A-M-L stacked vertically like Mongolian script. Reading this logo teaches you something about the culture. The tallest, most distinctive silhouette."
+          />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

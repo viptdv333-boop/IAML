@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML — Brand Identity Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:#F6F4EF; color:#0A1628; }
+
+@keyframes skyShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes waveMove {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.sky-anim {
+  background: linear-gradient(135deg, #015197, #2E7ABF, #5BA3D9, #2E7ABF, #015197);
+  background-size: 300% 300%;
+  animation: skyShift 8s ease-in-out infinite;
+}
+
+.wave-bg {
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+.wave-bg::before {
+  content:'';
+  position:absolute; top:0; left:-100%;
+  width:300%; height:100%;
+  background:
+    radial-gradient(ellipse 600px 200px at 30% 50%, rgba(91,163,217,0.12), transparent),
+    radial-gradient(ellipse 500px 180px at 70% 40%, rgba(46,122,191,0.08), transparent),
+    radial-gradient(ellipse 400px 250px at 50% 60%, rgba(91,163,217,0.06), transparent);
+  animation: waveMove 12s linear infinite;
+  pointer-events:none;
+}
+
+/* ── MARK ── */
+.mark {
+  display: flex; align-items: center;
+  position: relative; z-index: 1;
+  gap: 0;
+}
+.mark .mongol-svg {
+  display: block; opacity: 0.65;
+}
+.mark .gold-line {
+  width: 2px; background: #D4A843;
+  border-radius: 1px; flex-shrink: 0;
+  margin: 0 8px;
+}
+.mark .letters {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.mark .red-dot {
+  border-radius: 50%; background: #C4272F; flex-shrink: 0;
+}
+.mark .letter {
+  font-family: 'EB Garamond', serif;
+  font-weight: 700; letter-spacing: 2px;
+}
+
+/* sizes */
+.mark--xl .mongol-svg { height: 260px; }
+.mark--xl .gold-line { height: 260px; }
+.mark--xl .letters { height: 260px; }
+.mark--xl .red-dot { width: 10px; height: 10px; margin-bottom: 5px; }
+.mark--xl .letter { font-size: 56px; line-height: 1.06; }
+.mark--xl .gold-line { margin: 0 10px; }
+
+.mark--lg .mongol-svg { height: 180px; }
+.mark--lg .gold-line { height: 180px; }
+.mark--lg .letters { height: 180px; }
+.mark--lg .red-dot { width: 8px; height: 8px; margin-bottom: 4px; }
+.mark--lg .letter { font-size: 40px; line-height: 1.06; }
+.mark--lg .gold-line { margin: 0 8px; }
+
+.mark--md .mongol-svg { height: 100px; }
+.mark--md .gold-line { height: 100px; }
+.mark--md .letters { height: 100px; }
+.mark--md .red-dot { width: 5px; height: 5px; margin-bottom: 3px; }
+.mark--md .letter { font-size: 22px; line-height: 1.06; }
+.mark--md .gold-line { margin: 0 5px; }
+
+.mark--sm .mongol-svg { height: 56px; }
+.mark--sm .gold-line { height: 56px; }
+.mark--sm .letters { height: 56px; }
+.mark--sm .red-dot { width: 3px; height: 3px; margin-bottom: 2px; }
+.mark--sm .letter { font-size: 12px; line-height: 1.06; letter-spacing: 1px; }
+.mark--sm .gold-line { margin: 0 3px; }
+
+.col-blue { color: #015197; }
+.col-white { color: #FFFFFF; }
+.col-ink { color: #0A1628; }
+
+
+
+
+/* ── SECTIONS ── */
+section { padding: 60px 40px; max-width: 1200px; margin: 0 auto; }
+.section-title {
+  font-family:'EB Garamond',serif; font-size:28px; font-weight:600;
+  color:#015197; margin-bottom:8px; letter-spacing:1px;
+}
+.section-sub { font-size:13px; color:#999; margin-bottom:40px; }
+.divider { height:1px; background:#E5E2DB; margin:0 40px; max-width:1200px; margin-left:auto; margin-right:auto; }
+
+/* ── HERO ── */
+.hero {
+  display:flex; min-height:500px; border-radius:16px; overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,0.12); margin-bottom:60px;
+}
+.hero-side {
+  flex:1; display:flex; align-items:center; justify-content:center;
+  padding:60px 40px;
+}
+
+/* ── LOCKUP ROW ── */
+.lockup-row {
+  display:flex; gap:24px; flex-wrap:wrap; margin-bottom:40px;
+}
+.lockup-card {
+  flex:1; min-width:300px; border-radius:12px; overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+  display:flex; align-items:center; padding:28px 24px; gap:16px;
+  position:relative;
+}
+.lockup-card .lockup-text {
+  display:flex; flex-direction:column; gap:2px;
+}
+.lockup-card .lockup-name {
+  font-family:'EB Garamond',serif; font-size:16px; font-weight:600;
+  letter-spacing:1.5px;
+}
+.lockup-card .lockup-full {
+  font-family:'EB Garamond',serif; font-size:11px; font-weight:400;
+  letter-spacing:0.5px; opacity:0.7;
+}
+.lockup-card .gold-sep {
+  width:1px; height:40px; background:#D4A843; opacity:0.4; flex-shrink:0;
+}
+
+/* ── APP GRID ── */
+.app-grid {
+  display:flex; gap:20px; flex-wrap:wrap; justify-content:center; align-items:flex-end;
+}
+
+/* app icon */
+.app-icon {
+  width:72px; height:72px; border-radius:16px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 2px 10px rgba(0,0,0,0.15);
+}
+
+/* badge */
+.badge {
+  width:220px; height:320px; background:#fff; border-radius:10px;
+  box-shadow:0 2px 14px rgba(0,0,0,0.1); overflow:hidden;
+  display:flex; flex-direction:column; align-items:center;
+}
+.badge-top { width:100%; height:6px; background:#015197; }
+.badge-content { padding:16px; display:flex; flex-direction:column; align-items:center; gap:6px; }
+.badge-title { font-size:7.5px; font-weight:700; color:#015197; letter-spacing:2px; text-transform:uppercase; }
+.badge-sub { font-size:5.5px; color:#D4A843; letter-spacing:1px; }
+.badge-photo { width:72px; height:72px; border-radius:36px; background:#E8E5DE; }
+.badge-name { font-size:12px; font-weight:700; color:#0A1628; margin-top:4px; }
+.badge-uni { font-size:7px; color:#999; text-align:center; }
+.badge-bottom { margin-top:auto; width:100%; height:4px; background:#D4A843; opacity:0.6; }
+
+/* journal */
+.journal {
+  width:200px; height:280px; border-radius:4px;
+  box-shadow:0 2px 14px rgba(0,0,0,0.2); overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:'EB Garamond',serif; padding:20px; position:relative;
+}
+.journal-border {
+  position:absolute; inset:7px; border:0.5px solid #D4A843; opacity:0.2; pointer-events:none;
+}
+.journal-title { font-size:16px; font-weight:500; color:#fff; text-align:center; line-height:1.3; }
+.journal-vol { font-size:7px; color:#D4A843; letter-spacing:2.5px; font-family:'DM Sans',sans-serif; margin-top:10px; }
+.journal-sep { width:40px; height:0.5px; background:#D4A843; opacity:0.5; margin:10px 0; }
+
+/* letterhead */
+.letterhead {
+  width:200px; height:280px; background:#fff; border-radius:4px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08); padding:16px;
+  display:flex; flex-direction:column;
+}
+.lh-header { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.lh-name { font-size:7px; font-weight:700; color:#015197; letter-spacing:1.5px; }
+.lh-sub { font-size:4.5px; color:#999; }
+.lh-rule { width:100%; height:0.5px; background:#015197; opacity:0.15; margin-bottom:12px; }
+.lh-line { height:2.5px; background:#E8E5DE; border-radius:1px; margin-bottom:4.5px; }
+.lh-footer { margin-top:auto; font-size:3.5px; color:#bbb; }
+
+/* color swatches */
+.swatches { display:flex; gap:16px; flex-wrap:wrap; }
+.swatch {
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+}
+.swatch-circle {
+  width:80px; height:80px; border-radius:40px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+.swatch-label { font-size:11px; font-weight:600; color:#0A1628; }
+.swatch-hex { font-size:10px; color:#999; font-family:monospace; }
+
+/* scale row */
+.scale-row {
+  display:flex; gap:40px; align-items:flex-end; flex-wrap:wrap;
+  justify-content:center;
+}
+
+/* mono versions */
+.mono-grid {
+  display:flex; gap:20px; flex-wrap:wrap;
+}
+.mono-card {
+  flex:1; min-width:200px; border-radius:12px; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  padding:40px 24px; box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section>
+  <div class="hero">
+    <div class="hero-side wave-bg">
+      <div class="mark mark--xl">
+        <svg viewBox="0 0 105 300" class="mongol-svg" fill="#015197" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+        <div class="gold-line"></div>
+        <div class="letters">
+          <div class="red-dot"></div>
+          <span class="letter col-blue">I</span>
+          <span class="letter col-blue">A</span>
+          <span class="letter col-blue">M</span>
+          <span class="letter col-blue">L</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side sky-anim">
+      <div class="mark mark--xl">
+        <svg viewBox="0 0 105 300" class="mongol-svg" fill="#FFFFFF" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+        <div class="gold-line"></div>
+        <div class="letters">
+          <div class="red-dot"></div>
+          <span class="letter col-white">I</span>
+          <span class="letter col-white">A</span>
+          <span class="letter col-white">M</span>
+          <span class="letter col-white">L</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ LOCKUPS ═══════════════════ -->
+<div class="divider"></div>
+<section>
+  <div class="section-title">Lockups</div>
+  <div class="section-sub">Mark + full organization name in horizontal layout</div>
+  <div class="lockup-row">
+    <!-- Light lockup -->
+    <div class="lockup-card wave-bg">
+      <div class="mark mark--md">
+        <svg viewBox="0 0 105 300" class="mongol-svg" fill="#015197" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+        <div class="gold-line"></div>
+        <div class="letters">
+          <div class="red-dot"></div>
+          <span class="letter col-blue">I</span>
+          <span class="letter col-blue">A</span>
+          <span class="letter col-blue">M</span>
+          <span class="letter col-blue">L</span>
+        </div>
+      </div>
+      <div class="gold-sep"></div>
+      <div class="lockup-text">
+        <div class="lockup-name col-blue">The International Association</div>
+        <div class="lockup-name col-blue">for Mongolic Linguistics</div>
+      </div>
+    </div>
+    <!-- Dark lockup -->
+    <div class="lockup-card sky-anim">
+      <div class="mark mark--md">
+        <svg viewBox="0 0 105 300" class="mongol-svg" fill="#FFFFFF" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+        <div class="gold-line"></div>
+        <div class="letters">
+          <div class="red-dot"></div>
+          <span class="letter col-white">I</span>
+          <span class="letter col-white">A</span>
+          <span class="letter col-white">M</span>
+          <span class="letter col-white">L</span>
+        </div>
+      </div>
+      <div class="gold-sep"></div>
+      <div class="lockup-text">
+        <div class="lockup-name col-white">The International Association</div>
+        <div class="lockup-name col-white">for Mongolic Linguistics</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SCALE ═══════════════════ -->
+<div class="divider"></div>
+<section>
+  <div class="section-title">Scale</div>
+  <div class="section-sub">The mark works from large format to small icon</div>
+  <div class="scale-row">
+    <div class="mark mark--xl">
+      <svg viewBox="0 0 105 300" class="mongol-svg" fill="#015197" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+      <div class="gold-line"></div>
+      <div class="letters">
+        <div class="red-dot"></div>
+        <span class="letter col-blue">I</span>
+        <span class="letter col-blue">A</span>
+        <span class="letter col-blue">M</span>
+        <span class="letter col-blue">L</span>
+      </div>
+    </div>
+    <div class="mark mark--lg">
+      <svg viewBox="0 0 105 300" class="mongol-svg" fill="#015197" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+      <div class="gold-line"></div>
+      <div class="letters">
+        <div class="red-dot"></div>
+        <span class="letter col-blue">I</span>
+        <span class="letter col-blue">A</span>
+        <span class="letter col-blue">M</span>
+        <span class="letter col-blue">L</span>
+      </div>
+    </div>
+    <div class="mark mark--md">
+      <svg viewBox="0 0 105 300" class="mongol-svg" fill="#015197" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+      <div class="gold-line"></div>
+      <div class="letters">
+        <div class="red-dot"></div>
+        <span class="letter col-blue">I</span>
+        <span class="letter col-blue">A</span>
+        <span class="letter col-blue">M</span>
+        <span class="letter col-blue">L</span>
+      </div>
+    </div>
+    <div class="mark mark--sm">
+      <svg viewBox="0 0 105 300" class="mongol-svg" fill="#015197" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+      <div class="gold-line"></div>
+      <div class="letters">
+        <div class="red-dot"></div>
+        <span class="letter col-blue">I</span>
+        <span class="letter col-blue">A</span>
+        <span class="letter col-blue">M</span>
+        <span class="letter col-blue">L</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ MONO VERSIONS ═══════════════════ -->
+<div class="divider"></div>
+<section>
+  <div class="section-title">Monochrome Versions</div>
+  <div class="section-sub">For single-color printing and special applications</div>
+  <div class="mono-grid">
+    <div class="mono-card" style="background:#FFFFFF">
+      <div class="mark mark--lg">
+        <svg viewBox="0 0 105 300" class="mongol-svg" fill="#0A1628" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+        <div class="gold-line" style="background:#0A1628"></div>
+        <div class="letters">
+          <div class="red-dot" style="background:#0A1628"></div>
+          <span class="letter col-ink">I</span>
+          <span class="letter col-ink">A</span>
+          <span class="letter col-ink">M</span>
+          <span class="letter col-ink">L</span>
+        </div>
+      </div>
+    </div>
+    <div class="mono-card" style="background:#0A1628">
+      <div class="mark mark--lg">
+        <svg viewBox="0 0 105 300" class="mongol-svg" fill="#FFFFFF" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+        <div class="gold-line" style="background:#FFFFFF"></div>
+        <div class="letters">
+          <div class="red-dot" style="background:#FFFFFF"></div>
+          <span class="letter col-white">I</span>
+          <span class="letter col-white">A</span>
+          <span class="letter col-white">M</span>
+          <span class="letter col-white">L</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ COLORS ═══════════════════ -->
+<div class="divider"></div>
+<section>
+  <div class="section-title">Brand Colors</div>
+  <div class="section-sub">Derived from the Mongolian flag and the Eternal Blue Sky</div>
+  <div class="swatches">
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#015197"></div>
+      <div class="swatch-label">Blue</div>
+      <div class="swatch-hex">#015197</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#2E7ABF"></div>
+      <div class="swatch-label">Sky</div>
+      <div class="swatch-hex">#2E7ABF</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#5BA3D9"></div>
+      <div class="swatch-label">Light Sky</div>
+      <div class="swatch-hex">#5BA3D9</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#C4272F"></div>
+      <div class="swatch-label">Red</div>
+      <div class="swatch-hex">#C4272F</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#D4A843"></div>
+      <div class="swatch-label">Gold</div>
+      <div class="swatch-hex">#D4A843</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#0A1628"></div>
+      <div class="swatch-label">Ink</div>
+      <div class="swatch-hex">#0A1628</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ APPLICATIONS ═══════════════════ -->
+<div class="divider"></div>
+<section>
+  <div class="section-title">Applications</div>
+  <div class="section-sub">Conference badge, journal cover, letterhead, app icon</div>
+  <div class="app-grid">
+    <!-- App icon -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="app-icon sky-anim">
+        <div class="mark mark--sm">
+          <svg viewBox="0 0 105 300" class="mongol-svg" fill="#FFFFFF" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+          <div class="gold-line"></div>
+          <div class="letters">
+            <div class="red-dot"></div>
+            <span class="letter col-white">I</span>
+            <span class="letter col-white">A</span>
+            <span class="letter col-white">M</span>
+            <span class="letter col-white">L</span>
+          </div>
+        </div>
+      </div>
+      <span style="font-size:10px;color:#999;letter-spacing:1px">APP ICON</span>
+    </div>
+
+    <!-- Badge -->
+    <div class="badge">
+      <div class="badge-top"></div>
+      <div class="badge-content">
+        <div class="mark mark--sm">
+          <svg viewBox="0 0 105 300" class="mongol-svg" fill="#015197" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+          <div class="gold-line"></div>
+          <div class="letters">
+            <div class="red-dot"></div>
+            <span class="letter col-blue">I</span>
+            <span class="letter col-blue">A</span>
+            <span class="letter col-blue">M</span>
+            <span class="letter col-blue">L</span>
+          </div>
+        </div>
+        <div class="badge-title">IAML Annual Conference 2026</div>
+        <div class="badge-sub">ULAANBAATAR · MONGOLIA</div>
+      </div>
+      <div style="width:100px;height:0.5px;background:#D4A843;margin:8px 0;opacity:0.5"></div>
+      <div class="badge-photo"></div>
+      <div class="badge-name">Dr. Name Surname</div>
+      <div class="badge-uni">University of Helsinki<br/>Department of Linguistics</div>
+      <div class="badge-bottom"></div>
+    </div>
+
+    <!-- Journal -->
+    <div class="journal sky-anim">
+      <div class="journal-border"></div>
+      <div class="mark mark--md">
+        <svg viewBox="0 0 105 300" class="mongol-svg" fill="#FFFFFF" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+        <div class="gold-line"></div>
+        <div class="letters">
+          <div class="red-dot"></div>
+          <span class="letter col-white">I</span>
+          <span class="letter col-white">A</span>
+          <span class="letter col-white">M</span>
+          <span class="letter col-white">L</span>
+        </div>
+      </div>
+      <div class="journal-sep"></div>
+      <div class="journal-title">Journal of<br/>Mongolic<br/>Linguistics</div>
+      <div class="journal-vol">VOL. I · 2026</div>
+    </div>
+
+    <!-- Letterhead -->
+    <div class="letterhead">
+      <div class="lh-header">
+        <div class="mark mark--sm">
+          <svg viewBox="0 0 105 300" class="mongol-svg" fill="#015197" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
+          <div class="gold-line"></div>
+          <div class="letters">
+            <div class="red-dot"></div>
+            <span class="letter col-blue">I</span>
+            <span class="letter col-blue">A</span>
+            <span class="letter col-blue">M</span>
+            <span class="letter col-blue">L</span>
+          </div>
+        </div>
+        <div>
+          <div class="lh-name">IAML</div>
+          <div class="lh-sub">International Association for<br/>Mongolic Linguistics</div>
+        </div>
+      </div>
+      <div class="lh-rule"></div>
+      <div class="lh-line" style="width:100%"></div>
+      <div class="lh-line" style="width:92%"></div>
+      <div class="lh-line" style="width:85%"></div>
+      <div class="lh-line" style="width:100%"></div>
+      <div class="lh-line" style="width:75%"></div>
+      <div class="lh-line" style="width:95%"></div>
+      <div class="lh-line" style="width:82%"></div>
+      <div class="lh-line" style="width:100%"></div>
+      <div class="lh-line" style="width:90%"></div>
+      <div class="lh-line" style="width:65%"></div>
+      <div class="lh-footer">iaml.org · info@iaml.org</div>
+    </div>
+  </div>
+</section>
+
+<div style="height:60px"></div>
+
+</body>
+</html>

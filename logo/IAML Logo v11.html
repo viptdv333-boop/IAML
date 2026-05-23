@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML Brand — Final Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>
+body{margin:0;background:#111}
+@keyframes skyShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.sky-gradient {
+  background: linear-gradient(135deg, #015197, #2E7ABF, #5BA3D9, #2E7ABF, #015197);
+  background-size: 300% 300%;
+}
+.sky-gradient-animated {
+  background: linear-gradient(135deg, #015197, #2E7ABF, #5BA3D9, #2E7ABF, #015197);
+  background-size: 300% 300%;
+  animation: skyShift 8s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+const blue = '#015197';
+const red = '#C4272F';
+const gold = '#D4A843';
+const ink = '#0C1B33';
+const W = '#FFFFFF';
+const cream = '#F6F4EF';
+
+/* ── Brand Card: mark large on 2 bgs + lockup + mini apps ── */
+function Sheet({ markSvg, lockSvg, name, desc }) {
+  const mk = (bg) => markSvg(bg);
+  const lk = (bg) => lockSvg(bg);
+  return (
+    <div style={{display:'flex',flexDirection:'column',width:920,fontFamily:'DM Sans,sans-serif',background:cream}}>
+      {/* Hero */}
+      <div style={{display:'flex',height:340}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:W}}>
+          {mk('light')}
+        </div>
+        <div className="sky-gradient-animated" style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center'}}>
+          {mk('dark')}
+        </div>
+      </div>
+      {/* Lockup */}
+      <div style={{display:'flex',height:80}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:cream,padding:'0 40px'}}>
+          {lk('light')}
+        </div>
+        <div className="sky-gradient" style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',padding:'0 40px'}}>
+          {lk('dark')}
+        </div>
+      </div>
+      {/* Mini apps */}
+      <div style={{display:'flex',gap:16,padding:'20px 24px',justifyContent:'center',alignItems:'flex-end',background:'#E5E2DB'}}>
+        {/* Favicon */}
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:5}}>
+          <div className="sky-gradient-animated" style={{width:52,height:52,borderRadius:12,boxShadow:'0 1px 8px rgba(0,0,0,0.15)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+            {mk('icon')}
+          </div>
+          <span style={{fontSize:8,color:'#999',letterSpacing:1}}>ICON</span>
+        </div>
+        {/* Badge */}
+        <div style={{width:190,height:260,background:W,borderRadius:6,boxShadow:'0 1px 10px rgba(0,0,0,0.08)',overflow:'hidden',display:'flex',flexDirection:'column',alignItems:'center'}}>
+          <div style={{width:'100%',height:5,background:blue}}></div>
+          <div style={{padding:'12px 12px 0',display:'flex',flexDirection:'column',alignItems:'center',gap:5}}>
+            {mk('badge')}
+            <span style={{fontSize:7,fontWeight:700,color:blue,letterSpacing:2}}>IAML 2026 · ULAANBAATAR</span>
+          </div>
+          <div style={{width:80,height:0.5,background:gold,margin:'8px 0',opacity:0.5}}></div>
+          <div style={{width:56,height:56,borderRadius:28,background:'#E8E5DE',marginBottom:5}}></div>
+          <span style={{fontSize:10,fontWeight:700,color:ink}}>Dr. Name Surname</span>
+          <span style={{fontSize:6,color:'#999'}}>University of Helsinki</span>
+          <div style={{marginTop:'auto',width:'100%',height:3,background:gold,opacity:0.6}}></div>
+        </div>
+        {/* Journal */}
+        <div className="sky-gradient-animated" style={{width:170,height:240,borderRadius:3,boxShadow:'0 1px 10px rgba(0,0,0,0.15)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',fontFamily:'EB Garamond,serif',padding:16,position:'relative'}}>
+          <div style={{position:'absolute',inset:6,border:`0.5px solid ${gold}`,opacity:0.15,pointerEvents:'none'}}></div>
+          {mk('journal')}
+          <div style={{width:36,height:0.5,background:gold,opacity:0.4,margin:'8px 0'}}></div>
+          <div style={{fontSize:14,fontWeight:500,color:W,textAlign:'center',lineHeight:1.3}}>Journal of<br/>Mongolic<br/>Linguistics</div>
+          <div style={{fontSize:6.5,color:gold,marginTop:8,letterSpacing:2,fontFamily:'DM Sans,sans-serif'}}>VOL. I · 2026</div>
+        </div>
+      </div>
+      {/* Description */}
+      <div style={{padding:'14px 28px',background:cream,borderTop:'1px solid #E5E2DB',display:'flex',gap:20,alignItems:'baseline'}}>
+        <span style={{fontSize:13,fontWeight:700,color:blue,letterSpacing:2,whiteSpace:'nowrap'}}>{name}</span>
+        <span style={{fontSize:11,color:'#777',lineHeight:1.5}}>{desc}</span>
+      </div>
+    </div>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   CONCEPT A: TYPOGRAPHIC MONOGRAM
+   
+   Just the letters IAML — set in EB Garamond, a refined 
+   transitional serif. The distinctive feature: the vertical
+   gold line between "IA" and "ML" — a subtle reference to
+   the spine of Mongolian vertical script.
+   
+   Nothing else. Typography IS the logo.
+   ══════════════════════════════════════════════════════════════ */
+function aMonoMark(bg) {
+  const isIcon = bg === 'icon';
+  const isBadge = bg === 'badge';
+  const isJournal = bg === 'journal';
+  const isDark = bg === 'dark' || isIcon || isJournal;
+  const col = isDark ? W : blue;
+  const sz = isIcon ? 22 : isBadge ? 20 : isJournal ? 18 : 52;
+  const lh = isIcon ? 1.5 : isBadge ? 1 : isJournal ? 0.8 : 3.5;
+  
+  if (isIcon || isBadge || isJournal) {
+    return (
+      <div style={{display:'flex',alignItems:'center',gap:lh}}>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:sz,fontWeight:800,color:col,letterSpacing:1}}>IA</span>
+        <div style={{width:isBadge?1:1.5,height:sz*0.7,background:gold,borderRadius:1}}></div>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:sz,fontWeight:800,color:col,letterSpacing:1}}>ML</span>
+      </div>
+    );
+  }
+  
+  return (
+    <div style={{display:'flex',alignItems:'center',gap:4}}>
+      <span style={{fontFamily:'EB Garamond,serif',fontSize:sz,fontWeight:800,color:col,letterSpacing:2}}>IA</span>
+      <div style={{width:2.5,height:sz*0.65,background:gold,borderRadius:2}}></div>
+      <span style={{fontFamily:'EB Garamond,serif',fontSize:sz,fontWeight:800,color:col,letterSpacing:2}}>ML</span>
+    </div>
+  );
+}
+function aMonoLock(bg) {
+  const isDark = bg === 'dark';
+  const col = isDark ? W : blue;
+  const sub = isDark ? '#6BADE0' : '#2E7ABF';
+  return (
+    <div style={{display:'flex',alignItems:'center',gap:16}}>
+      <div style={{display:'flex',alignItems:'center',gap:2}}>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:28,fontWeight:800,color:col,letterSpacing:1}}>IA</span>
+        <div style={{width:1.5,height:18,background:gold,borderRadius:1}}></div>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:28,fontWeight:800,color:col,letterSpacing:1}}>ML</span>
+      </div>
+      <div style={{width:0.5,height:30,background:gold,opacity:0.3}}></div>
+      <div>
+        <div style={{fontFamily:'EB Garamond,serif',fontSize:13,fontWeight:500,color:col,letterSpacing:1.5}}>The International Association</div>
+        <div style={{fontFamily:'EB Garamond,serif',fontSize:13,fontWeight:500,color:col,letterSpacing:1.5}}>for Mongolic Linguistics</div>
+      </div>
+    </div>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   CONCEPT B: TYPOGRAPHIC + CIRCLE
+   
+   The letters IAML in a serif face, enclosed in a thin 
+   blue circle. The circle: authority, completeness, a seal. 
+   A single gold dot below the text — a period, a sun, 
+   a point of light. Minimal red rule under the letters.
+   ══════════════════════════════════════════════════════════════ */
+function bCircMark(bg) {
+  const isIcon = bg === 'icon';
+  const isBadge = bg === 'badge';
+  const isJournal = bg === 'journal';
+  const isDark = bg === 'dark' || isIcon || isJournal;
+  const col = isDark ? W : blue;
+  const ringCol = isDark ? '#6BADE0' : blue;
+  
+  if (isIcon) {
+    return (
+      <div style={{display:'flex',alignItems:'center',justifyContent:'center',width:34,height:34,borderRadius:17,border:`1.5px solid ${W}`,position:'relative'}}>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:12,fontWeight:700,color:W,letterSpacing:1}}>IAML</span>
+      </div>
+    );
+  }
+  if (isBadge || isJournal) {
+    const s = isBadge ? 42 : 38;
+    return (
+      <div style={{display:'flex',alignItems:'center',justifyContent:'center',width:s,height:s,borderRadius:s/2,border:`1.5px solid ${col}`,position:'relative'}}>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:s*0.3,fontWeight:700,color:col,letterSpacing:0.5}}>IAML</span>
+        <div style={{position:'absolute',bottom:s*0.12,width:3,height:3,borderRadius:1.5,background:gold}}></div>
+      </div>
+    );
+  }
+
+  const r = 108;
+  return (
+    <div style={{display:'flex',alignItems:'center',justifyContent:'center',width:r*2,height:r*2,borderRadius:r,border:`2.5px solid ${ringCol}`,position:'relative',flexDirection:'column',gap:2}}>
+      <span style={{fontFamily:'EB Garamond,serif',fontSize:42,fontWeight:700,color:col,letterSpacing:4}}>IAML</span>
+      <div style={{width:60,height:1.5,background:red,opacity:0.7,borderRadius:1}}></div>
+      <div style={{width:5,height:5,borderRadius:2.5,background:gold,marginTop:4}}></div>
+    </div>
+  );
+}
+function bCircLock(bg) {
+  const isDark = bg === 'dark';
+  const col = isDark ? W : blue;
+  const ringCol = isDark ? '#6BADE0' : blue;
+  const sub = isDark ? '#6BADE0' : '#2E7ABF';
+  return (
+    <div style={{display:'flex',alignItems:'center',gap:14}}>
+      <div style={{display:'flex',alignItems:'center',justifyContent:'center',width:44,height:44,borderRadius:22,border:`1.5px solid ${ringCol}`,position:'relative',flexDirection:'column'}}>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:14,fontWeight:700,color:col,letterSpacing:1}}>IAML</span>
+        <div style={{width:3,height:3,borderRadius:1.5,background:gold,marginTop:1}}></div>
+      </div>
+      <div style={{width:0.5,height:30,background:gold,opacity:0.3}}></div>
+      <div>
+        <div style={{fontFamily:'EB Garamond,serif',fontSize:13,fontWeight:500,color:col,letterSpacing:1.5}}>The International Association</div>
+        <div style={{fontFamily:'EB Garamond,serif',fontSize:13,fontWeight:500,color:col,letterSpacing:1.5}}>for Mongolic Linguistics</div>
+      </div>
+    </div>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   CONCEPT C: SQUARE SEAL
+   
+   IAML in a blue square with rounded corners — like a 
+   modern app icon by nature. Gold horizontal rule above, 
+   red below. The square represents structure, foundation,
+   the block of a printed character.
+   ══════════════════════════════════════════════════════════════ */
+function cSqMark(bg) {
+  const isIcon = bg === 'icon';
+  const isBadge = bg === 'badge';
+  const isJournal = bg === 'journal';
+  const isDark = bg === 'dark' || isIcon || isJournal;
+  
+  if (isIcon) {
+    return (
+      <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:2}}>
+        <div style={{width:30,height:1,background:gold,borderRadius:1}}></div>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:16,fontWeight:700,color:W,letterSpacing:1.5}}>IAML</span>
+        <div style={{width:30,height:1,background:red,borderRadius:1}}></div>
+      </div>
+    );
+  }
+  if (isBadge || isJournal) {
+    const s = isBadge ? 46 : 40;
+    const bgc = isBadge ? blue : 'transparent';
+    return (
+      <div style={{width:s,height:s,borderRadius:s*0.16,background:bgc,border:isBadge?'none':`1.5px solid ${W}`,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:1.5}}>
+        <div style={{width:s*0.6,height:0.8,background:gold}}></div>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:s*0.3,fontWeight:700,color:W,letterSpacing:1}}>IAML</span>
+        <div style={{width:s*0.6,height:0.8,background:red}}></div>
+      </div>
+    );
+  }
+  
+  const size = 180;
+  if (isDark) {
+    return (
+      <div className="sky-gradient" style={{width:size,height:size,borderRadius:20,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:6}}>
+        <div style={{width:100,height:2,background:gold,borderRadius:1}}></div>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:48,fontWeight:700,color:W,letterSpacing:5}}>IAML</span>
+        <div style={{width:100,height:2,background:red,borderRadius:1}}></div>
+      </div>
+    );
+  }
+  return (
+    <div style={{width:size,height:size,borderRadius:20,background:W,border:`2.5px solid ${blue}`,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:6,boxShadow:'0 2px 12px rgba(1,81,151,0.1)'}}>
+      <div style={{width:100,height:2,background:gold,borderRadius:1}}></div>
+      <span style={{fontFamily:'EB Garamond,serif',fontSize:48,fontWeight:700,color:blue,letterSpacing:5}}>IAML</span>
+      <div style={{width:100,height:2,background:red,borderRadius:1}}></div>
+    </div>
+  );
+}
+function cSqLock(bg) {
+  const isDark = bg === 'dark';
+  const col = isDark ? W : ink;
+  const sub = isDark ? '#6BADE0' : '#2E7ABF';
+  return (
+    <div style={{display:'flex',alignItems:'center',gap:14}}>
+      <div style={{width:42,height:42,borderRadius:8,background:isDark?blue:W,border:isDark?'none':`1.5px solid ${blue}`,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:2}}>
+        <div style={{width:24,height:0.8,background:gold}}></div>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:14,fontWeight:700,color:isDark?W:blue,letterSpacing:1}}>IAML</span>
+        <div style={{width:24,height:0.8,background:red}}></div>
+      </div>
+      <div style={{width:0.5,height:30,background:gold,opacity:0.3}}></div>
+      <div>
+        <div style={{fontFamily:'EB Garamond,serif',fontSize:13,fontWeight:500,color:col,letterSpacing:1.5}}>The International Association</div>
+        <div style={{fontFamily:'EB Garamond,serif',fontSize:13,fontWeight:500,color:col,letterSpacing:1.5}}>for Mongolic Linguistics</div>
+      </div>
+    </div>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   CONCEPT D: VERTICAL STACK + MONGOLIAN SCRIPT ᠮ
+   
+   Mongolian letter ᠮ (M) on the left, gold vertical spine,
+   IAML stacked on the right. Red dot crowns the top.
+   ══════════════════════════════════════════════════════════════ */
+
+/* SVG path for stylized Mongolian letter ᠮ */
+function MongolChar({ color, h }) {
+  // Use actual image with CSS filter for coloring
+  // color='blue' for light bg, color='white' for dark bg
+  const isWhite = color === W;
+  const filterStyle = isWhite 
+    ? 'brightness(0) invert(1)' 
+    : 'brightness(0) invert(19%) sepia(96%) saturate(2000%) hue-rotate(198deg)';
+  return (
+    <img 
+      src="mongolian-m.png" 
+      style={{height:h, width:'auto', display:'block', filter:filterStyle}} 
+      alt="ᠮ"
+    />
+  );
+}
+
+function dVertMark(bg) {
+  const isIcon = bg === 'icon';
+  const isBadge = bg === 'badge';
+  const isJournal = bg === 'journal';
+  const isDark = bg === 'dark' || isIcon || isJournal;
+  const col = isDark ? W : blue;
+  
+  if (isIcon) {
+    return (
+      <div style={{display:'flex',gap:1.5,alignItems:'center'}}>
+        <MongolChar color={W} h={32} />
+        <div style={{width:1,height:32,background:gold,borderRadius:1}}></div>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+          <div style={{width:3,height:3,borderRadius:1.5,background:red,marginBottom:1}}></div>
+          {['I','A','M','L'].map((l,i) => (
+            <span key={i} style={{fontFamily:'EB Garamond,serif',fontSize:7,fontWeight:700,color:W,lineHeight:1.1}}>{l}</span>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  if (isBadge || isJournal) {
+    const sz = isBadge ? 9 : 8;
+    const h = isBadge ? 48 : 42;
+    return (
+      <div style={{display:'flex',gap:3,alignItems:'center'}}>
+        <MongolChar color={col} h={h} />
+        <div style={{width:1.5,height:h,background:gold,borderRadius:1}}></div>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+          <div style={{width:3,height:3,borderRadius:1.5,background:red,marginBottom:1}}></div>
+          {['I','A','M','L'].map((l,i) => (
+            <span key={i} style={{fontFamily:'EB Garamond,serif',fontSize:sz,fontWeight:700,color:col,lineHeight:1.15}}>{l}</span>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  
+  const markH = 200;
+  return (
+    <div style={{display:'flex',gap:12,alignItems:'center',height:markH}}>
+      <MongolChar color={col} h={markH} />
+      <div style={{width:2.5,height:markH,background:gold,borderRadius:2}}></div>
+      <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',height:markH}}>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:42,fontWeight:700,color:col,lineHeight:1.1,letterSpacing:2}}>I</span>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:42,fontWeight:700,color:col,lineHeight:1.1,letterSpacing:2}}>A</span>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:42,fontWeight:700,color:col,lineHeight:1.1,letterSpacing:2}}>M</span>
+        <span style={{fontFamily:'EB Garamond,serif',fontSize:42,fontWeight:700,color:col,lineHeight:1.1,letterSpacing:2}}>L</span>
+      </div>
+    </div>
+  );
+}
+function dVertLock(bg) {
+  const isDark = bg === 'dark';
+  const col = isDark ? W : ink;
+  const sub = isDark ? '#6BADE0' : '#2E7ABF';
+  return (
+    <div style={{display:'flex',alignItems:'center',gap:12}}>
+      <div style={{display:'flex',gap:3,alignItems:'center',height:42}}>
+        <MongolChar color={isDark?W:blue} h={38} />
+        <div style={{width:1,height:38,background:gold,borderRadius:1}}></div>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+          <div style={{width:3,height:3,borderRadius:1.5,background:red,marginBottom:1}}></div>
+          {['I','A','M','L'].map((l,i) => (
+            <span key={i} style={{fontFamily:'EB Garamond,serif',fontSize:8.5,fontWeight:700,color:isDark?W:blue,lineHeight:1.05}}>{l}</span>
+          ))}
+        </div>
+      </div>
+      <div style={{width:0.5,height:30,background:gold,opacity:0.3}}></div>
+      <div>
+        <div style={{fontFamily:'EB Garamond,serif',fontSize:13,fontWeight:500,color:col,letterSpacing:1.5}}>The International Association</div>
+        <div style={{fontFamily:'EB Garamond,serif',fontSize:13,fontWeight:500,color:col,letterSpacing:1.5}}>for Mongolic Linguistics</div>
+      </div>
+    </div>
+  );
+}
+
+
+function App() {
+  return (
+    <DesignCanvas title="IAML — Brand Identity" subtitle="Typography-driven, institutional quality">
+      <DCSection id="concepts" title="Final Concepts">
+        <DCArtboard id="a" label="A — Typographic Monogram" width={920} height={860}>
+          <Sheet markSvg={aMonoMark} lockSvg={aMonoLock} name="TYPOGRAPHIC MONOGRAM"
+            desc="IA|ML — the letters split by a gold vertical line referencing Mongolian script's spine. Pure typography, no decoration. The gold line is the only non-typographic element."
+          />
+        </DCArtboard>
+        <DCArtboard id="b" label="B — Circle Mark" width={920} height={860}>
+          <Sheet markSvg={bCircMark} lockSvg={bCircLock} name="CIRCLE MARK"
+            desc="IAML in a thin blue circle — authority, completeness, a seal. Red rule below the text, gold dot beneath. Three colors, three gestures, nothing more."
+          />
+        </DCArtboard>
+        <DCArtboard id="c" label="C — Square Seal" width={920} height={860}>
+          <Sheet markSvg={cSqMark} lockSvg={cSqLock} name="SQUARE SEAL"
+            desc="White letters on a blue square. Gold rule above, red rule below. Works as an app icon by nature. The solid blue field reads as the Eternal Blue Sky."
+          />
+        </DCArtboard>
+        <DCArtboard id="d" label="D — Vertical Stack" width={920} height={860}>
+          <Sheet markSvg={dVertMark} lockSvg={dVertLock} name="VERTICAL STACK"
+            desc="IAML read top-to-bottom — like Mongolian script. Gold spine to the left, red dot at top. The reading direction itself is the cultural statement. Most distinctive silhouette."
+          />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

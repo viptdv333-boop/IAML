@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML Brand Identity v9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>body{margin:0;background:#111}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+/*
+  Mongolian flag palette — used as BRAND COLORS, not flag reproduction:
+  Blue #015197 — primary, authority, sky
+  Red  #C4272F — energy, accent
+  Gold #F9CF02 — warmth, prestige
+  Sky  #2E7ABF — secondary blue
+*/
+const C = {
+  blue: '#015197',
+  red: '#C4272F',
+  gold: '#F9CF02',
+  goldMuted: '#D4AA00',
+  sky: '#2E7ABF',
+  skyL: '#6BADE0',
+  ink: '#0A1628',
+  white: '#FFFFFF',
+  cream: '#F6F4EF',
+  gray: '#E8E5DE',
+};
+
+/* ── BRAND CARD ── */
+function Card({ markL, markD, lockL, lockD, name, text }) {
+  return (
+    <div style={{display:'flex',flexDirection:'column',width:940,fontFamily:'DM Sans,sans-serif',background:C.cream}}>
+      {/* Hero */}
+      <div style={{display:'flex',height:380}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.white}}>
+          <svg viewBox="0 0 300 300" width="280" height="280">{markL}</svg>
+        </div>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.ink}}>
+          <svg viewBox="0 0 300 300" width="280" height="280">{markD}</svg>
+        </div>
+      </div>
+      {/* Lockup */}
+      <div style={{display:'flex',height:84}}>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.cream,padding:'0 36px'}}>
+          <svg viewBox="0 0 480 60" width="440" height="55">{lockL}</svg>
+        </div>
+        <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',background:C.ink,padding:'0 36px'}}>
+          <svg viewBox="0 0 480 60" width="440" height="55">{lockD}</svg>
+        </div>
+      </div>
+      {/* Apps */}
+      <div style={{display:'flex',gap:16,padding:'24px 28px',alignItems:'flex-end',justifyContent:'center',background:C.gray}}>
+        {/* App icon */}
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:6}}>
+          <div style={{width:60,height:60,borderRadius:14,background:C.blue,boxShadow:'0 2px 10px rgba(0,0,0,0.15)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <svg viewBox="0 0 300 300" width="44" height="44">{markD}</svg>
+          </div>
+          <span style={{fontSize:8,color:'#999',letterSpacing:1}}>ICON</span>
+        </div>
+        {/* Badge */}
+        <div style={{width:200,height:280,background:C.white,borderRadius:8,boxShadow:'0 2px 12px rgba(0,0,0,0.1)',overflow:'hidden',display:'flex',flexDirection:'column',alignItems:'center'}}>
+          <div style={{width:'100%',height:6,background:`linear-gradient(90deg, ${C.blue} 33%, ${C.gold} 33%, ${C.gold} 66%, ${C.red} 66%)`}}></div>
+          <div style={{padding:'14px 14px 0',display:'flex',flexDirection:'column',alignItems:'center',gap:6}}>
+            <svg viewBox="0 0 300 300" width="48" height="48">{markL}</svg>
+            <div style={{fontSize:7.5,fontWeight:700,color:C.blue,letterSpacing:2}}>IAML 2026</div>
+            <div style={{fontSize:5.5,color:C.goldMuted,letterSpacing:1}}>ULAANBAATAR · MONGOLIA</div>
+          </div>
+          <div style={{width:100,height:0.5,background:C.gold,margin:'10px 0',opacity:0.5}}></div>
+          <div style={{width:64,height:64,borderRadius:32,background:C.gray,marginBottom:6}}></div>
+          <div style={{fontSize:11,fontWeight:700,color:C.ink}}>Dr. Name Surname</div>
+          <div style={{fontSize:6.5,color:'#999',textAlign:'center'}}>University of Helsinki</div>
+          <div style={{marginTop:'auto',width:'100%',height:4,background:C.blue}}></div>
+        </div>
+        {/* Journal */}
+        <div style={{width:190,height:270,background:C.blue,borderRadius:4,boxShadow:'0 2px 12px rgba(0,0,0,0.2)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',fontFamily:'Cormorant Garamond,serif',position:'relative',padding:18}}>
+          <div style={{position:'absolute',inset:7,border:`0.5px solid ${C.gold}`,opacity:0.15,borderRadius:2,pointerEvents:'none'}}></div>
+          <svg viewBox="0 0 300 300" width="56" height="56">{markD}</svg>
+          <div style={{width:40,height:0.5,background:C.gold,opacity:0.4,margin:'10px 0'}}></div>
+          <div style={{fontSize:15,fontWeight:600,color:C.white,textAlign:'center',lineHeight:1.3}}>Journal of<br/>Mongolic<br/>Linguistics</div>
+          <div style={{fontSize:7,color:C.gold,marginTop:8,letterSpacing:2,fontFamily:'DM Sans,sans-serif'}}>VOL. I · 2026</div>
+        </div>
+        {/* Letterhead */}
+        <div style={{width:180,height:250,background:C.white,borderRadius:3,boxShadow:'0 2px 10px rgba(0,0,0,0.08)',padding:14,display:'flex',flexDirection:'column'}}>
+          <div style={{display:'flex',alignItems:'center',gap:7,marginBottom:8}}>
+            <svg viewBox="0 0 300 300" width="22" height="22">{markL}</svg>
+            <div>
+              <div style={{fontSize:6.5,fontWeight:700,color:C.blue,letterSpacing:1.5}}>IAML</div>
+              <div style={{fontSize:4,color:'#999'}}>International Association for Mongolic Linguistics</div>
+            </div>
+          </div>
+          <div style={{width:'100%',height:0.5,background:C.blue,opacity:0.15,marginBottom:10}}></div>
+          {[100,92,85,100,75,95,80,100,90,65].map((w,i) => (
+            <div key={i} style={{width:`${w}%`,height:2,background:C.gray,marginBottom:4,borderRadius:1}}></div>
+          ))}
+          <div style={{marginTop:'auto',fontSize:3.5,color:'#bbb'}}>iaml.org · info@iaml.org</div>
+        </div>
+      </div>
+      {/* Label */}
+      <div style={{padding:'14px 32px',background:C.cream,borderTop:`1px solid ${C.gray}`,display:'flex',gap:20,alignItems:'baseline'}}>
+        <span style={{fontSize:13,fontWeight:700,color:C.blue,letterSpacing:2,textTransform:'uppercase',whiteSpace:'nowrap'}}>{name}</span>
+        <span style={{fontSize:11,color:'#6B7280',lineHeight:1.5}}>{text}</span>
+      </div>
+    </div>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   A: "CIRCLE & STEM"
+   
+   A blue circle (the world) with a bold vertical gold 
+   line through it (Mongolian vertical script). A single 
+   red dot crowns the top — the "head" (толгой) of a 
+   Mongolian letter and a signal of energy.
+   
+   Three elements. Three colors. Complete.
+   ══════════════════════════════════════════════════════════ */
+function aMarkL() {
+  return (
+    <g transform="translate(150,150)">
+      <circle cx="0" cy="0" r="80" fill={C.blue}/>
+      <line x1="0" y1="-100" x2="0" y2="100" stroke={C.gold} strokeWidth="9" strokeLinecap="round"/>
+      <circle cx="0" cy="-106" r="11" fill={C.red}/>
+    </g>
+  );
+}
+function aMarkD() {
+  return (
+    <g transform="translate(150,150)">
+      <circle cx="0" cy="0" r="80" fill={C.sky}/>
+      <line x1="0" y1="-100" x2="0" y2="100" stroke={C.gold} strokeWidth="9" strokeLinecap="round"/>
+      <circle cx="0" cy="-106" r="11" fill={C.red}/>
+    </g>
+  );
+}
+function aLock(bg) {
+  const t = bg === 'dark' ? C.white : C.ink;
+  const s = bg === 'dark' ? C.skyL : C.sky;
+  const bl = bg === 'dark' ? C.sky : C.blue;
+  return (
+    <g>
+      <circle cx="26" cy="30" r="20" fill={bl}/>
+      <line x1="26" y1="7" x2="26" y2="53" stroke={C.gold} strokeWidth="3" strokeLinecap="round"/>
+      <circle cx="26" cy="5" r="4" fill={C.red}/>
+      <line x1="58" y1="10" x2="58" y2="52" stroke={C.gold} strokeWidth="0.5" opacity="0.35"/>
+      <text x="68" y="28" fontFamily="Cormorant Garamond,serif" fontSize="20" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="68" y="44" fontFamily="DM Sans,sans-serif" fontSize="6" fill={s} letterSpacing="1.6">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   B: "THE LENS"
+   
+   Two overlapping circles — blue and red — creating a 
+   rich intersection. At the center of the overlap: a 
+   gold diamond. 
+   
+   Blue circle = Mongolia/East. Red circle = the world.
+   Gold intersection = where languages and cultures meet.
+   The overlap shifts towards blue — Mongolia is the focus.
+   
+   Works in single color. Scales to any size.
+   ══════════════════════════════════════════════════════════ */
+function bMarkL() {
+  return (
+    <g transform="translate(150,150)">
+      <circle cx="-26" cy="0" r="66" fill={C.blue} opacity="0.9"/>
+      <circle cx="26" cy="0" r="66" fill={C.red} opacity="0.85"/>
+      {/* Gold diamond at intersection */}
+      <rect x="-9" y="-9" width="18" height="18" rx="2" fill={C.gold} transform="rotate(45,0,0)"/>
+    </g>
+  );
+}
+function bMarkD() {
+  return (
+    <g transform="translate(150,150)">
+      <circle cx="-26" cy="0" r="66" fill={C.sky} opacity="0.9"/>
+      <circle cx="26" cy="0" r="66" fill={C.red} opacity="0.8"/>
+      <rect x="-9" y="-9" width="18" height="18" rx="2" fill={C.gold} transform="rotate(45,0,0)"/>
+    </g>
+  );
+}
+function bLock(bg) {
+  const t = bg === 'dark' ? C.white : C.ink;
+  const s = bg === 'dark' ? C.skyL : C.sky;
+  const bl = bg === 'dark' ? C.sky : C.blue;
+  return (
+    <g>
+      <circle cx="20" cy="30" r="20" fill={bl} opacity="0.9"/>
+      <circle cx="36" cy="30" r="20" fill={C.red} opacity="0.85"/>
+      <rect x="25" y="27" width="6" height="6" rx="1" fill={C.gold} transform="rotate(45,28,30)"/>
+      <line x1="66" y1="10" x2="66" y2="52" stroke={C.gold} strokeWidth="0.5" opacity="0.35"/>
+      <text x="76" y="28" fontFamily="Cormorant Garamond,serif" fontSize="20" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="76" y="44" fontFamily="DM Sans,sans-serif" fontSize="6" fill={s} letterSpacing="1.6">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   C: "OPEN BOOK"
+   
+   A book seen from above — two pages fanning open. 
+   Left page blue, right page red. The gold spine 
+   between them.
+   
+   A book of Mongolian linguistics, open to the world.
+   The asymmetry (blue slightly larger) gives it 
+   personality. The gold spine references the vertical 
+   axis of Mongolian script.
+   ══════════════════════════════════════════════════════════ */
+function cMarkL() {
+  return (
+    <g transform="translate(150,150)">
+      {/* Left page — blue */}
+      <path d="M -2,-78 Q -70,-68 -80,-2 Q -70,64 -2,74 L -2,-78 Z" fill={C.blue}/>
+      {/* Right page — red */}
+      <path d="M 2,-74 Q 65,-64 74,-2 Q 65,60 2,70 L 2,-74 Z" fill={C.red}/>
+      {/* Gold spine */}
+      <line x1="0" y1="-82" x2="0" y2="78" stroke={C.gold} strokeWidth="5" strokeLinecap="round"/>
+      {/* Small gold dot at top — head of a letter */}
+      <circle cx="0" cy="-88" r="5" fill={C.gold}/>
+    </g>
+  );
+}
+function cMarkD() {
+  return (
+    <g transform="translate(150,150)">
+      <path d="M -2,-78 Q -70,-68 -80,-2 Q -70,64 -2,74 L -2,-78 Z" fill={C.sky}/>
+      <path d="M 2,-74 Q 65,-64 74,-2 Q 65,60 2,70 L 2,-74 Z" fill={C.red} opacity="0.85"/>
+      <line x1="0" y1="-82" x2="0" y2="78" stroke={C.gold} strokeWidth="5" strokeLinecap="round"/>
+      <circle cx="0" cy="-88" r="5" fill={C.gold}/>
+    </g>
+  );
+}
+function cLock(bg) {
+  const t = bg === 'dark' ? C.white : C.ink;
+  const s = bg === 'dark' ? C.skyL : C.sky;
+  const bl = bg === 'dark' ? C.sky : C.blue;
+  return (
+    <g>
+      <path d="M 25,8 Q 4,11 2,30 Q 4,49 25,52 L 25,8 Z" fill={bl}/>
+      <path d="M 27,10 Q 46,13 48,30 Q 46,47 27,50 L 27,10 Z" fill={C.red} opacity="0.85"/>
+      <line x1="26" y1="6" x2="26" y2="54" stroke={C.gold} strokeWidth="2" strokeLinecap="round"/>
+      <circle cx="26" cy="4" r="2.2" fill={C.gold}/>
+      <line x1="60" y1="10" x2="60" y2="52" stroke={C.gold} strokeWidth="0.5" opacity="0.35"/>
+      <text x="70" y="28" fontFamily="Cormorant Garamond,serif" fontSize="20" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="70" y="44" fontFamily="DM Sans,sans-serif" fontSize="6" fill={s} letterSpacing="1.6">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   D: "THE ARC"
+   
+   A bold blue arc — the Eternal Blue Sky — rising over
+   a red horizon line. Between them: a gold circle (sun).
+   
+   Sky. Earth. Sun. The three elements of the Mongolian
+   landscape and cosmology, in the three national colors.
+   
+   The arc also reads as a protective embrace — the 
+   association sheltering and promoting Mongolic languages.
+   ══════════════════════════════════════════════════════════ */
+function dMarkL() {
+  return (
+    <g transform="translate(150,150)">
+      {/* Sky arc — blue */}
+      <path d="M -90,30 Q -90,-80 0,-90 Q 90,-80 90,30" fill="none" stroke={C.blue} strokeWidth="10" strokeLinecap="round"/>
+      {/* Earth line — red */}
+      <line x1="-90" y1="30" x2="90" y2="30" stroke={C.red} strokeWidth="7" strokeLinecap="round"/>
+      {/* Sun — gold */}
+      <circle cx="0" cy="-10" r="22" fill={C.gold}/>
+    </g>
+  );
+}
+function dMarkD() {
+  return (
+    <g transform="translate(150,150)">
+      <path d="M -90,30 Q -90,-80 0,-90 Q 90,-80 90,30" fill="none" stroke={C.skyL} strokeWidth="10" strokeLinecap="round"/>
+      <line x1="-90" y1="30" x2="90" y2="30" stroke={C.red} strokeWidth="7" strokeLinecap="round"/>
+      <circle cx="0" cy="-10" r="22" fill={C.gold}/>
+    </g>
+  );
+}
+function dLock(bg) {
+  const t = bg === 'dark' ? C.white : C.ink;
+  const s = bg === 'dark' ? C.skyL : C.sky;
+  const bl = bg === 'dark' ? C.skyL : C.blue;
+  return (
+    <g>
+      <path d="M 4,38 Q 4,10 26,6 Q 48,10 48,38" fill="none" stroke={bl} strokeWidth="4" strokeLinecap="round"/>
+      <line x1="4" y1="38" x2="48" y2="38" stroke={C.red} strokeWidth="3" strokeLinecap="round"/>
+      <circle cx="26" cy="24" r="8" fill={C.gold}/>
+      <line x1="60" y1="10" x2="60" y2="52" stroke={C.gold} strokeWidth="0.5" opacity="0.35"/>
+      <text x="70" y="28" fontFamily="Cormorant Garamond,serif" fontSize="20" fontWeight="700" fill={t} letterSpacing="3.5">IAML</text>
+      <text x="70" y="44" fontFamily="DM Sans,sans-serif" fontSize="6" fill={s} letterSpacing="1.6">THE INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</text>
+    </g>
+  );
+}
+
+
+function App() {
+  return (
+    <DesignCanvas title="IAML — Brand Identity v9" subtitle="Mongolian palette, not literal flag · 4 concepts">
+      <DCSection id="marks" title="Concepts">
+        <DCArtboard id="a" label="A — Circle & Stem" width={940} height={920}>
+          <Card markL={aMarkL()} markD={aMarkD()} lockL={aLock('light')} lockD={aLock('dark')}
+            name="CIRCLE & STEM"
+            text="Blue circle (world) + gold vertical line (Mongolian script axis) + red dot (energy, the head of a letter). Three colors, three elements. Instantly recognizable, scales to any size."
+          />
+        </DCArtboard>
+        
+        <DCArtboard id="b" label="B — The Lens" width={940} height={920}>
+          <Card markL={bMarkL()} markD={bMarkD()} lockL={bLock('light')} lockD={bLock('dark')}
+            name="THE LENS"
+            text="Blue (Mongolia) and red (the world) circles overlap. Gold diamond at the intersection — where languages meet. The overlap favors blue; Mongolia is the focus. Works single-color."
+          />
+        </DCArtboard>
+        
+        <DCArtboard id="c" label="C — Open Book" width={940} height={920}>
+          <Card markL={cMarkL()} markD={cMarkD()} lockL={cLock('light')} lockD={cLock('dark')}
+            name="OPEN BOOK"
+            text="A book seen from above: blue left page, red right page, gold spine. The spine doubles as the vertical axis of Mongolian script. Knowledge, language, openness."
+          />
+        </DCArtboard>
+        
+        <DCArtboard id="d" label="D — The Arc" width={940} height={920}>
+          <Card markL={dMarkL()} markD={dMarkD()} lockL={dLock('light')} lockD={dLock('dark')}
+            name="THE ARC"
+            text="Blue arc (Eternal Sky) rises over a red line (earth). Gold sun between them. Mongolian cosmology in three strokes. The arc also reads as a protective embrace over Mongolic languages."
+          />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

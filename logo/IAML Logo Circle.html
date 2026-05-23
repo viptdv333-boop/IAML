@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML Logo — Circle Version</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  background: #F6F4EF;
+  gap: 60px;
+  flex-wrap: wrap;
+  padding: 40px;
+}
+
+@keyframes skyShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes waveMove {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.circle {
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.circle--light {
+  background: #FFFFFF;
+}
+.circle--light::before {
+  content:'';
+  position:absolute; top:0; left:-100%;
+  width:300%; height:100%;
+  background:
+    radial-gradient(ellipse 400px 150px at 30% 50%, rgba(91,163,217,0.12), transparent),
+    radial-gradient(ellipse 350px 130px at 70% 40%, rgba(46,122,191,0.08), transparent);
+  animation: waveMove 12s linear infinite;
+  pointer-events:none;
+}
+
+.circle--dark {
+  background: linear-gradient(135deg, #015197, #2E7ABF, #5BA3D9, #2E7ABF, #015197);
+  background-size: 300% 300%;
+  animation: skyShift 8s ease-in-out infinite;
+}
+
+/* Border ring */
+.circle--light::after {
+  content:'';
+  position:absolute; inset:0;
+  border-radius:50%;
+  border: 2.5px solid #015197;
+  opacity: 0.15;
+  pointer-events:none;
+}
+.circle--dark::after {
+  content:'';
+  position:absolute; inset:0;
+  border-radius:50%;
+  border: 2.5px solid #D4A843;
+  opacity: 0.2;
+  pointer-events:none;
+}
+
+.mark {
+  display: flex; align-items: center;
+  position: relative; z-index: 1;
+}
+
+.mark img {
+  display: block; opacity: 0.65;
+  height: 180px; width: auto;
+}
+
+.mark .gold-line {
+  width: 2px; height: 180px;
+  background: #D4A843;
+  border-radius: 1px; flex-shrink: 0;
+  margin: 0 8px;
+}
+
+.mark .letters {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  height: 180px;
+}
+
+.mark .red-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #C4272F;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+
+.mark .letter {
+  font-family: 'EB Garamond', serif;
+  font-size: 38px; font-weight: 700;
+  line-height: 1.06; letter-spacing: 2px;
+}
+
+.col-blue { color: #015197; }
+.col-white { color: #FFFFFF; }
+.filt-blue { filter: brightness(0) invert(19%) sepia(96%) saturate(2000%) hue-rotate(198deg); }
+.filt-white { filter: brightness(0) invert(1); }
+
+.label {
+  text-align: center; margin-top: 16px;
+  font-size: 11px; color: #999; letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<div style="display:flex;flex-direction:column;align-items:center">
+  <div class="circle circle--light">
+    <div class="mark">
+      <img src="mongolian-m-narrow.png" class="filt-blue" alt="ᠮ" />
+      <div class="gold-line"></div>
+      <div class="letters">
+        <div class="red-dot"></div>
+        <span class="letter col-blue">I</span>
+        <span class="letter col-blue">A</span>
+        <span class="letter col-blue">M</span>
+        <span class="letter col-blue">L</span>
+      </div>
+    </div>
+  </div>
+  <div class="label">Light</div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center">
+  <div class="circle circle--dark">
+    <div class="mark">
+      <img src="mongolian-m-narrow.png" class="filt-white" alt="ᠮ" />
+      <div class="gold-line"></div>
+      <div class="letters">
+        <div class="red-dot"></div>
+        <span class="letter col-white">I</span>
+        <span class="letter col-white">A</span>
+        <span class="letter col-white">M</span>
+        <span class="letter col-white">L</span>
+      </div>
+    </div>
+  </div>
+  <div class="label">Dark</div>
+</div>
+
+</body>
+</html>

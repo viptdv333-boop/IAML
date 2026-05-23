@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAML Logo — Concept D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  background: #F6F4EF;
+}
+
+@keyframes skyShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.panel {
+  display: flex;
+  gap: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  max-width: 900px;
+  width: 90vw;
+}
+
+.side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  min-height: 400px;
+}
+
+@keyframes waveMove {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.side--light {
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.side--light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 300%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse 600px 200px at 30% 50%, rgba(91,163,217,0.12), transparent),
+    radial-gradient(ellipse 500px 180px at 70% 40%, rgba(46,122,191,0.08), transparent),
+    radial-gradient(ellipse 400px 250px at 50% 60%, rgba(91,163,217,0.06), transparent);
+  animation: waveMove 12s linear infinite;
+  pointer-events: none;
+}
+
+.side--dark {
+  background: linear-gradient(135deg, #015197, #2E7ABF, #5BA3D9, #2E7ABF, #015197);
+  background-size: 300% 300%;
+  animation: skyShift 8s ease-in-out infinite;
+}
+
+.mark {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  height: 220px;
+}
+
+.mongol-char {
+  height: 220px;
+  width: auto;
+  display: block;
+  opacity: 0.65;
+  transform: scaleX(0.6);
+  margin-right: -22px;
+  margin-left: -12px;
+}
+
+.mongol-char--blue {
+  filter: brightness(0) invert(19%) sepia(96%) saturate(2000%) hue-rotate(198deg);
+}
+
+.mongol-char--white {
+  filter: brightness(0) invert(1);
+}
+
+.gold-line {
+  width: 2px;
+  height: 220px;
+  background: #D4A843;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.letters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 220px;
+}
+
+.red-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #C4272F;
+  margin-bottom: 5px;
+  flex-shrink: 0;
+}
+
+.letter {
+  font-family: 'EB Garamond', serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: 2px;
+}
+
+.letter--blue { color: #015197; }
+.letter--white { color: #FFFFFF; }
+
+@media (max-width: 600px) {
+  .panel { flex-direction: column; }
+  .side { min-height: 300px; padding: 40px 24px; }
+  .mark { height: 180px; gap: 10px; }
+  .mongol-char { height: 180px; }
+  .gold-line { height: 180px; }
+  .letters { height: 180px; }
+  .letter { font-size: 38px; }
+}
+</style>
+</head>
+<body>
+
+<div class="panel">
+  <!-- Light version -->
+  <div class="side side--light">
+    <div class="mark">
+      <img src="mongolian-m.png" class="mongol-char mongol-char--blue" alt="ᠮ" />
+      <div class="gold-line"></div>
+      <div class="letters">
+        <div class="red-dot"></div>
+        <span class="letter letter--blue">I</span>
+        <span class="letter letter--blue">A</span>
+        <span class="letter letter--blue">M</span>
+        <span class="letter letter--blue">L</span>
+      </div>
+    </div>
+  </div>
+  <!-- Dark / gradient version -->
+  <div class="side side--dark">
+    <div class="mark">
+      <img src="mongolian-m.png" class="mongol-char mongol-char--white" alt="ᠮ" />
+      <div class="gold-line"></div>
+      <div class="letters">
+        <div class="red-dot"></div>
+        <span class="letter letter--white">I</span>
+        <span class="letter letter--white">A</span>
+        <span class="letter letter--white">M</span>
+        <span class="letter letter--white">L</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
