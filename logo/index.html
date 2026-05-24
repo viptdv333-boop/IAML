@@ -40,6 +40,34 @@
   .card .tag.guide{color:var(--red)}
   .card h3{font-family:"EB Garamond",serif;font-weight:600;font-size:18px;margin:0 0 4px;color:var(--ink)}
   .card p{margin:0;color:#5b6878;font-size:13px;line-height:1.45}
+
+  /* Leaderboard ------------------------------------------------------------ */
+  .lb-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px}
+  .lb-meta{display:flex;align-items:center;gap:12px;font-size:13px;color:#5b6878}
+  .lb-meta strong{color:var(--ink);font-variant-numeric:tabular-nums}
+  .lb-refresh{appearance:none;border:1px solid var(--line);background:#fff;color:var(--blue);
+    font:600 12px/1 "DM Sans",sans-serif;letter-spacing:.12em;text-transform:uppercase;
+    padding:8px 14px;border-radius:999px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+  .lb-refresh:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .lb-refresh[disabled]{opacity:.5;cursor:wait}
+  .lb-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .lb-table th,.lb-table td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+  .lb-table tr:last-child td{border-bottom:none}
+  .lb-table th{background:#fbfaf6;font:600 11px/1 "DM Sans",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5b6878}
+  .lb-rank{font-family:"EB Garamond",serif;font-weight:700;font-size:18px;color:var(--blue);width:48px}
+  .lb-rank.gold  {color:var(--gold)}
+  .lb-rank.silver{color:#8c96a3}
+  .lb-rank.bronze{color:#b07a3a}
+  .lb-name a{color:var(--ink);font-weight:600}
+  .lb-name a:hover{color:var(--red)}
+  .lb-bar-cell{width:40%}
+  .lb-bar{position:relative;height:8px;background:#eee5d2;border-radius:999px;overflow:hidden}
+  .lb-bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--blue),var(--sky));border-radius:999px;transition:width .4s ease}
+  .lb-votes{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;width:90px}
+  .lb-empty,.lb-error{padding:24px;text-align:center;color:#5b6878;font-size:14px;background:#fff;border:1px dashed var(--line);border-radius:10px}
+  .lb-error{color:var(--red);border-color:rgba(196,39,47,.4)}
+  .lb-note{margin-top:14px;font-size:12px;color:#5b6878;line-height:1.5}
+
   footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:#5b6878;font-size:13px}
   footer a{color:var(--blue)}
 </style>
@@ -54,6 +82,7 @@
       <a href="#guides">Brand Guides</a>
       <a href="#finalists">Concepts &amp; Finalists</a>
       <a href="#archive">Iteration Archive</a>
+      <a href="#leaderboard">Leaderboard</a>
     </nav>
     <nav class="crumbs"><a href="../">← Back to main site</a></nav>
   </div>
@@ -71,7 +100,7 @@
 
   <section id="finalists">
     <h2><span class="accent"></span>Concepts &amp; Finalists</h2>
-    <p class="lede">Final single marks selected during the concept defense — use them as standalone references.</p>
+    <p class="lede">Final single marks selected during the concept defense — use them as standalone references. Open any of them to cast a vote.</p>
     <div class="grid">
       <a class="card" href="IAML%20Logo%20Concepts.html"><span class="tag">Concepts</span><h3>Logo Concepts</h3><p>Summary board with the final shortlisted directions for the mark.</p></a>
       <a class="card" href="IAML%20Logo%20Circle.html"><span class="tag">Mark</span><h3>Logo Circle</h3><p>Standalone circular mark in its clean form.</p></a>
@@ -81,7 +110,7 @@
 
   <section id="archive">
     <h2><span class="accent"></span>Iteration Archive (v2 → v11)</h2>
-    <p class="lede">The full search for the form. Open any version to see where the idea stood at that step of the process.</p>
+    <p class="lede">The full search for the form. Open any version to see where the idea stood at that step — and like the ones you prefer.</p>
     <div class="grid">
       <a class="card" href="IAML%20Logo%20v2.html"><span class="tag">Iteration</span><h3>Logo v2</h3><p>First structural iteration.</p></a>
       <a class="card" href="IAML%20Logo%20v3.html"><span class="tag">Iteration</span><h3>Logo v3</h3><p>Balancing proportions.</p></a>
@@ -95,10 +124,110 @@
       <a class="card" href="IAML%20Logo%20v11.html"><span class="tag">Iteration</span><h3>Logo v11</h3><p>Latest version in the archive.</p></a>
     </div>
   </section>
+
+  <section id="leaderboard">
+    <div class="lb-head">
+      <div>
+        <h2><span class="accent"></span>Leaderboard</h2>
+        <p class="lede">Live tally of all design votes. Open any design page and tap the heart in the bottom-right corner to cast or remove a vote.</p>
+      </div>
+      <div class="lb-meta">
+        <span>Total votes: <strong id="lb-total">…</strong></span>
+        <span>Designs ranked: <strong id="lb-count">…</strong></span>
+        <button type="button" class="lb-refresh" id="lb-refresh">↻ Refresh</button>
+      </div>
+    </div>
+    <div id="lb-body"><div class="lb-empty">Loading live results…</div></div>
+    <p class="lb-note">Tally provided by <a href="https://jasoncameron.dev/abacus" target="_blank" rel="noopener">abacus</a>, a free anonymous counter service. One vote per browser per design (toggle to remove). No personal data is collected.</p>
+  </section>
 </main>
 
 <footer>
   © IAML · International Association for Mongolic Linguistics · <a href="../">main site</a>
 </footer>
+
+<script>
+(function(){
+  var API='https://abacus.jasoncameron.dev';
+  var NS='iaml-logo-votes-2026';
+  var DESIGNS=[
+    {slug:'concepts',    label:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
+    {slug:'mark-circle', label:'Logo Circle',   href:'IAML%20Logo%20Circle.html'},
+    {slug:'mark-d',      label:'Logo D',        href:'IAML%20Logo%20D.html'},
+    {slug:'logo-v2',     label:'Logo v2',       href:'IAML%20Logo%20v2.html'},
+    {slug:'logo-v3',     label:'Logo v3',       href:'IAML%20Logo%20v3.html'},
+    {slug:'logo-v4',     label:'Logo v4',       href:'IAML%20Logo%20v4.html'},
+    {slug:'logo-v5',     label:'Logo v5',       href:'IAML%20Logo%20v5.html'},
+    {slug:'logo-v6',     label:'Logo v6',       href:'IAML%20Logo%20v6.html'},
+    {slug:'logo-v7',     label:'Logo v7',       href:'IAML%20Logo%20v7.html'},
+    {slug:'logo-v8',     label:'Logo v8',       href:'IAML%20Logo%20v8.html'},
+    {slug:'logo-v9',     label:'Logo v9',       href:'IAML%20Logo%20v9.html'},
+    {slug:'logo-v10',    label:'Logo v10',      href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v11',    label:'Logo v11',      href:'IAML%20Logo%20v11.html'}
+  ];
+
+  var body=document.getElementById('lb-body');
+  var totalEl=document.getElementById('lb-total');
+  var countEl=document.getElementById('lb-count');
+  var btn=document.getElementById('lb-refresh');
+
+  function rankClass(i){ return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+
+  function getOne(d){
+    return fetch(API+'/get/'+NS+'/'+d.slug,{cache:'no-store'})
+      .then(function(r){return r.json();})
+      .then(function(j){return {slug:d.slug,label:d.label,href:d.href,votes:(j&&typeof j.value==='number')?j.value:0};})
+      .catch(function(){return {slug:d.slug,label:d.label,href:d.href,votes:null};});
+  }
+
+  function render(rows){
+    var total=0,counted=0;
+    rows.forEach(function(r){ if(r.votes!=null){ total+=Math.max(0,r.votes); counted++; } });
+    totalEl.textContent=total;
+    countEl.textContent=counted+' / '+rows.length;
+
+    rows.sort(function(a,b){
+      var av=a.votes==null?-1:a.votes, bv=b.votes==null?-1:b.votes;
+      if(bv!==av) return bv-av;
+      return a.label.localeCompare(b.label);
+    });
+    var max=Math.max(1,rows[0].votes||0);
+
+    var html='<table class="lb-table"><thead><tr>'
+           + '<th>#</th><th>Design</th><th>Share</th><th style="text-align:right">Votes</th>'
+           + '</tr></thead><tbody>';
+    rows.forEach(function(r,i){
+      var pct = r.votes==null ? 0 : Math.round((Math.max(0,r.votes)/max)*100);
+      html += '<tr>'
+           +    '<td class="lb-rank '+rankClass(i)+'">'+(i+1)+'</td>'
+           +    '<td class="lb-name"><a href="'+esc(r.href)+'">'+esc(r.label)+'</a></td>'
+           +    '<td class="lb-bar-cell"><div class="lb-bar"><i style="width:'+pct+'%"></i></div></td>'
+           +    '<td class="lb-votes">'+(r.votes==null?'—':r.votes)+'</td>'
+           +  '</tr>';
+    });
+    html += '</tbody></table>';
+    body.innerHTML = html;
+  }
+
+  function load(){
+    btn.disabled=true; btn.textContent='↻ Loading…';
+    body.innerHTML='<div class="lb-empty">Loading live results…</div>';
+    Promise.all(DESIGNS.map(getOne)).then(function(rows){
+      var allFailed = rows.every(function(r){return r.votes==null;});
+      if(allFailed){
+        body.innerHTML='<div class="lb-error">Could not reach the vote service. Try again in a moment.</div>';
+        totalEl.textContent='—'; countEl.textContent='—';
+      } else {
+        render(rows);
+      }
+      btn.disabled=false; btn.textContent='↻ Refresh';
+    });
+  }
+
+  btn.addEventListener('click',load);
+  load();
+})();
+</script>
 </body>
 </html>
