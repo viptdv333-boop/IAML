@@ -95,9 +95,9 @@
   .modal-back[data-open="1"]{display:flex}
   .modal{background:#fff;border-radius:14px;max-width:min(1100px,100%);max-height:100%;
     display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-  .modal-img-wrap{background:#f3efe2;padding:24px;display:flex;align-items:center;justify-content:center;
-    flex:1;min-height:0;overflow:auto}
-  .modal-img{max-width:100%;max-height:70vh;display:block;background:#fff;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+  .modal-img-wrap{background:#f3efe2;padding:24px;display:flex;align-items:flex-start;justify-content:center;
+    flex:1;min-height:0;max-height:78vh;overflow:auto;overscroll-behavior:contain}
+  .modal-img{max-width:100%;display:block;background:#fff;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.08);height:auto}
   .modal-info{padding:18px 24px;border-top:1px solid var(--line);display:flex;align-items:center;
     justify-content:space-between;gap:18px;flex-wrap:wrap}
   .modal-title{font:600 20px/1.2 "EB Garamond",serif;color:var(--ink);margin:0 0 4px}
@@ -199,10 +199,10 @@
   var DOWN_NS='iaml-logo-dislikes-2026';
 
   var DESIGNS = [
-    {slug:'brand-guide',  label:'IAML Brand Guide (hero)',         page:'Brand Guide',         href:'IAML%20Brand%20Guide.html'},
-    {slug:'circle-guide', label:'IAML Circle Guide (hero)',        page:'Circle Guide',        href:'IAML%20Logo%20Circle%20Guide.html'},
-    {slug:'mark-circle',  label:'Logo Circle (standalone)',        page:'Logo Circle',         href:'IAML%20Logo%20Circle.html'},
-    {slug:'mark-d',       label:'Logo D (Mongolian M)',            page:'Logo D',              href:'IAML%20Logo%20D.html'},
+    {slug:'brand-guide',  label:'IAML Brand Guide — full document',         page:'Full Brand Guide',  href:'IAML%20Brand%20Guide.html'},
+    {slug:'circle-guide', label:'IAML Logo Circle Guide — full document',   page:'Full Circle Guide', href:'IAML%20Logo%20Circle%20Guide.html'},
+    {slug:'mark-circle',  label:'Logo Circle — standalone mark',            page:'Logo Circle',       href:'IAML%20Logo%20Circle.html'},
+    {slug:'mark-d',       label:'Logo D — Mongolian M mark',                page:'Logo D',            href:'IAML%20Logo%20D.html'},
     {slug:'concepts__logo1', label:'Concept 1 — Academic Seal',    page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
     {slug:'concepts__logo5', label:'Concept 5 — Monogram Badge',   page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
     {slug:'concepts__logo7', label:'Concept 7 — Shield Crest',     page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
