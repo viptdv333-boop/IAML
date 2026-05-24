@@ -166,12 +166,6 @@
     <div class="grid" id="grid"></div>
   </section>
 
-  <div class="section-head">
-    <h2><span class="accent"></span>Source pages</h2>
-    <div class="lede">Open the originating design pages to see each logo in its full context.</div>
-  </div>
-  <div class="grid" id="pages-grid"></div>
-
 </main>
 
 <div class="modal-back" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
@@ -281,24 +275,6 @@
   ];
   DESIGNS.forEach(function(d){ d.img = 'catalog/img/' + d.slug + '.png'; });
 
-  var PAGES = [
-    {label:'IAML Brand Guide',       href:'IAML%20Brand%20Guide.html',       img:'catalog/img/brand-guide.png'},
-    {label:'IAML Logo Circle Guide', href:'IAML%20Logo%20Circle%20Guide.html',img:'catalog/img/circle-guide.png'},
-    {label:'Logo Concepts',          href:'IAML%20Logo%20Concepts.html',     img:'catalog/img/concepts__logo1.png'},
-    {label:'Logo Circle',            href:'IAML%20Logo%20Circle.html',       img:'catalog/img/mark-circle.png'},
-    {label:'Logo D',                 href:'IAML%20Logo%20D.html',            img:'catalog/img/mark-d.png'},
-    {label:'Logo v2',                href:'IAML%20Logo%20v2.html',           img:'catalog/img/logo-v2__m1.png'},
-    {label:'Logo v3',                href:'IAML%20Logo%20v3.html',           img:'catalog/img/logo-v3__m1.png'},
-    {label:'Logo v4',                href:'IAML%20Logo%20v4.html',           img:'catalog/img/logo-v4__m1.png'},
-    {label:'Logo v5',                href:'IAML%20Logo%20v5.html',           img:'catalog/img/logo-v5__a.png'},
-    {label:'Logo v6',                href:'IAML%20Logo%20v6.html',           img:'catalog/img/logo-v6__a.png'},
-    {label:'Logo v7',                href:'IAML%20Logo%20v7.html',           img:'catalog/img/logo-v7__seal.png'},
-    {label:'Logo v8',                href:'IAML%20Logo%20v8.html',           img:'catalog/img/logo-v8__crest.png'},
-    {label:'Logo v9',                href:'IAML%20Logo%20v9.html',           img:'catalog/img/logo-v9__a.png'},
-    {label:'Logo v10',               href:'IAML%20Logo%20v10.html',          img:'catalog/img/logo-v10__m1.png'},
-    {label:'Logo v11',               href:'IAML%20Logo%20v11.html',          img:'catalog/img/logo-v11__a.png'}
-  ];
-
   var counts = {};
   DESIGNS.forEach(function(d){ counts[d.slug] = {up:null, down:null}; });
   var currentSort = 'default';
@@ -330,9 +306,8 @@
   function getCount(ns, slug){ return tFetch(API+'/get/'+ns+'/'+slug).then(function(j){ return (j&&typeof j.value==='number')?j.value:null; }); }
   function hit(ns, slug){       return tFetch(API+'/hit/'+ns+'/'+slug).then(function(j){ return (j&&typeof j.value==='number')?j.value:null; }); }
 
-  var grid      = document.getElementById('grid');
-  var pagesGrid = document.getElementById('pages-grid');
-  var statsEl   = document.getElementById('stats');
+  var grid    = document.getElementById('grid');
+  var statsEl = document.getElementById('stats');
 
   function visibleDesigns(){
     var q = currentFilter.trim().toLowerCase();
@@ -370,7 +345,6 @@
     + '<div class="meta">'
     +   '<span class="page-tag">'+esc(d.page)+'</span>'
     +   '<h3>'+esc(d.label)+'</h3>'
-    +   '<div class="src-link"><a href="'+esc(d.href)+'" target="_blank" rel="noopener">View in source page →</a></div>'
     + '</div>'
     + '<div class="votes">'
     +   '<button type="button" class="vote-btn up"   data-pol="up"  ><span class="v-icon" aria-hidden="true">♥</span> Like <span class="v-count">' +(c.up==null?'·':c.up)+ '</span></button>'
@@ -393,21 +367,6 @@
     var frag = document.createDocumentFragment();
     rows.forEach(function(d){ frag.appendChild(cardEl(d)); });
     grid.appendChild(frag);
-  }
-
-  function renderPages(){
-    var frag = document.createDocumentFragment();
-    PAGES.forEach(function(p){
-      var a = document.createElement('a');
-      a.className = 'card';
-      a.href = p.href; a.target = '_blank'; a.rel = 'noopener';
-      a.style.textDecoration = 'none';
-      a.innerHTML =
-        '<div class="thumb" style="cursor:pointer"><img loading="lazy" src="'+esc(p.img)+'" alt="'+esc(p.label)+'"></div>'
-      + '<div class="meta"><span class="page-tag">Page</span><h3>'+esc(p.label)+'</h3></div>';
-      frag.appendChild(a);
-    });
-    pagesGrid.appendChild(frag);
   }
 
   function refreshCardCounts(slug){
@@ -519,7 +478,6 @@
   });
 
   renderGrid();
-  renderPages();
   DESIGNS.forEach(function(d){
     getCount(UP_NS,  d.slug).then(function(v){ counts[d.slug].up   = v; refreshCardCounts(d.slug); refreshStats(); });
     getCount(DOWN_NS, d.slug).then(function(v){ counts[d.slug].down = v; refreshCardCounts(d.slug); refreshStats(); });
