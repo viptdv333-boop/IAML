@@ -3,174 +3,199 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>IAML — Logo & Brand Archive</title>
-<meta name="description" content="Brand guides, finalist marks, and the full logo iteration archive for The International Association for Mongolic Linguistics (IAML)." />
+<title>IAML — Logo Catalog & Voting</title>
+<meta name="description" content="Vote on every logo concept and brand design proposed for The International Association for Mongolic Linguistics (IAML)." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
     --blue:#015197; --sky:#2E7ABF; --sky-light:#5BA3D9;
-    --red:#C4272F; --gold:#D4A843; --ink:#060E1A;
-    --paper:#F7F4EC; --line:rgba(6,14,26,.12);
+    --red:#C4272F; --ink:#060E1A; --ink-2:#3a4658;
+    --gold:#D4A843; --paper:#F7F4EC; --line:rgba(6,14,26,.12);
+    --card:#ffffff; --shadow:0 1px 3px rgba(6,14,26,.06), 0 8px 24px rgba(6,14,26,.06);
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
   a{color:var(--blue);text-decoration:none}
   a:hover{color:var(--red)}
-  header{background:linear-gradient(135deg,var(--blue) 0%,var(--sky) 100%);color:#fff;padding:64px 24px 48px;border-bottom:4px solid var(--gold)}
-  .wrap{max-width:1080px;margin:0 auto}
+  button{font-family:inherit}
+
+  header{background:linear-gradient(135deg,var(--blue) 0%,var(--sky) 100%);color:#fff;padding:48px 24px 40px;border-bottom:4px solid var(--gold)}
+  .wrap{max-width:1280px;margin:0 auto}
   .eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600}
-  h1{font-family:"EB Garamond",serif;font-weight:600;font-size:clamp(34px,5vw,56px);line-height:1.05;margin:8px 0 14px}
-  .sub{max-width:680px;color:rgba(255,255,255,.85);font-size:17px;line-height:1.55}
-  .toc{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px}
-  .toc a{display:inline-block;padding:8px 14px;border:1px solid rgba(255,255,255,.3);border-radius:999px;font-size:13px;color:#fff;background:rgba(255,255,255,.06);transition:background .15s ease,border-color .15s ease}
-  .toc a:hover{background:rgba(255,255,255,.15);border-color:var(--gold);color:#fff}
-  nav.crumbs{margin-top:20px;font-size:13px;color:rgba(255,255,255,.75)}
+  h1{font-family:"EB Garamond",serif;font-weight:600;font-size:clamp(30px,4.4vw,48px);line-height:1.05;margin:8px 0 12px}
+  header p.sub{max-width:720px;color:rgba(255,255,255,.85);font-size:16px;line-height:1.55;margin:0 0 12px}
+  nav.crumbs{margin-top:14px;font-size:13px;color:rgba(255,255,255,.75)}
   nav.crumbs a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4)}
-  main{padding:56px 24px 96px}
-  section{margin-bottom:56px;scroll-margin-top:24px}
-  h2{font-family:"EB Garamond",serif;font-weight:600;font-size:28px;margin:0 0 6px;color:var(--blue)}
-  h2 .accent{display:inline-block;width:32px;height:2px;background:var(--red);vertical-align:middle;margin-right:12px;transform:translateY(-4px)}
-  .lede{color:#3a4658;max-width:720px;margin:0 0 24px;font-size:15px;line-height:1.55}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-  .card{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
-  .card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(1,81,151,.12);border-color:var(--sky-light)}
-  .card .tag{display:inline-block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
-  .card .tag.guide{color:var(--red)}
-  .card h3{font-family:"EB Garamond",serif;font-weight:600;font-size:18px;margin:0 0 4px;color:var(--ink)}
-  .card p{margin:0;color:#5b6878;font-size:13px;line-height:1.45}
 
-  /* Leaderboard ------------------------------------------------------------ */
-  .lb-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px}
-  .lb-meta{display:flex;align-items:center;gap:12px;font-size:13px;color:#5b6878}
-  .lb-meta strong{color:var(--ink);font-variant-numeric:tabular-nums}
-  .lb-refresh{appearance:none;border:1px solid var(--line);background:#fff;color:var(--blue);
-    font:600 12px/1 "DM Sans",sans-serif;letter-spacing:.12em;text-transform:uppercase;
-    padding:8px 14px;border-radius:999px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
-  .lb-refresh:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
-  .lb-refresh[disabled]{opacity:.5;cursor:wait}
-  .lb-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  .lb-table th,.lb-table td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
-  .lb-table tr:last-child td{border-bottom:none}
-  .lb-table th{background:#fbfaf6;font:600 11px/1 "DM Sans",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5b6878}
-  .lb-rank{font-family:"EB Garamond",serif;font-weight:700;font-size:18px;color:var(--blue);width:48px}
-  .lb-rank.gold  {color:var(--gold)}
-  .lb-rank.silver{color:#8c96a3}
-  .lb-rank.bronze{color:#b07a3a}
-  .lb-name a{color:var(--ink);font-weight:600}
-  .lb-name a:hover{color:var(--red)}
-  .lb-bar-cell{width:32%;min-width:180px}
-  .lb-bar-head{width:32%}
-  .lb-bars{display:flex;flex-direction:column;gap:5px}
-  .lb-bar{position:relative;height:7px;background:#eee5d2;border-radius:999px;overflow:hidden}
-  .lb-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;transition:width .4s ease}
-  .lb-bar-up   i{background:linear-gradient(90deg,#C4272F,#e35761)}
-  .lb-bar-down i{background:linear-gradient(90deg,#3a4658,#6b7686)}
-  .lb-num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;width:80px}
-  .lb-up-cell  {color:#C4272F}
-  .lb-down-cell{color:#3a4658}
-  .lb-net-pos {color:#C4272F}
-  .lb-net-neg {color:#3a4658}
-  .lb-net-zero{color:#5b6878}
-  .lb-dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:6px;vertical-align:middle;transform:translateY(-1px)}
-  .lb-dot-up  {background:#C4272F}
-  .lb-dot-down{background:#3a4658}
-  .lb-caret-cell{width:32px;padding:8px 4px 8px 12px}
-  .lb-caret{appearance:none;border:none;background:transparent;cursor:pointer;color:var(--blue);
-    font:600 14px/1 "DM Sans",sans-serif;padding:6px 8px;border-radius:6px;transition:background .12s}
-  .lb-caret:hover{background:rgba(1,81,151,.08)}
-  .lb-sub{font-size:11px;color:#5b6878;font-weight:400;letter-spacing:.04em;margin-top:3px}
-  .lb-detail-row td{padding:0;background:#fbfaf6;border-bottom:1px solid var(--line)}
-  .lb-detail-inner{padding:14px 18px 18px 56px}
-  .lb-detail-table{box-shadow:none;border:1px solid var(--line)}
-  .lb-detail-table th{background:#fff}
-  @media (max-width:680px){
-    .lb-table th,.lb-table td{padding:10px 8px;font-size:13px}
-    .lb-bar-cell{display:none}
-    .lb-bar-head{display:none}
+  main{padding:32px 24px 80px}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;margin-bottom:24px;box-shadow:var(--shadow);position:sticky;top:8px;z-index:50}
+  .search{flex:1 1 220px;min-width:200px;display:flex;align-items:center;gap:10px;
+    background:#fbfaf6;border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+  .search input{border:0;background:transparent;outline:none;width:100%;font:500 14px/1 "DM Sans",sans-serif;color:var(--ink)}
+  .search svg{flex:0 0 16px;opacity:.5}
+  .sorts{display:flex;gap:6px;flex-wrap:wrap}
+  .sort-btn{appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink-2);
+    font:600 11px/1 "DM Sans",sans-serif;letter-spacing:.1em;text-transform:uppercase;
+    padding:9px 14px;border-radius:999px;cursor:pointer;transition:.15s ease}
+  .sort-btn:hover{border-color:var(--blue);color:var(--blue)}
+  .sort-btn[aria-pressed="true"]{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .toolbar-stats{font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+  .toolbar-stats strong{color:var(--ink);font-weight:700}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(1,81,151,.15);border-color:var(--sky-light)}
+  .thumb{appearance:none;border:0;background:#f3efe2;padding:0;display:block;width:100%;aspect-ratio:4/3;
+    cursor:zoom-in;overflow:hidden;position:relative}
+  .thumb img{width:100%;height:100%;object-fit:contain;display:block;background:#fff;transition:transform .25s ease}
+  .thumb:hover img{transform:scale(1.04)}
+  .thumb::after{content:'⤢';position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;
+    width:26px;height:26px;border-radius:999px;display:flex;align-items:center;justify-content:center;
+    font-size:13px;opacity:0;transition:opacity .15s ease}
+  .thumb:hover::after,.thumb:focus-visible::after{opacity:1}
+  .meta{padding:12px 14px 8px;flex:1;display:flex;flex-direction:column;gap:4px}
+  .meta h3{margin:0;font:600 14px/1.25 "EB Garamond",serif;color:var(--ink);font-size:15px}
+  .meta .page-tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .meta .src-link{margin-top:auto;font-size:11px;color:var(--ink-2);padding-top:4px}
+  .meta .src-link a{color:var(--ink-2);border-bottom:1px dotted var(--line)}
+  .meta .src-link a:hover{color:var(--blue)}
+
+  .votes{display:flex;border-top:1px solid var(--line);background:#fbfaf6}
+  .vote-btn{flex:1;appearance:none;border:0;background:transparent;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 8px;
+    color:var(--blue);font:600 13px/1 "DM Sans",sans-serif;
+    transition:background .15s ease,color .15s ease}
+  .vote-btn:hover{background:rgba(1,81,151,.07)}
+  .vote-btn + .vote-btn{border-left:1px solid var(--line)}
+  .vote-btn .v-icon{font-size:15px;line-height:1}
+  .vote-btn .v-count{font:700 14px/1 "EB Garamond",serif;font-variant-numeric:tabular-nums;min-width:18px;text-align:right}
+  .card[data-voted="up"]   .vote-btn.up  {background:linear-gradient(135deg,#C4272F,#a91d24);color:#fff}
+  .card[data-voted="down"] .vote-btn.down{background:linear-gradient(135deg,#3a4658,#1f2937);color:#fff}
+  .card[data-voted="up"]   .vote-btn.down,
+  .card[data-voted="down"] .vote-btn.up{opacity:.45;cursor:default}
+  .card[data-voted]:not([data-voted="0"]) .vote-btn{cursor:default}
+  .card[data-voted]:not([data-voted="0"]) .vote-btn:hover{background:transparent}
+  .card[data-voted="up"]   .vote-btn.up:hover  {background:linear-gradient(135deg,#d12a32,#b41f27)}
+  .card[data-voted="down"] .vote-btn.down:hover{background:linear-gradient(135deg,#475266,#2a3340)}
+  .card[aria-busy="true"] .votes{opacity:.55;pointer-events:none}
+
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin:48px 0 16px}
+  .section-head h2{font:600 22px/1.1 "EB Garamond",serif;color:var(--blue);margin:0}
+  .section-head h2 .accent{display:inline-block;width:26px;height:2px;background:var(--red);vertical-align:middle;margin-right:10px;transform:translateY(-4px)}
+  .section-head .lede{font-size:13px;color:var(--ink-2)}
+
+  .modal-back{position:fixed;inset:0;background:rgba(6,14,26,.78);backdrop-filter:blur(4px);
+    display:none;align-items:center;justify-content:center;padding:24px;z-index:9999}
+  .modal-back[data-open="1"]{display:flex}
+  .modal{background:#fff;border-radius:14px;max-width:min(1100px,100%);max-height:100%;
+    display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .modal-img-wrap{background:#f3efe2;padding:24px;display:flex;align-items:center;justify-content:center;
+    flex:1;min-height:0;overflow:auto}
+  .modal-img{max-width:100%;max-height:70vh;display:block;background:#fff;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+  .modal-info{padding:18px 24px;border-top:1px solid var(--line);display:flex;align-items:center;
+    justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .modal-title{font:600 20px/1.2 "EB Garamond",serif;color:var(--ink);margin:0 0 4px}
+  .modal-page{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .modal-actions{display:flex;gap:8px;align-items:center}
+  .modal-vote{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .modal-vote button{appearance:none;border:0;cursor:pointer;background:#fff;color:var(--blue);
+    padding:10px 18px;font:600 14px/1 "DM Sans",sans-serif;display:flex;align-items:center;gap:8px;
+    transition:background .15s,color .15s}
+  .modal-vote button:hover{background:rgba(1,81,151,.07)}
+  .modal-vote button + button{border-left:1px solid var(--line)}
+  .modal-vote .v-count{font:700 16px/1 "EB Garamond",serif;font-variant-numeric:tabular-nums}
+  .modal-vote[data-voted="up"]   button.up  {background:linear-gradient(135deg,#C4272F,#a91d24);color:#fff}
+  .modal-vote[data-voted="down"] button.down{background:linear-gradient(135deg,#3a4658,#1f2937);color:#fff}
+  .modal-vote[data-voted="up"]   button.down,
+  .modal-vote[data-voted="down"] button.up{opacity:.4;cursor:default}
+  .modal-close{appearance:none;border:1px solid var(--line);background:#fff;cursor:pointer;
+    width:36px;height:36px;border-radius:999px;font-size:18px;color:var(--ink);transition:.12s}
+  .modal-close:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .modal-src{font-size:12px;color:var(--ink-2)}
+  .modal-src a{color:var(--blue)}
+
+  .empty{padding:60px 20px;text-align:center;color:var(--ink-2);background:#fff;border:1px dashed var(--line);border-radius:12px}
+
+  footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--ink-2);font-size:13px;margin-top:40px}
+
+  @media (max-width:560px){
+    header{padding:36px 20px 32px}
+    main{padding:18px 14px 60px}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .meta h3{font-size:14px}
+    .vote-btn{font-size:12px;padding:10px 6px}
+    .vote-btn .v-icon{font-size:13px}
+    .toolbar{position:static}
   }
-  .lb-empty,.lb-error{padding:24px;text-align:center;color:#5b6878;font-size:14px;background:#fff;border:1px dashed var(--line);border-radius:10px}
-  .lb-error{color:var(--red);border-color:rgba(196,39,47,.4)}
-  .lb-note{margin-top:14px;font-size:12px;color:#5b6878;line-height:1.5}
-
-  footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:#5b6878;font-size:13px}
-  footer a{color:var(--blue)}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <div class="eyebrow">IAML · Visual Identity Archive</div>
-    <h1>Logo &amp; Brand Guides</h1>
-    <p class="sub">Official brand guides and the complete logo iteration archive for The International Association for Mongolic Linguistics. Maintained for the internal team, design partners, and official representatives of the organization.</p>
-    <nav class="toc" aria-label="Sections">
-      <a href="#guides">Brand Guides</a>
-      <a href="#finalists">Concepts &amp; Finalists</a>
-      <a href="#archive">Iteration Archive</a>
-      <a href="#leaderboard">Leaderboard</a>
-    </nav>
+    <div class="eyebrow">IAML · Visual Identity Catalog</div>
+    <h1>Logo Catalog &amp; Voting</h1>
+    <p class="sub">Every IAML logo proposal in one place — 73 designs across 11 explorations and 2 brand-guide hero looks. Like or dislike to shape the shortlist. One vote per browser per design.</p>
     <nav class="crumbs"><a href="../">← Back to main site</a></nav>
   </div>
 </header>
 
 <main class="wrap">
-  <section id="guides">
-    <h2><span class="accent"></span>Brand Guides</h2>
-    <p class="lede">The canonical documents. Use these first for any external application — print, web, partners, or press. Open either to vote.</p>
-    <div class="grid">
-      <a class="card" href="IAML%20Brand%20Guide.html"><span class="tag guide">Guide · Primary</span><h3>IAML Brand Guide</h3><p>Primary wordmark without the circle: variants, colors, typography, and clear space.</p></a>
-      <a class="card" href="IAML%20Logo%20Circle%20Guide.html"><span class="tag guide">Guide · Circle</span><h3>IAML Logo Circle Guide</h3><p>Circular logo lock-up: scaling, monochrome and color applications, do's and don'ts.</p></a>
+
+  <section class="toolbar" aria-label="Catalog controls">
+    <label class="search">
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M11.74 10.34a6 6 0 1 0-1.4 1.4l3.5 3.5a1 1 0 0 0 1.42-1.42l-3.52-3.48ZM7 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"/></svg>
+      <input id="search" type="search" placeholder="Search — name, page (e.g. ulzii, v7, eagle)…" autocomplete="off" />
+    </label>
+    <div class="sorts" role="tablist" aria-label="Sort order">
+      <button class="sort-btn" data-sort="default" aria-pressed="true">Default</button>
+      <button class="sort-btn" data-sort="top"     aria-pressed="false">Top voted</button>
+      <button class="sort-btn" data-sort="liked"   aria-pressed="false">Most ♥</button>
+      <button class="sort-btn" data-sort="hated"   aria-pressed="false">Most ✖</button>
+      <button class="sort-btn" data-sort="hot"     aria-pressed="false">Most votes</button>
     </div>
+    <div class="toolbar-stats" id="stats">Loading votes…</div>
   </section>
 
-  <section id="finalists">
-    <h2><span class="accent"></span>Concepts &amp; Finalists</h2>
-    <p class="lede">Final single marks selected during the concept defense — use them as standalone references. Open any of them to cast a vote.</p>
-    <div class="grid">
-      <a class="card" href="IAML%20Logo%20Concepts.html"><span class="tag">Concepts</span><h3>Logo Concepts</h3><p>Summary board with the final shortlisted directions for the mark.</p></a>
-      <a class="card" href="IAML%20Logo%20Circle.html"><span class="tag">Mark</span><h3>Logo Circle</h3><p>Standalone circular mark in its clean form.</p></a>
-      <a class="card" href="IAML%20Logo%20D.html"><span class="tag">Mark</span><h3>Logo D</h3><p>Alternative direction built around the traditional Mongolian “M”.</p></a>
-    </div>
+  <section id="grid-section">
+    <div class="grid" id="grid"></div>
   </section>
 
-  <section id="archive">
-    <h2><span class="accent"></span>Iteration Archive (v2 → v11)</h2>
-    <p class="lede">The full search for the form. Open any version to see where the idea stood at that step — and like the ones you prefer.</p>
-    <div class="grid">
-      <a class="card" href="IAML%20Logo%20v2.html"><span class="tag">Iteration</span><h3>Logo v2</h3><p>First structural iteration.</p></a>
-      <a class="card" href="IAML%20Logo%20v3.html"><span class="tag">Iteration</span><h3>Logo v3</h3><p>Balancing proportions.</p></a>
-      <a class="card" href="IAML%20Logo%20v4.html"><span class="tag">Iteration</span><h3>Logo v4</h3><p>Stroke weight studies.</p></a>
-      <a class="card" href="IAML%20Logo%20v5.html"><span class="tag">Iteration</span><h3>Logo v5</h3><p>Refining the monogram.</p></a>
-      <a class="card" href="IAML%20Logo%20v6.html"><span class="tag">Iteration</span><h3>Logo v6</h3><p>Extended set of applications.</p></a>
-      <a class="card" href="IAML%20Logo%20v7.html"><span class="tag">Iteration</span><h3>Logo v7</h3><p>Typographic explorations.</p></a>
-      <a class="card" href="IAML%20Logo%20v8.html"><span class="tag">Iteration</span><h3>Logo v8</h3><p>Compositional grid pass.</p></a>
-      <a class="card" href="IAML%20Logo%20v9.html"><span class="tag">Iteration</span><h3>Logo v9</h3><p>Color system revision.</p></a>
-      <a class="card" href="IAML%20Logo%20v10.html"><span class="tag">Iteration</span><h3>Logo v10</h3><p>Assembled from the marks components.</p></a>
-      <a class="card" href="IAML%20Logo%20v11.html"><span class="tag">Iteration</span><h3>Logo v11</h3><p>Latest version in the archive.</p></a>
-    </div>
-  </section>
+  <div class="section-head">
+    <h2><span class="accent"></span>Source pages</h2>
+    <div class="lede">Open the originating design pages to see each logo in its full context.</div>
+  </div>
+  <div class="grid" id="pages-grid"></div>
 
-  <section id="leaderboard">
-    <div class="lb-head">
-      <div>
-        <h2><span class="accent"></span>Leaderboard</h2>
-        <p class="lede">Live tally of all design votes. Each individual logo gets its own vote — open a page and use the Like / Dislike buttons under each design. One vote per browser per design (final, no undo). Row totals aggregate every logo on that page; click ▸ to drill into the per-logo breakdown.</p>
-      </div>
-      <div class="lb-meta">
-        <span><span class="lb-dot lb-dot-up"></span>Likes: <strong id="lb-total-up">…</strong></span>
-        <span><span class="lb-dot lb-dot-down"></span>Dislikes: <strong id="lb-total-down">…</strong></span>
-        <span>Net: <strong id="lb-total-net">…</strong></span>
-        <button type="button" class="lb-refresh" id="lb-refresh">↻ Refresh</button>
-      </div>
-    </div>
-    <div id="lb-body"><div class="lb-empty">Loading live results…</div></div>
-    <p class="lb-note">Tally provided by <a href="https://jasoncameron.dev/abacus" target="_blank" rel="noopener">abacus</a>, a free anonymous counter service. One vote per browser per design (Like or Dislike, toggle to remove). No personal data is collected.</p>
-  </section>
 </main>
 
+<div class="modal-back" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal">
+    <div class="modal-img-wrap"><img class="modal-img" id="modal-img" alt="" /></div>
+    <div class="modal-info">
+      <div>
+        <div class="modal-page" id="modal-page">—</div>
+        <h2 class="modal-title" id="modal-title">—</h2>
+        <div class="modal-src">Source: <a id="modal-src" href="#" target="_blank" rel="noopener">open page</a></div>
+      </div>
+      <div class="modal-actions">
+        <div class="modal-vote" id="modal-vote">
+          <button type="button" class="up"   id="modal-up"  ><span aria-hidden="true">♥</span> Like <span class="v-count" id="modal-up-c">·</span></button>
+          <button type="button" class="down" id="modal-down"><span aria-hidden="true">✖</span> Dislike <span class="v-count" id="modal-down-c">·</span></button>
+        </div>
+        <button class="modal-close" id="modal-close" type="button" aria-label="Close">×</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer>
-  © IAML · International Association for Mongolic Linguistics · <a href="../">main site</a>
+  © IAML · International Association for Mongolic Linguistics · <a href="../">main site</a> · tally via <a href="https://jasoncameron.dev/abacus" target="_blank" rel="noopener">abacus</a>
 </footer>
 
 <script>
@@ -179,273 +204,326 @@
   var UP_NS='iaml-logo-votes-2026';
   var DOWN_NS='iaml-logo-dislikes-2026';
 
-  /* Top-level (page) entries — 4 single-design plain HTML + 11 React pages */
-  var DESIGNS=[
-    {slug:'brand-guide',  label:'IAML Brand Guide',       href:'IAML%20Brand%20Guide.html'},
-    {slug:'circle-guide', label:'IAML Logo Circle Guide', href:'IAML%20Logo%20Circle%20Guide.html'},
-    {slug:'mark-circle',  label:'Logo Circle',            href:'IAML%20Logo%20Circle.html'},
-    {slug:'mark-d',       label:'Logo D',                 href:'IAML%20Logo%20D.html'},
-    {slug:'concepts',     label:'Logo Concepts',          href:'IAML%20Logo%20Concepts.html', cards:[
-      {id:'logo1', label:'Concept 1 — Academic Seal'},
-      {id:'logo5', label:'Concept 5 — Monogram Badge'},
-      {id:'logo7', label:'Concept 7 — Shield Crest'},
-      {id:'logo2', label:'Concept 2 — Eternal Blue Sky'},
-      {id:'logo3', label:'Concept 3 — Script Accent'},
-      {id:'logo6', label:'Concept 6 — Steppe Horizon'},
-      {id:'logo4', label:'Concept 4 — Geometric Knot'},
-      {id:'logo8', label:'Concept 8 — Dark / Reversed'}
-    ]},
-    {slug:'logo-v2',  label:'Logo v2',  href:'IAML%20Logo%20v2.html', cards:[
-      {id:'m1',label:'Vertical Script Pen'},{id:'m4',label:'Mongolian Letterform'},
-      {id:'m7',label:'Inscription Stele'},{id:'m2',label:'Speech Scroll'},
-      {id:'m5',label:'Open Book'},{id:'m3',label:'Abstract M'},
-      {id:'m6',label:'Linked Rings'},{id:'m8',label:'Endless Knot'}
-    ]},
-    {slug:'logo-v3',  label:'Logo v3',  href:'IAML%20Logo%20v3.html', cards:[
-      {id:'m2',label:'Golden Eagle'},{id:'m3',label:'Modern Ulzii Knot'},
-      {id:'m7',label:'Ger Silhouette'},{id:'m1',label:'Calligraphic Flow'},
-      {id:'m4',label:'Script Tower'},{id:'m6',label:'Quill & Crescent'},
-      {id:'m5',label:'Speech Forms'},{id:'m8',label:'Horizon Line'}
-    ]},
-    {slug:'logo-v4',  label:'Logo v4',  href:'IAML%20Logo%20v4.html', cards:[
-      {id:'m1',label:'Academic Seal'},{id:'m2',label:'Eternal Blue Sky'},
-      {id:'m6',label:'Script Accent Wordmark'},{id:'m3',label:'Golden Eagle'},
-      {id:'m4',label:'Ulzii Knot'},{id:'m7',label:'Ger Silhouette'},
-      {id:'m5',label:'Script Tower'},{id:'m8',label:'Horizon Line'}
-    ]},
-    {slug:'logo-v5',  label:'Logo v5',  href:'IAML%20Logo%20v5.html', cards:[
-      {id:'a',label:'A — The Spine'},{id:'f',label:'F — Circle & Stroke'},
-      {id:'b',label:'B — Crescent & Sun'},{id:'c',label:'C — The Gate'},
-      {id:'d',label:'D — Interlocking Arcs'},{id:'e',label:'E — Ulzii Minimal'}
-    ]},
-    {slug:'logo-v6',  label:'Logo v6',  href:'IAML%20Logo%20v6.html', cards:[
-      {id:'a',label:'A — Bichig (Script Column)'},{id:'c',label:'C — The Seal (Тамга)'},
-      {id:'b',label:'B — Soyombo Essence'},{id:'d',label:'D — Gateway Arch'},
-      {id:'e',label:'E — Double Crescent'},{id:'f',label:'F — The Column'}
-    ]},
-    {slug:'logo-v7',  label:'Logo v7',  href:'IAML%20Logo%20v7.html', cards:[
-      {id:'seal',label:'A — The Institutional Seal'},
-      {id:'monogram',label:'B — The Vertical Monogram'},
-      {id:'crescent',label:'C — Crescent & Sun'}
-    ]},
-    {slug:'logo-v8',  label:'Logo v8',  href:'IAML%20Logo%20v8.html', cards:[
-      {id:'crest',label:'A — The Crest'},{id:'stripes',label:'B — Three Stripes'},
-      {id:'circle',label:'C — Circle Seal'},{id:'soyombo',label:'D — Soyombo Modern'}
-    ]},
-    {slug:'logo-v9',  label:'Logo v9',  href:'IAML%20Logo%20v9.html', cards:[
-      {id:'a',label:'A — Circle & Stem'},{id:'b',label:'B — The Lens'},
-      {id:'c',label:'C — Open Book'},{id:'d',label:'D — The Arc'}
-    ]},
-    {slug:'logo-v10', label:'Logo v10', href:'IAML%20Logo%20v10.html', cards:[
-      {id:'m1',label:'1 — Crescent Embrace'},{id:'m2',label:'2 — Three Peaks'},
-      {id:'m3',label:'3 — Ring & Line'},{id:'m4',label:'4 — Brackets'},
-      {id:'m5',label:'5 — Stacked Bars'},{id:'m6',label:'6 — Chevron & Sun'},
-      {id:'m7',label:'7 — Knot Loops'},{id:'m8',label:'8 — Pillar'},
-      {id:'m9',label:'9 — Dialogue'},{id:'m10',label:'10 — Flame Drop'}
-    ]},
-    {slug:'logo-v11', label:'Logo v11', href:'IAML%20Logo%20v11.html', cards:[
-      {id:'a',label:'A — Typographic Monogram'},{id:'b',label:'B — Circle Mark'},
-      {id:'c',label:'C — Square Seal'},{id:'d',label:'D — Vertical Stack'}
-    ]}
+  var DESIGNS = [
+    {slug:'brand-guide',  label:'IAML Brand Guide (hero)',         page:'Brand Guide',         href:'IAML%20Brand%20Guide.html'},
+    {slug:'circle-guide', label:'IAML Circle Guide (hero)',        page:'Circle Guide',        href:'IAML%20Logo%20Circle%20Guide.html'},
+    {slug:'mark-circle',  label:'Logo Circle (standalone)',        page:'Logo Circle',         href:'IAML%20Logo%20Circle.html'},
+    {slug:'mark-d',       label:'Logo D (Mongolian M)',            page:'Logo D',              href:'IAML%20Logo%20D.html'},
+    {slug:'concepts__logo1', label:'Concept 1 — Academic Seal',    page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
+    {slug:'concepts__logo5', label:'Concept 5 — Monogram Badge',   page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
+    {slug:'concepts__logo7', label:'Concept 7 — Shield Crest',     page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
+    {slug:'concepts__logo2', label:'Concept 2 — Eternal Blue Sky', page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
+    {slug:'concepts__logo3', label:'Concept 3 — Script Accent',    page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
+    {slug:'concepts__logo6', label:'Concept 6 — Steppe Horizon',   page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
+    {slug:'concepts__logo4', label:'Concept 4 — Geometric Knot',   page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
+    {slug:'concepts__logo8', label:'Concept 8 — Dark / Reversed',  page:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
+    {slug:'logo-v2__m1', label:'v2 · Vertical Script Pen',   page:'Logo v2', href:'IAML%20Logo%20v2.html'},
+    {slug:'logo-v2__m4', label:'v2 · Mongolian Letterform',  page:'Logo v2', href:'IAML%20Logo%20v2.html'},
+    {slug:'logo-v2__m7', label:'v2 · Inscription Stele',     page:'Logo v2', href:'IAML%20Logo%20v2.html'},
+    {slug:'logo-v2__m2', label:'v2 · Speech Scroll',         page:'Logo v2', href:'IAML%20Logo%20v2.html'},
+    {slug:'logo-v2__m5', label:'v2 · Open Book',             page:'Logo v2', href:'IAML%20Logo%20v2.html'},
+    {slug:'logo-v2__m3', label:'v2 · Abstract M',            page:'Logo v2', href:'IAML%20Logo%20v2.html'},
+    {slug:'logo-v2__m6', label:'v2 · Linked Rings',          page:'Logo v2', href:'IAML%20Logo%20v2.html'},
+    {slug:'logo-v2__m8', label:'v2 · Endless Knot',          page:'Logo v2', href:'IAML%20Logo%20v2.html'},
+    {slug:'logo-v3__m2', label:'v3 · Golden Eagle',          page:'Logo v3', href:'IAML%20Logo%20v3.html'},
+    {slug:'logo-v3__m3', label:'v3 · Modern Ulzii Knot',     page:'Logo v3', href:'IAML%20Logo%20v3.html'},
+    {slug:'logo-v3__m7', label:'v3 · Ger Silhouette',        page:'Logo v3', href:'IAML%20Logo%20v3.html'},
+    {slug:'logo-v3__m1', label:'v3 · Calligraphic Flow',     page:'Logo v3', href:'IAML%20Logo%20v3.html'},
+    {slug:'logo-v3__m4', label:'v3 · Script Tower',          page:'Logo v3', href:'IAML%20Logo%20v3.html'},
+    {slug:'logo-v3__m6', label:'v3 · Quill & Crescent',      page:'Logo v3', href:'IAML%20Logo%20v3.html'},
+    {slug:'logo-v3__m5', label:'v3 · Speech Forms',          page:'Logo v3', href:'IAML%20Logo%20v3.html'},
+    {slug:'logo-v3__m8', label:'v3 · Horizon Line',          page:'Logo v3', href:'IAML%20Logo%20v3.html'},
+    {slug:'logo-v4__m1', label:'v4 · Academic Seal',         page:'Logo v4', href:'IAML%20Logo%20v4.html'},
+    {slug:'logo-v4__m2', label:'v4 · Eternal Blue Sky',      page:'Logo v4', href:'IAML%20Logo%20v4.html'},
+    {slug:'logo-v4__m6', label:'v4 · Script Accent Wordmark',page:'Logo v4', href:'IAML%20Logo%20v4.html'},
+    {slug:'logo-v4__m3', label:'v4 · Golden Eagle',          page:'Logo v4', href:'IAML%20Logo%20v4.html'},
+    {slug:'logo-v4__m4', label:'v4 · Ulzii Knot',            page:'Logo v4', href:'IAML%20Logo%20v4.html'},
+    {slug:'logo-v4__m7', label:'v4 · Ger Silhouette',        page:'Logo v4', href:'IAML%20Logo%20v4.html'},
+    {slug:'logo-v4__m5', label:'v4 · Script Tower',          page:'Logo v4', href:'IAML%20Logo%20v4.html'},
+    {slug:'logo-v4__m8', label:'v4 · Horizon Line',          page:'Logo v4', href:'IAML%20Logo%20v4.html'},
+    {slug:'logo-v5__a', label:'v5 · A — The Spine',          page:'Logo v5', href:'IAML%20Logo%20v5.html'},
+    {slug:'logo-v5__f', label:'v5 · F — Circle & Stroke',    page:'Logo v5', href:'IAML%20Logo%20v5.html'},
+    {slug:'logo-v5__b', label:'v5 · B — Crescent & Sun',     page:'Logo v5', href:'IAML%20Logo%20v5.html'},
+    {slug:'logo-v5__c', label:'v5 · C — The Gate',           page:'Logo v5', href:'IAML%20Logo%20v5.html'},
+    {slug:'logo-v5__d', label:'v5 · D — Interlocking Arcs',  page:'Logo v5', href:'IAML%20Logo%20v5.html'},
+    {slug:'logo-v5__e', label:'v5 · E — Ulzii Minimal',      page:'Logo v5', href:'IAML%20Logo%20v5.html'},
+    {slug:'logo-v6__a', label:'v6 · A — Bichig (Script Column)', page:'Logo v6', href:'IAML%20Logo%20v6.html'},
+    {slug:'logo-v6__c', label:'v6 · C — The Seal (Тамга)',       page:'Logo v6', href:'IAML%20Logo%20v6.html'},
+    {slug:'logo-v6__b', label:'v6 · B — Soyombo Essence',        page:'Logo v6', href:'IAML%20Logo%20v6.html'},
+    {slug:'logo-v6__d', label:'v6 · D — Gateway Arch',           page:'Logo v6', href:'IAML%20Logo%20v6.html'},
+    {slug:'logo-v6__e', label:'v6 · E — Double Crescent',        page:'Logo v6', href:'IAML%20Logo%20v6.html'},
+    {slug:'logo-v6__f', label:'v6 · F — The Column',             page:'Logo v6', href:'IAML%20Logo%20v6.html'},
+    {slug:'logo-v7__seal',     label:'v7 · A — The Institutional Seal', page:'Logo v7', href:'IAML%20Logo%20v7.html'},
+    {slug:'logo-v7__monogram', label:'v7 · B — The Vertical Monogram',  page:'Logo v7', href:'IAML%20Logo%20v7.html'},
+    {slug:'logo-v7__crescent', label:'v7 · C — Crescent & Sun',         page:'Logo v7', href:'IAML%20Logo%20v7.html'},
+    {slug:'logo-v8__crest',   label:'v8 · A — The Crest',         page:'Logo v8', href:'IAML%20Logo%20v8.html'},
+    {slug:'logo-v8__stripes', label:'v8 · B — Three Stripes',     page:'Logo v8', href:'IAML%20Logo%20v8.html'},
+    {slug:'logo-v8__circle',  label:'v8 · C — Circle Seal',       page:'Logo v8', href:'IAML%20Logo%20v8.html'},
+    {slug:'logo-v8__soyombo', label:'v8 · D — Soyombo Modern',    page:'Logo v8', href:'IAML%20Logo%20v8.html'},
+    {slug:'logo-v9__a', label:'v9 · A — Circle & Stem', page:'Logo v9', href:'IAML%20Logo%20v9.html'},
+    {slug:'logo-v9__b', label:'v9 · B — The Lens',      page:'Logo v9', href:'IAML%20Logo%20v9.html'},
+    {slug:'logo-v9__c', label:'v9 · C — Open Book',     page:'Logo v9', href:'IAML%20Logo%20v9.html'},
+    {slug:'logo-v9__d', label:'v9 · D — The Arc',       page:'Logo v9', href:'IAML%20Logo%20v9.html'},
+    {slug:'logo-v10__m1',  label:'v10 · 1 — Crescent Embrace', page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v10__m2',  label:'v10 · 2 — Three Peaks',      page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v10__m3',  label:'v10 · 3 — Ring & Line',      page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v10__m4',  label:'v10 · 4 — Brackets',         page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v10__m5',  label:'v10 · 5 — Stacked Bars',     page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v10__m6',  label:'v10 · 6 — Chevron & Sun',    page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v10__m7',  label:'v10 · 7 — Knot Loops',       page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v10__m8',  label:'v10 · 8 — Pillar',           page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v10__m9',  label:'v10 · 9 — Dialogue',         page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v10__m10', label:'v10 · 10 — Flame Drop',      page:'Logo v10', href:'IAML%20Logo%20v10.html'},
+    {slug:'logo-v11__a', label:'v11 · A — Typographic Monogram', page:'Logo v11', href:'IAML%20Logo%20v11.html'},
+    {slug:'logo-v11__b', label:'v11 · B — Circle Mark',          page:'Logo v11', href:'IAML%20Logo%20v11.html'},
+    {slug:'logo-v11__c', label:'v11 · C — Square Seal',          page:'Logo v11', href:'IAML%20Logo%20v11.html'},
+    {slug:'logo-v11__d', label:'v11 · D — Vertical Stack',       page:'Logo v11', href:'IAML%20Logo%20v11.html'}
+  ];
+  DESIGNS.forEach(function(d){ d.img = 'catalog/img/' + d.slug + '.png'; });
+
+  var PAGES = [
+    {label:'IAML Brand Guide',       href:'IAML%20Brand%20Guide.html',       img:'catalog/img/brand-guide.png'},
+    {label:'IAML Logo Circle Guide', href:'IAML%20Logo%20Circle%20Guide.html',img:'catalog/img/circle-guide.png'},
+    {label:'Logo Concepts',          href:'IAML%20Logo%20Concepts.html',     img:'catalog/img/concepts__logo1.png'},
+    {label:'Logo Circle',            href:'IAML%20Logo%20Circle.html',       img:'catalog/img/mark-circle.png'},
+    {label:'Logo D',                 href:'IAML%20Logo%20D.html',            img:'catalog/img/mark-d.png'},
+    {label:'Logo v2',                href:'IAML%20Logo%20v2.html',           img:'catalog/img/logo-v2__m1.png'},
+    {label:'Logo v3',                href:'IAML%20Logo%20v3.html',           img:'catalog/img/logo-v3__m1.png'},
+    {label:'Logo v4',                href:'IAML%20Logo%20v4.html',           img:'catalog/img/logo-v4__m1.png'},
+    {label:'Logo v5',                href:'IAML%20Logo%20v5.html',           img:'catalog/img/logo-v5__a.png'},
+    {label:'Logo v6',                href:'IAML%20Logo%20v6.html',           img:'catalog/img/logo-v6__a.png'},
+    {label:'Logo v7',                href:'IAML%20Logo%20v7.html',           img:'catalog/img/logo-v7__seal.png'},
+    {label:'Logo v8',                href:'IAML%20Logo%20v8.html',           img:'catalog/img/logo-v8__crest.png'},
+    {label:'Logo v9',                href:'IAML%20Logo%20v9.html',           img:'catalog/img/logo-v9__a.png'},
+    {label:'Logo v10',               href:'IAML%20Logo%20v10.html',          img:'catalog/img/logo-v10__m1.png'},
+    {label:'Logo v11',               href:'IAML%20Logo%20v11.html',          img:'catalog/img/logo-v11__a.png'}
   ];
 
-  var body=document.getElementById('lb-body');
-  var upTotalEl=document.getElementById('lb-total-up');
-  var downTotalEl=document.getElementById('lb-total-down');
-  var netTotalEl=document.getElementById('lb-total-net');
-  var btn=document.getElementById('lb-refresh');
+  var counts = {};
+  DESIGNS.forEach(function(d){ counts[d.slug] = {up:null, down:null}; });
+  var currentSort = 'default';
+  var currentFilter = '';
 
-  function rankClass(i){ return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
+  function getLs(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+  function setLs(k,v){ try { v?localStorage.setItem(k,v):localStorage.removeItem(k); } catch(e){} }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
-  function fmt(n){ return n>0?'+'+n:String(n); }
 
-  /* Throttled fetch — 1 request every 360ms to stay under abacus 30/IP/10s */
-  var queue=[], inFlight=0, lastStart=0;
-  function throttledGet(ns,key){
+  /* throttled abacus calls (1 / 360ms) */
+  var queue=[], lastStart=0;
+  function pump(){
+    if(!queue.length) return;
+    var now=Date.now(), since=now-lastStart;
+    if(since>=360){ lastStart=now; (queue.shift())(); pump(); }
+    else setTimeout(pump, 360-since);
+  }
+  function tFetch(url){
     return new Promise(function(resolve){
       queue.push(function(){
-        fetch(API+'/get/'+ns+'/'+key,{cache:'no-store'})
+        fetch(url,{cache:'no-store'})
           .then(function(r){return r.json();})
-          .then(function(j){resolve((j&&typeof j.value==='number')?j.value:null);})
+          .then(function(j){resolve(j);})
           .catch(function(){resolve(null);});
       });
       pump();
     });
   }
-  function pump(){
-    if(!queue.length) return;
-    var now=Date.now();
-    var since=now-lastStart;
-    if(since>=360){ lastStart=now; (queue.shift())(); pump(); }
-    else setTimeout(pump, 360-since);
+  function getCount(ns, slug){ return tFetch(API+'/get/'+ns+'/'+slug).then(function(j){ return (j&&typeof j.value==='number')?j.value:null; }); }
+  function hit(ns, slug){       return tFetch(API+'/hit/'+ns+'/'+slug).then(function(j){ return (j&&typeof j.value==='number')?j.value:null; }); }
+
+  var grid      = document.getElementById('grid');
+  var pagesGrid = document.getElementById('pages-grid');
+  var statsEl   = document.getElementById('stats');
+
+  function visibleDesigns(){
+    var q = currentFilter.trim().toLowerCase();
+    var list = DESIGNS.filter(function(d){
+      if(!q) return true;
+      return (d.label + ' ' + d.page + ' ' + d.slug).toLowerCase().indexOf(q) !== -1;
+    });
+    var scored = list.map(function(d){
+      var c = counts[d.slug] || {up:0,down:0};
+      var u = (c.up==null)?0:Math.max(0,c.up);
+      var dn= (c.down==null)?0:Math.max(0,c.down);
+      return {d:d, up:u, down:dn, net:u-dn, total:u+dn};
+    });
+    switch(currentSort){
+      case 'top':   scored.sort(function(a,b){return b.net - a.net || b.up-a.up || a.d.label.localeCompare(b.d.label);}); break;
+      case 'liked': scored.sort(function(a,b){return b.up  - a.up  || a.d.label.localeCompare(b.d.label);}); break;
+      case 'hated': scored.sort(function(a,b){return b.down- a.down|| a.d.label.localeCompare(b.d.label);}); break;
+      case 'hot':   scored.sort(function(a,b){return b.total-a.total|| a.d.label.localeCompare(b.d.label);}); break;
+      default: break;
+    }
+    return scored.map(function(x){return x.d;});
   }
-  function getPair(slug){
-    return Promise.all([ throttledGet(UP_NS,slug), throttledGet(DOWN_NS,slug) ])
-      .then(function(vs){ return {up:vs[0], down:vs[1]}; });
+
+  function cardEl(d){
+    var c = counts[d.slug] || {up:null,down:null};
+    var voted = getLs('iaml-vote-' + d.slug) || '0';
+    var card = document.createElement('article');
+    card.className = 'card';
+    card.setAttribute('data-slug', d.slug);
+    card.setAttribute('data-voted', voted);
+    card.innerHTML =
+      '<button type="button" class="thumb" aria-label="Open '+esc(d.label)+'">'
+    +   '<img loading="lazy" src="'+esc(d.img)+'" alt="'+esc(d.label)+'" />'
+    + '</button>'
+    + '<div class="meta">'
+    +   '<span class="page-tag">'+esc(d.page)+'</span>'
+    +   '<h3>'+esc(d.label)+'</h3>'
+    +   '<div class="src-link"><a href="'+esc(d.href)+'" target="_blank" rel="noopener">View in source page →</a></div>'
+    + '</div>'
+    + '<div class="votes">'
+    +   '<button type="button" class="vote-btn up"   data-pol="up"  ><span class="v-icon" aria-hidden="true">♥</span> Like <span class="v-count">' +(c.up==null?'·':c.up)+ '</span></button>'
+    +   '<button type="button" class="vote-btn down" data-pol="down"><span class="v-icon" aria-hidden="true">✖</span> Dislike <span class="v-count">' +(c.down==null?'·':c.down)+ '</span></button>'
+    + '</div>';
+    card.querySelector('.thumb').addEventListener('click', function(){ openModal(d); });
+    card.querySelectorAll('.vote-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ castVote(d, btn.getAttribute('data-pol')); });
+    });
+    return card;
   }
 
-  function renderRows(rows){
-    var totalUp=0,totalDown=0;
-    rows.forEach(function(r){
-      if(r.up!=null)   totalUp   += Math.max(0,r.up);
-      if(r.down!=null) totalDown += Math.max(0,r.down);
-    });
-    upTotalEl.textContent   = totalUp;
-    downTotalEl.textContent = totalDown;
-    netTotalEl.textContent  = fmt(totalUp-totalDown);
+  function renderGrid(){
+    var rows = visibleDesigns();
+    grid.innerHTML = '';
+    if(!rows.length){
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No designs match — try a different search.</div>';
+      return;
+    }
+    var frag = document.createDocumentFragment();
+    rows.forEach(function(d){ frag.appendChild(cardEl(d)); });
+    grid.appendChild(frag);
+  }
 
-    rows.forEach(function(r){
-      r._up   = r.up   == null ? 0 : Math.max(0,r.up);
-      r._down = r.down == null ? 0 : Math.max(0,r.down);
-      r._net  = r._up - r._down;
+  function renderPages(){
+    var frag = document.createDocumentFragment();
+    PAGES.forEach(function(p){
+      var a = document.createElement('a');
+      a.className = 'card';
+      a.href = p.href; a.target = '_blank'; a.rel = 'noopener';
+      a.style.textDecoration = 'none';
+      a.innerHTML =
+        '<div class="thumb" style="cursor:pointer"><img loading="lazy" src="'+esc(p.img)+'" alt="'+esc(p.label)+'"></div>'
+      + '<div class="meta"><span class="page-tag">Page</span><h3>'+esc(p.label)+'</h3></div>';
+      frag.appendChild(a);
     });
-    rows.sort(function(a,b){
-      if(b._net !== a._net) return b._net - a._net;
-      if(b._up  !== a._up)  return b._up  - a._up;
-      return a.label.localeCompare(b.label);
-    });
-    var maxAbs = 1;
-    rows.forEach(function(r){ maxAbs = Math.max(maxAbs, r._up, r._down); });
+    pagesGrid.appendChild(frag);
+  }
 
-    var html='<table class="lb-table"><thead><tr>'
-           + '<th></th><th>#</th><th>Design</th>'
-           + '<th class="lb-num"><span class="lb-dot lb-dot-up"></span>Likes</th>'
-           + '<th class="lb-num"><span class="lb-dot lb-dot-down"></span>Dislikes</th>'
-           + '<th class="lb-bar-head">Score</th>'
-           + '<th class="lb-num">Net</th>'
-           + '</tr></thead><tbody>';
-    rows.forEach(function(r,i){
-      var upPct   = Math.round((r._up   / maxAbs) * 100);
-      var downPct = Math.round((r._down / maxAbs) * 100);
-      var netCls  = r._net > 0 ? 'lb-net-pos' : (r._net < 0 ? 'lb-net-neg' : 'lb-net-zero');
-      var hasCards = r.cards && r.cards.length;
-      var caret = hasCards ? '<button type="button" class="lb-caret" data-slug="'+esc(r.slug)+'" aria-expanded="false" aria-label="Show per-logo votes">▸</button>' : '';
-      html += '<tr data-page-row="'+esc(r.slug)+'">'
-           +    '<td class="lb-caret-cell">'+caret+'</td>'
-           +    '<td class="lb-rank '+rankClass(i)+'">'+(i+1)+'</td>'
-           +    '<td class="lb-name"><a href="'+esc(r.href)+'">'+esc(r.label)+'</a>'
-           +      (hasCards ? '<div class="lb-sub">'+r.cards.length+' designs · totals shown</div>' : '')
-           +    '</td>'
-           +    '<td class="lb-num lb-up-cell">'  +(r.up==null?'—':r.up)+'</td>'
-           +    '<td class="lb-num lb-down-cell">'+(r.down==null?'—':r.down)+'</td>'
-           +    '<td class="lb-bar-cell">'
-           +      '<div class="lb-bars">'
-           +        '<div class="lb-bar lb-bar-up"><i style="width:'+upPct+'%"></i></div>'
-           +        '<div class="lb-bar lb-bar-down"><i style="width:'+downPct+'%"></i></div>'
-           +      '</div>'
-           +    '</td>'
-           +    '<td class="lb-num '+netCls+'">'+fmt(r._net)+'</td>'
-           +  '</tr>';
-      if(hasCards){
-        html += '<tr class="lb-detail-row" data-detail-for="'+esc(r.slug)+'" hidden>'
-             +    '<td colspan="7"><div class="lb-detail-inner" data-detail-body="'+esc(r.slug)+'">'
-             +      '<div class="lb-empty">Click ▸ to load individual logo votes.</div>'
-             +    '</div></td>'
-             +  '</tr>';
+  function refreshCardCounts(slug){
+    var c = counts[slug] || {up:null,down:null};
+    document.querySelectorAll('.card[data-slug="'+slug+'"]').forEach(function(card){
+      var up = card.querySelector('.vote-btn.up .v-count');
+      var dn = card.querySelector('.vote-btn.down .v-count');
+      if(up) up.textContent = (c.up==null?'·':c.up);
+      if(dn) dn.textContent = (c.down==null?'·':c.down);
+    });
+  }
+  function refreshStats(){
+    var totalUp=0, totalDown=0, loaded=0;
+    DESIGNS.forEach(function(d){
+      var c = counts[d.slug];
+      if(c.up != null || c.down != null) loaded++;
+      if(c.up   != null) totalUp   += Math.max(0,c.up);
+      if(c.down != null) totalDown += Math.max(0,c.down);
+    });
+    statsEl.innerHTML =
+        '<strong>'+totalUp+'</strong> ♥ &nbsp; '
+      + '<strong>'+totalDown+'</strong> ✖ &nbsp; '
+      + 'loaded <strong>'+loaded+'</strong>/'+DESIGNS.length;
+  }
+
+  function castVote(d, pol){
+    var lsKey = 'iaml-vote-' + d.slug;
+    if(getLs(lsKey)) return;
+    setLs(lsKey, pol);
+    document.querySelectorAll('.card[data-slug="'+d.slug+'"]').forEach(function(card){
+      card.setAttribute('data-voted', pol);
+      card.setAttribute('aria-busy', 'true');
+    });
+    if(modalState.slug === d.slug) modalVote.setAttribute('data-voted', pol);
+    var ns = (pol === 'up') ? UP_NS : DOWN_NS;
+    var pageSlug = d.slug.indexOf('__') !== -1 ? d.slug.split('__')[0] : null;
+    var promises = [ hit(ns, d.slug) ];
+    if(pageSlug) promises.push(hit(ns, pageSlug));
+    Promise.all(promises).then(function(vs){
+      var v = vs[0];
+      if(v == null){
+        setLs(lsKey, null);
+        document.querySelectorAll('.card[data-slug="'+d.slug+'"]').forEach(function(card){
+          card.setAttribute('data-voted','0'); card.removeAttribute('aria-busy');
+        });
+        return;
       }
-    });
-    html += '</tbody></table>';
-    body.innerHTML = html;
-    wireCarets(rows);
-  }
-
-  function wireCarets(rows){
-    var rowMap = {};
-    rows.forEach(function(r){ rowMap[r.slug] = r; });
-    body.querySelectorAll('.lb-caret').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var slug = btn.getAttribute('data-slug');
-        var row  = rowMap[slug];
-        var det  = body.querySelector('.lb-detail-row[data-detail-for="'+CSS.escape(slug)+'"]');
-        if(!row || !det) return;
-        var isOpen = det.hasAttribute('hidden') === false;
-        if(isOpen){
-          det.setAttribute('hidden','');
-          btn.setAttribute('aria-expanded','false');
-          btn.textContent = '▸';
-        } else {
-          det.removeAttribute('hidden');
-          btn.setAttribute('aria-expanded','true');
-          btn.textContent = '▾';
-          if(!det.dataset.loaded){
-            loadDetail(row, det.querySelector('.lb-detail-inner'));
-            det.dataset.loaded = '1';
-          }
-        }
-      });
-    });
-  }
-
-  function loadDetail(row, into){
-    into.innerHTML = '<div class="lb-empty">Loading '+row.cards.length+' designs…</div>';
-    var cards = row.cards.map(function(c){
-      return getPair(row.slug+'__'+c.id).then(function(vs){
-        return {id:c.id, label:c.label, up:vs.up, down:vs.down};
-      });
-    });
-    Promise.all(cards).then(function(rs){
-      rs.forEach(function(r){
-        r._up   = r.up   == null ? 0 : Math.max(0,r.up);
-        r._down = r.down == null ? 0 : Math.max(0,r.down);
-        r._net  = r._up - r._down;
-      });
-      rs.sort(function(a,b){
-        if(b._net !== a._net) return b._net - a._net;
-        if(b._up  !== a._up)  return b._up  - a._up;
-        return a.label.localeCompare(b.label);
-      });
-      var maxAbs = 1;
-      rs.forEach(function(r){ maxAbs = Math.max(maxAbs, r._up, r._down); });
-
-      var html='<table class="lb-table lb-detail-table"><thead><tr>'
-             + '<th>#</th><th>Design</th>'
-             + '<th class="lb-num">Likes</th><th class="lb-num">Dislikes</th>'
-             + '<th class="lb-bar-head">Score</th><th class="lb-num">Net</th>'
-             + '</tr></thead><tbody>';
-      rs.forEach(function(r,i){
-        var upPct   = Math.round((r._up   / maxAbs) * 100);
-        var downPct = Math.round((r._down / maxAbs) * 100);
-        var netCls  = r._net > 0 ? 'lb-net-pos' : (r._net < 0 ? 'lb-net-neg' : 'lb-net-zero');
-        html += '<tr>'
-             +    '<td class="lb-rank '+rankClass(i)+'">'+(i+1)+'</td>'
-             +    '<td class="lb-name">'+esc(r.label)+'</td>'
-             +    '<td class="lb-num lb-up-cell">'  +(r.up==null?'—':r.up)+'</td>'
-             +    '<td class="lb-num lb-down-cell">'+(r.down==null?'—':r.down)+'</td>'
-             +    '<td class="lb-bar-cell">'
-             +      '<div class="lb-bars">'
-             +        '<div class="lb-bar lb-bar-up"><i style="width:'+upPct+'%"></i></div>'
-             +        '<div class="lb-bar lb-bar-down"><i style="width:'+downPct+'%"></i></div>'
-             +      '</div>'
-             +    '</td>'
-             +    '<td class="lb-num '+netCls+'">'+fmt(r._net)+'</td>'
-             +  '</tr>';
-      });
-      html += '</tbody></table>';
-      into.innerHTML = html;
-    });
-  }
-
-  function load(){
-    btn.disabled=true; btn.textContent='↻ Loading…';
-    body.innerHTML='<div class="lb-empty">Loading live results…</div>';
-    Promise.all(DESIGNS.map(function(d){
-      return getPair(d.slug).then(function(vs){
-        return Object.assign({up:vs.up, down:vs.down}, d);
-      });
-    })).then(function(rows){
-      var allFailed = rows.every(function(r){return r.up==null && r.down==null;});
-      if(allFailed){
-        body.innerHTML='<div class="lb-error">Could not reach the vote service. Try again in a moment.</div>';
-        upTotalEl.textContent='—'; downTotalEl.textContent='—'; netTotalEl.textContent='—';
-      } else {
-        renderRows(rows);
+      counts[d.slug] = counts[d.slug] || {};
+      if(pol === 'up') counts[d.slug].up = v; else counts[d.slug].down = v;
+      refreshCardCounts(d.slug);
+      refreshStats();
+      if(modalState.slug === d.slug){
+        if(pol === 'up')   modalUpC.textContent   = v;
+        if(pol === 'down') modalDownC.textContent = v;
       }
-      btn.disabled=false; btn.textContent='↻ Refresh';
+      document.querySelectorAll('.card[data-slug="'+d.slug+'"]').forEach(function(card){ card.removeAttribute('aria-busy'); });
     });
   }
 
-  btn.addEventListener('click',load);
-  load();
+  var modalBack = document.getElementById('modal');
+  var modalImg  = document.getElementById('modal-img');
+  var modalTitle= document.getElementById('modal-title');
+  var modalPage = document.getElementById('modal-page');
+  var modalSrc  = document.getElementById('modal-src');
+  var modalUp   = document.getElementById('modal-up');
+  var modalDown = document.getElementById('modal-down');
+  var modalUpC  = document.getElementById('modal-up-c');
+  var modalDownC= document.getElementById('modal-down-c');
+  var modalVote = document.getElementById('modal-vote');
+  var modalState = {slug:null};
+
+  function openModal(d){
+    modalState.slug = d.slug;
+    modalImg.src = d.img; modalImg.alt = d.label;
+    modalTitle.textContent = d.label;
+    modalPage.textContent  = d.page;
+    modalSrc.href = d.href;
+    var c = counts[d.slug] || {};
+    modalUpC.textContent   = (c.up==null?'·':c.up);
+    modalDownC.textContent = (c.down==null?'·':c.down);
+    modalVote.setAttribute('data-voted', getLs('iaml-vote-'+d.slug) || '0');
+    modalBack.removeAttribute('hidden');
+    modalBack.setAttribute('data-open','1');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modalBack.setAttribute('hidden','');
+    modalBack.removeAttribute('data-open');
+    document.body.style.overflow = '';
+    modalState.slug = null;
+  }
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  modalBack.addEventListener('click', function(e){ if(e.target === modalBack) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+  modalUp.addEventListener('click',   function(){ var d = DESIGNS.find(function(x){return x.slug===modalState.slug;}); if(d) castVote(d, 'up'); });
+  modalDown.addEventListener('click', function(){ var d = DESIGNS.find(function(x){return x.slug===modalState.slug;}); if(d) castVote(d, 'down'); });
+
+  document.getElementById('search').addEventListener('input', function(e){
+    currentFilter = e.target.value;
+    renderGrid();
+  });
+  document.querySelectorAll('.sort-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.sort-btn').forEach(function(b){b.setAttribute('aria-pressed','false');});
+      btn.setAttribute('aria-pressed','true');
+      currentSort = btn.getAttribute('data-sort');
+      renderGrid();
+    });
+  });
+
+  renderGrid();
+  renderPages();
+  DESIGNS.forEach(function(d){
+    getCount(UP_NS,  d.slug).then(function(v){ counts[d.slug].up   = v; refreshCardCounts(d.slug); refreshStats(); });
+    getCount(DOWN_NS, d.slug).then(function(v){ counts[d.slug].down = v; refreshCardCounts(d.slug); refreshStats(); });
+  });
 })();
 </script>
 </body>
