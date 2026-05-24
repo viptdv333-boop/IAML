@@ -21,52 +21,76 @@
   };
 
   var slug  = window.IAML_LOGO_SLUG;
-  var label = window.IAML_LOGO_LABEL || slug || '';
-  if (!slug || !KEYS[slug]) return; // no slug declared → do nothing
+  var label = window.IAML_LOGO_LABEL || slug || 'this design';
+  if (!slug || !KEYS[slug]) return;
   var token = KEYS[slug];
   var lsKey = 'iaml-vote-' + slug;
 
-  /* Styles ---------------------------------------------------------------- */
+  /* Styles — big, centered bottom dock --------------------------------- */
   var css = ''
-    + '.iaml-vote-fab{position:fixed;right:20px;bottom:20px;z-index:2147483000;'
-    + 'display:flex;align-items:center;gap:12px;padding:12px 18px;'
+    + '.iaml-vote-dock{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);'
+    + 'z-index:2147483000;display:flex;align-items:center;gap:18px;'
+    + 'padding:18px 28px 18px 24px;min-width:280px;max-width:calc(100vw - 32px);'
     + 'background:#ffffff;color:#015197;'
-    + 'border:1px solid rgba(6,14,26,.15);border-radius:999px;'
-    + 'font:600 14px/1 "DM Sans",system-ui,-apple-system,sans-serif;'
-    + 'box-shadow:0 10px 28px rgba(1,81,151,.18);'
+    + 'border:1px solid rgba(6,14,26,.12);border-radius:999px;'
+    + 'font:600 16px/1 "DM Sans",system-ui,-apple-system,sans-serif;'
+    + 'box-shadow:0 18px 48px rgba(1,81,151,.28),0 4px 12px rgba(1,81,151,.12);'
     + 'cursor:pointer;user-select:none;'
-    + 'transition:transform .15s ease,background .15s ease,color .15s ease,border-color .15s ease,box-shadow .15s ease}'
-    + '.iaml-vote-fab:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(1,81,151,.22)}'
-    + '.iaml-vote-fab[data-voted="1"]{background:#C4272F;color:#fff;border-color:#C4272F}'
-    + '.iaml-vote-fab[data-voted="1"]:hover{background:#a91d24;border-color:#a91d24}'
-    + '.iaml-vote-fab .ivf-heart{font-size:18px;line-height:1}'
-    + '.iaml-vote-fab .ivf-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.85}'
-    + '.iaml-vote-fab .ivf-count{font-variant-numeric:tabular-nums;min-width:18px;text-align:right;'
-    + 'padding-left:10px;margin-left:2px;border-left:1px solid currentColor;opacity:.9}'
-    + '.iaml-vote-fab[aria-busy="true"]{opacity:.55;pointer-events:none}'
-    + '@media (max-width:480px){.iaml-vote-fab{right:12px;bottom:12px;padding:10px 14px}}'
+    + 'transition:transform .18s ease,background .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease;'
+    + 'animation:iamlVotePulse 1.9s ease-out 0.4s 3 both}'
+    + '.iaml-vote-dock:hover{transform:translateX(-50%) translateY(-3px) scale(1.02);box-shadow:0 22px 56px rgba(1,81,151,.34),0 6px 14px rgba(1,81,151,.16);animation:none}'
+    + '.iaml-vote-dock:active{transform:translateX(-50%) translateY(0) scale(.98);animation:none}'
+    + '.iaml-vote-dock[data-voted="1"]{background:linear-gradient(135deg,#C4272F 0%,#a91d24 100%);color:#fff;border-color:#a91d24;animation:none}'
+    + '.iaml-vote-dock[data-voted="1"]:hover{background:linear-gradient(135deg,#d12a32 0%,#b41f27 100%);border-color:#a91d24}'
+    + '.iaml-vote-dock .ivf-heart{font-size:30px;line-height:1;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}'
+    + '.iaml-vote-dock[data-voted="1"] .ivf-heart{transform:scale(1.18)}'
+    + '.iaml-vote-dock .ivf-text{display:flex;flex-direction:column;gap:2px;text-align:left}'
+    + '.iaml-vote-dock .ivf-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;font-weight:700}'
+    + '.iaml-vote-dock[data-voted="1"] .ivf-label{opacity:.85}'
+    + '.iaml-vote-dock .ivf-action{font-size:17px;font-weight:700;letter-spacing:-.01em}'
+    + '.iaml-vote-dock .ivf-count{font:700 22px/1 "EB Garamond",serif;font-variant-numeric:tabular-nums;'
+    + 'min-width:36px;text-align:center;padding-left:18px;margin-left:4px;'
+    + 'border-left:1px solid currentColor;opacity:.95}'
+    + '.iaml-vote-dock[aria-busy="true"]{opacity:.6;pointer-events:none}'
+    + '@keyframes iamlVotePulse{'
+    + '0%{box-shadow:0 18px 48px rgba(1,81,151,.28),0 4px 12px rgba(1,81,151,.12),0 0 0 0 rgba(196,39,47,.55)}'
+    + '70%{box-shadow:0 18px 48px rgba(1,81,151,.28),0 4px 12px rgba(1,81,151,.12),0 0 0 22px rgba(196,39,47,0)}'
+    + '100%{box-shadow:0 18px 48px rgba(1,81,151,.28),0 4px 12px rgba(1,81,151,.12),0 0 0 0 rgba(196,39,47,0)}}'
+    + '@keyframes iamlVotePop{0%{transform:scale(1)}50%{transform:scale(1.45)}100%{transform:scale(1.18)}}'
+    + '.iaml-vote-dock.popping .ivf-heart{animation:iamlVotePop .35s ease}'
+    + '@media (max-width:520px){'
+    + '.iaml-vote-dock{padding:14px 20px 14px 18px;gap:14px;min-width:0;bottom:18px}'
+    + '.iaml-vote-dock .ivf-heart{font-size:26px}'
+    + '.iaml-vote-dock .ivf-action{font-size:15px}'
+    + '.iaml-vote-dock .ivf-count{font-size:20px;padding-left:14px;min-width:32px}}'
+    + '@media (prefers-reduced-motion:reduce){'
+    + '.iaml-vote-dock,.iaml-vote-dock .ivf-heart{animation:none!important;transition:none!important}}'
     ;
   var styleEl = document.createElement('style');
   styleEl.textContent = css;
   document.head.appendChild(styleEl);
 
-  /* Button ---------------------------------------------------------------- */
+  /* Button -------------------------------------------------------------- */
   var btn = document.createElement('button');
   btn.type = 'button';
-  btn.className = 'iaml-vote-fab';
-  btn.setAttribute('aria-label', 'Like ' + label);
-  btn.setAttribute('title', 'Like / unlike this design');
+  btn.className = 'iaml-vote-dock';
+  btn.setAttribute('aria-label', 'Like this design');
+  btn.setAttribute('title', 'Click to like — click again to remove your vote');
   btn.innerHTML =
       '<span class="ivf-heart" aria-hidden="true">&#9829;</span>'
-    + '<span class="ivf-label">Like</span>'
-    + '<span class="ivf-count" aria-live="polite">&middot;</span>';
+    + '<span class="ivf-text">'
+    +   '<span class="ivf-label">Vote</span>'
+    +   '<span class="ivf-action">Like this design</span>'
+    + '</span>'
+    + '<span class="ivf-count" aria-live="polite">·</span>';
 
-  var countEl;
+  var countEl, actionEl;
 
   function liked()  { try { return localStorage.getItem(lsKey) === '1'; } catch (e) { return false; } }
   function setLiked(v) {
     try { v ? localStorage.setItem(lsKey, '1') : localStorage.removeItem(lsKey); } catch (e) {}
     btn.setAttribute('data-voted', v ? '1' : '0');
+    if (actionEl) actionEl.textContent = v ? 'You liked this' : 'Like this design';
   }
   function render(v) { if (countEl) countEl.textContent = (v == null ? '·' : String(v)); }
 
@@ -88,10 +112,11 @@
 
   btn.addEventListener('click', function () {
     btn.setAttribute('aria-busy', 'true');
+    btn.classList.remove('popping'); void btn.offsetWidth; btn.classList.add('popping');
     var wasLiked = liked();
-    setLiked(!wasLiked);                       // optimistic
+    setLiked(!wasLiked);
     changeCount(wasLiked ? -1 : 1).then(function (v) {
-      if (v == null) { setLiked(wasLiked); }   // rollback on error
+      if (v == null) { setLiked(wasLiked); }
       else { render(v); }
       btn.removeAttribute('aria-busy');
     });
@@ -99,7 +124,8 @@
 
   function mount() {
     document.body.appendChild(btn);
-    countEl = btn.querySelector('.ivf-count');
+    countEl  = btn.querySelector('.ivf-count');
+    actionEl = btn.querySelector('.ivf-action');
     setLiked(liked());
     fetchCount().then(render);
   }
