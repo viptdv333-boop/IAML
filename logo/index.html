@@ -60,10 +60,27 @@
   .lb-rank.bronze{color:#b07a3a}
   .lb-name a{color:var(--ink);font-weight:600}
   .lb-name a:hover{color:var(--red)}
-  .lb-bar-cell{width:40%}
-  .lb-bar{position:relative;height:8px;background:#eee5d2;border-radius:999px;overflow:hidden}
-  .lb-bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--blue),var(--sky));border-radius:999px;transition:width .4s ease}
-  .lb-votes{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;width:90px}
+  .lb-bar-cell{width:32%;min-width:180px}
+  .lb-bar-head{width:32%}
+  .lb-bars{display:flex;flex-direction:column;gap:5px}
+  .lb-bar{position:relative;height:7px;background:#eee5d2;border-radius:999px;overflow:hidden}
+  .lb-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;transition:width .4s ease}
+  .lb-bar-up   i{background:linear-gradient(90deg,#C4272F,#e35761)}
+  .lb-bar-down i{background:linear-gradient(90deg,#3a4658,#6b7686)}
+  .lb-num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;width:80px}
+  .lb-up-cell  {color:#C4272F}
+  .lb-down-cell{color:#3a4658}
+  .lb-net-pos {color:#C4272F}
+  .lb-net-neg {color:#3a4658}
+  .lb-net-zero{color:#5b6878}
+  .lb-dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:6px;vertical-align:middle;transform:translateY(-1px)}
+  .lb-dot-up  {background:#C4272F}
+  .lb-dot-down{background:#3a4658}
+  @media (max-width:680px){
+    .lb-table th,.lb-table td{padding:10px 8px;font-size:13px}
+    .lb-bar-cell{display:none}
+    .lb-bar-head{display:none}
+  }
   .lb-empty,.lb-error{padding:24px;text-align:center;color:#5b6878;font-size:14px;background:#fff;border:1px dashed var(--line);border-radius:10px}
   .lb-error{color:var(--red);border-color:rgba(196,39,47,.4)}
   .lb-note{margin-top:14px;font-size:12px;color:#5b6878;line-height:1.5}
@@ -129,16 +146,17 @@
     <div class="lb-head">
       <div>
         <h2><span class="accent"></span>Leaderboard</h2>
-        <p class="lede">Live tally of all design votes. Open any design page and tap the heart in the bottom-right corner to cast or remove a vote.</p>
+        <p class="lede">Live tally of all design votes. Open any design page and use the big bar at the bottom — Like or Dislike, click again to remove. Designs are ranked by Net score (likes − dislikes).</p>
       </div>
       <div class="lb-meta">
-        <span>Total votes: <strong id="lb-total">…</strong></span>
-        <span>Designs ranked: <strong id="lb-count">…</strong></span>
+        <span><span class="lb-dot lb-dot-up"></span>Likes: <strong id="lb-total-up">…</strong></span>
+        <span><span class="lb-dot lb-dot-down"></span>Dislikes: <strong id="lb-total-down">…</strong></span>
+        <span>Net: <strong id="lb-total-net">…</strong></span>
         <button type="button" class="lb-refresh" id="lb-refresh">↻ Refresh</button>
       </div>
     </div>
     <div id="lb-body"><div class="lb-empty">Loading live results…</div></div>
-    <p class="lb-note">Tally provided by <a href="https://jasoncameron.dev/abacus" target="_blank" rel="noopener">abacus</a>, a free anonymous counter service. One vote per browser per design (toggle to remove). No personal data is collected.</p>
+    <p class="lb-note">Tally provided by <a href="https://jasoncameron.dev/abacus" target="_blank" rel="noopener">abacus</a>, a free anonymous counter service. One vote per browser per design (Like or Dislike, toggle to remove). No personal data is collected.</p>
   </section>
 </main>
 
@@ -149,7 +167,8 @@
 <script>
 (function(){
   var API='https://abacus.jasoncameron.dev';
-  var NS='iaml-logo-votes-2026';
+  var UP_NS='iaml-logo-votes-2026';
+  var DOWN_NS='iaml-logo-dislikes-2026';
   var DESIGNS=[
     {slug:'concepts',    label:'Logo Concepts', href:'IAML%20Logo%20Concepts.html'},
     {slug:'mark-circle', label:'Logo Circle',   href:'IAML%20Logo%20Circle.html'},
@@ -167,43 +186,77 @@
   ];
 
   var body=document.getElementById('lb-body');
-  var totalEl=document.getElementById('lb-total');
-  var countEl=document.getElementById('lb-count');
+  var upTotalEl=document.getElementById('lb-total-up');
+  var downTotalEl=document.getElementById('lb-total-down');
+  var netTotalEl=document.getElementById('lb-total-net');
   var btn=document.getElementById('lb-refresh');
 
   function rankClass(i){ return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function fmt(n){ return n>0?'+'+n:String(n); }
 
   function getOne(d){
-    return fetch(API+'/get/'+NS+'/'+d.slug,{cache:'no-store'})
+    var up=fetch(API+'/get/'+UP_NS+'/'+d.slug,{cache:'no-store'})
       .then(function(r){return r.json();})
-      .then(function(j){return {slug:d.slug,label:d.label,href:d.href,votes:(j&&typeof j.value==='number')?j.value:0};})
-      .catch(function(){return {slug:d.slug,label:d.label,href:d.href,votes:null};});
+      .then(function(j){return (j&&typeof j.value==='number')?j.value:null;})
+      .catch(function(){return null;});
+    var down=fetch(API+'/get/'+DOWN_NS+'/'+d.slug,{cache:'no-store'})
+      .then(function(r){return r.json();})
+      .then(function(j){return (j&&typeof j.value==='number')?j.value:null;})
+      .catch(function(){return null;});
+    return Promise.all([up,down]).then(function(vs){
+      return {slug:d.slug,label:d.label,href:d.href,up:vs[0],down:vs[1]};
+    });
   }
 
   function render(rows){
-    var total=0,counted=0;
-    rows.forEach(function(r){ if(r.votes!=null){ total+=Math.max(0,r.votes); counted++; } });
-    totalEl.textContent=total;
-    countEl.textContent=counted+' / '+rows.length;
+    var totalUp=0,totalDown=0;
+    rows.forEach(function(r){
+      if(r.up!=null)   totalUp   += Math.max(0,r.up);
+      if(r.down!=null) totalDown += Math.max(0,r.down);
+    });
+    upTotalEl.textContent   = totalUp;
+    downTotalEl.textContent = totalDown;
+    netTotalEl.textContent  = fmt(totalUp-totalDown);
 
+    rows.forEach(function(r){
+      r._up   = r.up   == null ? 0 : Math.max(0,r.up);
+      r._down = r.down == null ? 0 : Math.max(0,r.down);
+      r._net  = r._up - r._down;
+    });
     rows.sort(function(a,b){
-      var av=a.votes==null?-1:a.votes, bv=b.votes==null?-1:b.votes;
-      if(bv!==av) return bv-av;
+      if(b._net !== a._net) return b._net - a._net;
+      if(b._up  !== a._up)  return b._up  - a._up;
       return a.label.localeCompare(b.label);
     });
-    var max=Math.max(1,rows[0].votes||0);
+    var maxAbs = 1;
+    rows.forEach(function(r){
+      maxAbs = Math.max(maxAbs, r._up, r._down);
+    });
 
     var html='<table class="lb-table"><thead><tr>'
-           + '<th>#</th><th>Design</th><th>Share</th><th style="text-align:right">Votes</th>'
+           + '<th>#</th><th>Design</th>'
+           + '<th class="lb-num"><span class="lb-dot lb-dot-up"></span>Likes</th>'
+           + '<th class="lb-num"><span class="lb-dot lb-dot-down"></span>Dislikes</th>'
+           + '<th class="lb-bar-head">Score</th>'
+           + '<th class="lb-num">Net</th>'
            + '</tr></thead><tbody>';
     rows.forEach(function(r,i){
-      var pct = r.votes==null ? 0 : Math.round((Math.max(0,r.votes)/max)*100);
+      var upPct   = Math.round((r._up   / maxAbs) * 100);
+      var downPct = Math.round((r._down / maxAbs) * 100);
+      var netCls  = r._net > 0 ? 'lb-net-pos' : (r._net < 0 ? 'lb-net-neg' : 'lb-net-zero');
       html += '<tr>'
            +    '<td class="lb-rank '+rankClass(i)+'">'+(i+1)+'</td>'
            +    '<td class="lb-name"><a href="'+esc(r.href)+'">'+esc(r.label)+'</a></td>'
-           +    '<td class="lb-bar-cell"><div class="lb-bar"><i style="width:'+pct+'%"></i></div></td>'
-           +    '<td class="lb-votes">'+(r.votes==null?'—':r.votes)+'</td>'
+           +    '<td class="lb-num lb-up-cell">'  +(r.up==null?'—':r.up)+'</td>'
+           +    '<td class="lb-num lb-down-cell">'+(r.down==null?'—':r.down)+'</td>'
+           +    '<td class="lb-bar-cell">'
+           +      '<div class="lb-bars">'
+           +        '<div class="lb-bar lb-bar-up"><i style="width:'+upPct+'%"></i></div>'
+           +        '<div class="lb-bar lb-bar-down"><i style="width:'+downPct+'%"></i></div>'
+           +      '</div>'
+           +    '</td>'
+           +    '<td class="lb-num '+netCls+'">'+fmt(r._net)+'</td>'
            +  '</tr>';
     });
     html += '</tbody></table>';
@@ -214,10 +267,10 @@
     btn.disabled=true; btn.textContent='↻ Loading…';
     body.innerHTML='<div class="lb-empty">Loading live results…</div>';
     Promise.all(DESIGNS.map(getOne)).then(function(rows){
-      var allFailed = rows.every(function(r){return r.votes==null;});
+      var allFailed = rows.every(function(r){return r.up==null && r.down==null;});
       if(allFailed){
         body.innerHTML='<div class="lb-error">Could not reach the vote service. Try again in a moment.</div>';
-        totalEl.textContent='—'; countEl.textContent='—';
+        upTotalEl.textContent='—'; downTotalEl.textContent='—'; netTotalEl.textContent='—';
       } else {
         render(rows);
       }
