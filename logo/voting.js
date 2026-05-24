@@ -8,34 +8,38 @@
   var DOWN_NS = 'iaml-logo-dislikes-2026';
 
   var UP_KEYS = {
-    'concepts'   : '27144f05-97c9-4fe8-91d1-f957771d54da',
-    'mark-circle': '3fb40bf6-a997-424e-a0cf-46334b915221',
-    'mark-d'     : 'c237649a-7600-493b-a77f-8eb74286ae29',
-    'logo-v2'    : '14fb80ac-5204-41d9-938c-8f082b15874a',
-    'logo-v3'    : '60fd4950-3e43-4574-8592-0e985c3ba703',
-    'logo-v4'    : 'f7566236-c1c2-459d-94d2-4eb1ba028f29',
-    'logo-v5'    : '6283faeb-2cc7-4da1-b56b-61dea655d9ef',
-    'logo-v6'    : 'af6ef375-f3f8-4c63-9d2e-3de4c52589f3',
-    'logo-v7'    : 'b7ee30d2-e8a0-4141-b30a-0a88a9001b81',
-    'logo-v8'    : 'f27f1248-abb5-4e59-aa3c-92cab75f0b59',
-    'logo-v9'    : 'e365ac1a-eebe-422d-b496-72a013453ccd',
-    'logo-v10'   : '27fea970-6d3d-41ff-8483-4d174b586cad',
-    'logo-v11'   : 'f50d0869-9ca2-4bce-bd43-ef2b94bf4683'
+    'brand-guide' : '1eb2008b-6612-4987-b4b4-c6b5592529bc',
+    'circle-guide': 'f621aba5-0128-4e84-8807-f8d7804ea9c4',
+    'concepts'    : '27144f05-97c9-4fe8-91d1-f957771d54da',
+    'mark-circle' : '3fb40bf6-a997-424e-a0cf-46334b915221',
+    'mark-d'      : 'c237649a-7600-493b-a77f-8eb74286ae29',
+    'logo-v2'     : '14fb80ac-5204-41d9-938c-8f082b15874a',
+    'logo-v3'     : '60fd4950-3e43-4574-8592-0e985c3ba703',
+    'logo-v4'     : 'f7566236-c1c2-459d-94d2-4eb1ba028f29',
+    'logo-v5'     : '6283faeb-2cc7-4da1-b56b-61dea655d9ef',
+    'logo-v6'     : 'af6ef375-f3f8-4c63-9d2e-3de4c52589f3',
+    'logo-v7'     : 'b7ee30d2-e8a0-4141-b30a-0a88a9001b81',
+    'logo-v8'     : 'f27f1248-abb5-4e59-aa3c-92cab75f0b59',
+    'logo-v9'     : 'e365ac1a-eebe-422d-b496-72a013453ccd',
+    'logo-v10'    : '27fea970-6d3d-41ff-8483-4d174b586cad',
+    'logo-v11'    : 'f50d0869-9ca2-4bce-bd43-ef2b94bf4683'
   };
   var DOWN_KEYS = {
-    'concepts'   : '8caa1018-ee9c-42ee-8f20-4669c03b3d95',
-    'mark-circle': 'e96f2c80-3b31-4341-b10a-627256014726',
-    'mark-d'     : '3272da55-5899-46a2-9be5-af344ff2c987',
-    'logo-v2'    : '344b4a84-4f83-4bb2-b8f2-83eac40d0b2c',
-    'logo-v3'    : 'df7b7963-f59d-4133-b619-628d57e92b27',
-    'logo-v4'    : '46caf279-8092-48c6-a8a5-e2b2d595b522',
-    'logo-v5'    : '6a85add3-7e07-4918-a26f-0584767a7978',
-    'logo-v6'    : 'd6467404-d1b7-415c-9c8a-401d85ac6ffb',
-    'logo-v7'    : '2a0db8bc-491d-4a60-b687-94ae87879841',
-    'logo-v8'    : '5b109bc2-3374-4d14-8aba-22f2dd4918d5',
-    'logo-v9'    : '61e2b631-a0c8-477f-84c9-c1b93dccdd76',
-    'logo-v10'   : 'afff7c04-819a-4e67-bf6c-6eaac86bd566',
-    'logo-v11'   : '913b9c45-1a12-4b11-adcc-e19256be7ff1'
+    'brand-guide' : '2618ca69-533e-4aa0-aa27-0a765827207e',
+    'circle-guide': 'c4cb08e1-76dc-4fac-b92f-9750caad81f0',
+    'concepts'    : '8caa1018-ee9c-42ee-8f20-4669c03b3d95',
+    'mark-circle' : 'e96f2c80-3b31-4341-b10a-627256014726',
+    'mark-d'      : '3272da55-5899-46a2-9be5-af344ff2c987',
+    'logo-v2'     : '344b4a84-4f83-4bb2-b8f2-83eac40d0b2c',
+    'logo-v3'     : 'df7b7963-f59d-4133-b619-628d57e92b27',
+    'logo-v4'     : '46caf279-8092-48c6-a8a5-e2b2d595b522',
+    'logo-v5'     : '6a85add3-7e07-4918-a26f-0584767a7978',
+    'logo-v6'     : 'd6467404-d1b7-415c-9c8a-401d85ac6ffb',
+    'logo-v7'     : '2a0db8bc-491d-4a60-b687-94ae87879841',
+    'logo-v8'     : '5b109bc2-3374-4d14-8aba-22f2dd4918d5',
+    'logo-v9'     : '61e2b631-a0c8-477f-84c9-c1b93dccdd76',
+    'logo-v10'    : 'afff7c04-819a-4e67-bf6c-6eaac86bd566',
+    'logo-v11'    : '913b9c45-1a12-4b11-adcc-e19256be7ff1'
   };
 
   var slug = window.IAML_LOGO_SLUG;
