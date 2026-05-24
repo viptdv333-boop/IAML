@@ -76,6 +76,15 @@
   .lb-dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:6px;vertical-align:middle;transform:translateY(-1px)}
   .lb-dot-up  {background:#C4272F}
   .lb-dot-down{background:#3a4658}
+  .lb-caret-cell{width:32px;padding:8px 4px 8px 12px}
+  .lb-caret{appearance:none;border:none;background:transparent;cursor:pointer;color:var(--blue);
+    font:600 14px/1 "DM Sans",sans-serif;padding:6px 8px;border-radius:6px;transition:background .12s}
+  .lb-caret:hover{background:rgba(1,81,151,.08)}
+  .lb-sub{font-size:11px;color:#5b6878;font-weight:400;letter-spacing:.04em;margin-top:3px}
+  .lb-detail-row td{padding:0;background:#fbfaf6;border-bottom:1px solid var(--line)}
+  .lb-detail-inner{padding:14px 18px 18px 56px}
+  .lb-detail-table{box-shadow:none;border:1px solid var(--line)}
+  .lb-detail-table th{background:#fff}
   @media (max-width:680px){
     .lb-table th,.lb-table td{padding:10px 8px;font-size:13px}
     .lb-bar-cell{display:none}
@@ -146,7 +155,7 @@
     <div class="lb-head">
       <div>
         <h2><span class="accent"></span>Leaderboard</h2>
-        <p class="lede">Live tally of all design votes. Open any design page and use the big bar at the bottom — Like or Dislike, click again to remove. Designs are ranked by Net score (likes − dislikes).</p>
+        <p class="lede">Live tally of all design votes. Each individual logo gets its own vote — open a page and use the Like / Dislike buttons under each design. One vote per browser per design (final, no undo). Row totals aggregate every logo on that page; click ▸ to drill into the per-logo breakdown.</p>
       </div>
       <div class="lb-meta">
         <span><span class="lb-dot lb-dot-up"></span>Likes: <strong id="lb-total-up">…</strong></span>
@@ -169,22 +178,75 @@
   var API='https://abacus.jasoncameron.dev';
   var UP_NS='iaml-logo-votes-2026';
   var DOWN_NS='iaml-logo-dislikes-2026';
+
+  /* Top-level (page) entries — 4 single-design plain HTML + 11 React pages */
   var DESIGNS=[
     {slug:'brand-guide',  label:'IAML Brand Guide',       href:'IAML%20Brand%20Guide.html'},
     {slug:'circle-guide', label:'IAML Logo Circle Guide', href:'IAML%20Logo%20Circle%20Guide.html'},
-    {slug:'concepts',     label:'Logo Concepts',          href:'IAML%20Logo%20Concepts.html'},
     {slug:'mark-circle',  label:'Logo Circle',            href:'IAML%20Logo%20Circle.html'},
     {slug:'mark-d',       label:'Logo D',                 href:'IAML%20Logo%20D.html'},
-    {slug:'logo-v2',      label:'Logo v2',                href:'IAML%20Logo%20v2.html'},
-    {slug:'logo-v3',      label:'Logo v3',                href:'IAML%20Logo%20v3.html'},
-    {slug:'logo-v4',      label:'Logo v4',                href:'IAML%20Logo%20v4.html'},
-    {slug:'logo-v5',      label:'Logo v5',                href:'IAML%20Logo%20v5.html'},
-    {slug:'logo-v6',      label:'Logo v6',                href:'IAML%20Logo%20v6.html'},
-    {slug:'logo-v7',      label:'Logo v7',                href:'IAML%20Logo%20v7.html'},
-    {slug:'logo-v8',      label:'Logo v8',                href:'IAML%20Logo%20v8.html'},
-    {slug:'logo-v9',      label:'Logo v9',                href:'IAML%20Logo%20v9.html'},
-    {slug:'logo-v10',     label:'Logo v10',               href:'IAML%20Logo%20v10.html'},
-    {slug:'logo-v11',     label:'Logo v11',               href:'IAML%20Logo%20v11.html'}
+    {slug:'concepts',     label:'Logo Concepts',          href:'IAML%20Logo%20Concepts.html', cards:[
+      {id:'logo1', label:'Concept 1 — Academic Seal'},
+      {id:'logo5', label:'Concept 5 — Monogram Badge'},
+      {id:'logo7', label:'Concept 7 — Shield Crest'},
+      {id:'logo2', label:'Concept 2 — Eternal Blue Sky'},
+      {id:'logo3', label:'Concept 3 — Script Accent'},
+      {id:'logo6', label:'Concept 6 — Steppe Horizon'},
+      {id:'logo4', label:'Concept 4 — Geometric Knot'},
+      {id:'logo8', label:'Concept 8 — Dark / Reversed'}
+    ]},
+    {slug:'logo-v2',  label:'Logo v2',  href:'IAML%20Logo%20v2.html', cards:[
+      {id:'m1',label:'Vertical Script Pen'},{id:'m4',label:'Mongolian Letterform'},
+      {id:'m7',label:'Inscription Stele'},{id:'m2',label:'Speech Scroll'},
+      {id:'m5',label:'Open Book'},{id:'m3',label:'Abstract M'},
+      {id:'m6',label:'Linked Rings'},{id:'m8',label:'Endless Knot'}
+    ]},
+    {slug:'logo-v3',  label:'Logo v3',  href:'IAML%20Logo%20v3.html', cards:[
+      {id:'m2',label:'Golden Eagle'},{id:'m3',label:'Modern Ulzii Knot'},
+      {id:'m7',label:'Ger Silhouette'},{id:'m1',label:'Calligraphic Flow'},
+      {id:'m4',label:'Script Tower'},{id:'m6',label:'Quill & Crescent'},
+      {id:'m5',label:'Speech Forms'},{id:'m8',label:'Horizon Line'}
+    ]},
+    {slug:'logo-v4',  label:'Logo v4',  href:'IAML%20Logo%20v4.html', cards:[
+      {id:'m1',label:'Academic Seal'},{id:'m2',label:'Eternal Blue Sky'},
+      {id:'m6',label:'Script Accent Wordmark'},{id:'m3',label:'Golden Eagle'},
+      {id:'m4',label:'Ulzii Knot'},{id:'m7',label:'Ger Silhouette'},
+      {id:'m5',label:'Script Tower'},{id:'m8',label:'Horizon Line'}
+    ]},
+    {slug:'logo-v5',  label:'Logo v5',  href:'IAML%20Logo%20v5.html', cards:[
+      {id:'a',label:'A — The Spine'},{id:'f',label:'F — Circle & Stroke'},
+      {id:'b',label:'B — Crescent & Sun'},{id:'c',label:'C — The Gate'},
+      {id:'d',label:'D — Interlocking Arcs'},{id:'e',label:'E — Ulzii Minimal'}
+    ]},
+    {slug:'logo-v6',  label:'Logo v6',  href:'IAML%20Logo%20v6.html', cards:[
+      {id:'a',label:'A — Bichig (Script Column)'},{id:'c',label:'C — The Seal (Тамга)'},
+      {id:'b',label:'B — Soyombo Essence'},{id:'d',label:'D — Gateway Arch'},
+      {id:'e',label:'E — Double Crescent'},{id:'f',label:'F — The Column'}
+    ]},
+    {slug:'logo-v7',  label:'Logo v7',  href:'IAML%20Logo%20v7.html', cards:[
+      {id:'seal',label:'A — The Institutional Seal'},
+      {id:'monogram',label:'B — The Vertical Monogram'},
+      {id:'crescent',label:'C — Crescent & Sun'}
+    ]},
+    {slug:'logo-v8',  label:'Logo v8',  href:'IAML%20Logo%20v8.html', cards:[
+      {id:'crest',label:'A — The Crest'},{id:'stripes',label:'B — Three Stripes'},
+      {id:'circle',label:'C — Circle Seal'},{id:'soyombo',label:'D — Soyombo Modern'}
+    ]},
+    {slug:'logo-v9',  label:'Logo v9',  href:'IAML%20Logo%20v9.html', cards:[
+      {id:'a',label:'A — Circle & Stem'},{id:'b',label:'B — The Lens'},
+      {id:'c',label:'C — Open Book'},{id:'d',label:'D — The Arc'}
+    ]},
+    {slug:'logo-v10', label:'Logo v10', href:'IAML%20Logo%20v10.html', cards:[
+      {id:'m1',label:'1 — Crescent Embrace'},{id:'m2',label:'2 — Three Peaks'},
+      {id:'m3',label:'3 — Ring & Line'},{id:'m4',label:'4 — Brackets'},
+      {id:'m5',label:'5 — Stacked Bars'},{id:'m6',label:'6 — Chevron & Sun'},
+      {id:'m7',label:'7 — Knot Loops'},{id:'m8',label:'8 — Pillar'},
+      {id:'m9',label:'9 — Dialogue'},{id:'m10',label:'10 — Flame Drop'}
+    ]},
+    {slug:'logo-v11', label:'Logo v11', href:'IAML%20Logo%20v11.html', cards:[
+      {id:'a',label:'A — Typographic Monogram'},{id:'b',label:'B — Circle Mark'},
+      {id:'c',label:'C — Square Seal'},{id:'d',label:'D — Vertical Stack'}
+    ]}
   ];
 
   var body=document.getElementById('lb-body');
@@ -197,21 +259,32 @@
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
   function fmt(n){ return n>0?'+'+n:String(n); }
 
-  function getOne(d){
-    var up=fetch(API+'/get/'+UP_NS+'/'+d.slug,{cache:'no-store'})
-      .then(function(r){return r.json();})
-      .then(function(j){return (j&&typeof j.value==='number')?j.value:null;})
-      .catch(function(){return null;});
-    var down=fetch(API+'/get/'+DOWN_NS+'/'+d.slug,{cache:'no-store'})
-      .then(function(r){return r.json();})
-      .then(function(j){return (j&&typeof j.value==='number')?j.value:null;})
-      .catch(function(){return null;});
-    return Promise.all([up,down]).then(function(vs){
-      return {slug:d.slug,label:d.label,href:d.href,up:vs[0],down:vs[1]};
+  /* Throttled fetch — 1 request every 360ms to stay under abacus 30/IP/10s */
+  var queue=[], inFlight=0, lastStart=0;
+  function throttledGet(ns,key){
+    return new Promise(function(resolve){
+      queue.push(function(){
+        fetch(API+'/get/'+ns+'/'+key,{cache:'no-store'})
+          .then(function(r){return r.json();})
+          .then(function(j){resolve((j&&typeof j.value==='number')?j.value:null);})
+          .catch(function(){resolve(null);});
+      });
+      pump();
     });
   }
+  function pump(){
+    if(!queue.length) return;
+    var now=Date.now();
+    var since=now-lastStart;
+    if(since>=360){ lastStart=now; (queue.shift())(); pump(); }
+    else setTimeout(pump, 360-since);
+  }
+  function getPair(slug){
+    return Promise.all([ throttledGet(UP_NS,slug), throttledGet(DOWN_NS,slug) ])
+      .then(function(vs){ return {up:vs[0], down:vs[1]}; });
+  }
 
-  function render(rows){
+  function renderRows(rows){
     var totalUp=0,totalDown=0;
     rows.forEach(function(r){
       if(r.up!=null)   totalUp   += Math.max(0,r.up);
@@ -232,12 +305,10 @@
       return a.label.localeCompare(b.label);
     });
     var maxAbs = 1;
-    rows.forEach(function(r){
-      maxAbs = Math.max(maxAbs, r._up, r._down);
-    });
+    rows.forEach(function(r){ maxAbs = Math.max(maxAbs, r._up, r._down); });
 
     var html='<table class="lb-table"><thead><tr>'
-           + '<th>#</th><th>Design</th>'
+           + '<th></th><th>#</th><th>Design</th>'
            + '<th class="lb-num"><span class="lb-dot lb-dot-up"></span>Likes</th>'
            + '<th class="lb-num"><span class="lb-dot lb-dot-down"></span>Dislikes</th>'
            + '<th class="lb-bar-head">Score</th>'
@@ -247,9 +318,14 @@
       var upPct   = Math.round((r._up   / maxAbs) * 100);
       var downPct = Math.round((r._down / maxAbs) * 100);
       var netCls  = r._net > 0 ? 'lb-net-pos' : (r._net < 0 ? 'lb-net-neg' : 'lb-net-zero');
-      html += '<tr>'
+      var hasCards = r.cards && r.cards.length;
+      var caret = hasCards ? '<button type="button" class="lb-caret" data-slug="'+esc(r.slug)+'" aria-expanded="false" aria-label="Show per-logo votes">▸</button>' : '';
+      html += '<tr data-page-row="'+esc(r.slug)+'">'
+           +    '<td class="lb-caret-cell">'+caret+'</td>'
            +    '<td class="lb-rank '+rankClass(i)+'">'+(i+1)+'</td>'
-           +    '<td class="lb-name"><a href="'+esc(r.href)+'">'+esc(r.label)+'</a></td>'
+           +    '<td class="lb-name"><a href="'+esc(r.href)+'">'+esc(r.label)+'</a>'
+           +      (hasCards ? '<div class="lb-sub">'+r.cards.length+' designs · totals shown</div>' : '')
+           +    '</td>'
            +    '<td class="lb-num lb-up-cell">'  +(r.up==null?'—':r.up)+'</td>'
            +    '<td class="lb-num lb-down-cell">'+(r.down==null?'—':r.down)+'</td>'
            +    '<td class="lb-bar-cell">'
@@ -260,21 +336,109 @@
            +    '</td>'
            +    '<td class="lb-num '+netCls+'">'+fmt(r._net)+'</td>'
            +  '</tr>';
+      if(hasCards){
+        html += '<tr class="lb-detail-row" data-detail-for="'+esc(r.slug)+'" hidden>'
+             +    '<td colspan="7"><div class="lb-detail-inner" data-detail-body="'+esc(r.slug)+'">'
+             +      '<div class="lb-empty">Click ▸ to load individual logo votes.</div>'
+             +    '</div></td>'
+             +  '</tr>';
+      }
     });
     html += '</tbody></table>';
     body.innerHTML = html;
+    wireCarets(rows);
+  }
+
+  function wireCarets(rows){
+    var rowMap = {};
+    rows.forEach(function(r){ rowMap[r.slug] = r; });
+    body.querySelectorAll('.lb-caret').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var slug = btn.getAttribute('data-slug');
+        var row  = rowMap[slug];
+        var det  = body.querySelector('.lb-detail-row[data-detail-for="'+CSS.escape(slug)+'"]');
+        if(!row || !det) return;
+        var isOpen = det.hasAttribute('hidden') === false;
+        if(isOpen){
+          det.setAttribute('hidden','');
+          btn.setAttribute('aria-expanded','false');
+          btn.textContent = '▸';
+        } else {
+          det.removeAttribute('hidden');
+          btn.setAttribute('aria-expanded','true');
+          btn.textContent = '▾';
+          if(!det.dataset.loaded){
+            loadDetail(row, det.querySelector('.lb-detail-inner'));
+            det.dataset.loaded = '1';
+          }
+        }
+      });
+    });
+  }
+
+  function loadDetail(row, into){
+    into.innerHTML = '<div class="lb-empty">Loading '+row.cards.length+' designs…</div>';
+    var cards = row.cards.map(function(c){
+      return getPair(row.slug+'__'+c.id).then(function(vs){
+        return {id:c.id, label:c.label, up:vs.up, down:vs.down};
+      });
+    });
+    Promise.all(cards).then(function(rs){
+      rs.forEach(function(r){
+        r._up   = r.up   == null ? 0 : Math.max(0,r.up);
+        r._down = r.down == null ? 0 : Math.max(0,r.down);
+        r._net  = r._up - r._down;
+      });
+      rs.sort(function(a,b){
+        if(b._net !== a._net) return b._net - a._net;
+        if(b._up  !== a._up)  return b._up  - a._up;
+        return a.label.localeCompare(b.label);
+      });
+      var maxAbs = 1;
+      rs.forEach(function(r){ maxAbs = Math.max(maxAbs, r._up, r._down); });
+
+      var html='<table class="lb-table lb-detail-table"><thead><tr>'
+             + '<th>#</th><th>Design</th>'
+             + '<th class="lb-num">Likes</th><th class="lb-num">Dislikes</th>'
+             + '<th class="lb-bar-head">Score</th><th class="lb-num">Net</th>'
+             + '</tr></thead><tbody>';
+      rs.forEach(function(r,i){
+        var upPct   = Math.round((r._up   / maxAbs) * 100);
+        var downPct = Math.round((r._down / maxAbs) * 100);
+        var netCls  = r._net > 0 ? 'lb-net-pos' : (r._net < 0 ? 'lb-net-neg' : 'lb-net-zero');
+        html += '<tr>'
+             +    '<td class="lb-rank '+rankClass(i)+'">'+(i+1)+'</td>'
+             +    '<td class="lb-name">'+esc(r.label)+'</td>'
+             +    '<td class="lb-num lb-up-cell">'  +(r.up==null?'—':r.up)+'</td>'
+             +    '<td class="lb-num lb-down-cell">'+(r.down==null?'—':r.down)+'</td>'
+             +    '<td class="lb-bar-cell">'
+             +      '<div class="lb-bars">'
+             +        '<div class="lb-bar lb-bar-up"><i style="width:'+upPct+'%"></i></div>'
+             +        '<div class="lb-bar lb-bar-down"><i style="width:'+downPct+'%"></i></div>'
+             +      '</div>'
+             +    '</td>'
+             +    '<td class="lb-num '+netCls+'">'+fmt(r._net)+'</td>'
+             +  '</tr>';
+      });
+      html += '</tbody></table>';
+      into.innerHTML = html;
+    });
   }
 
   function load(){
     btn.disabled=true; btn.textContent='↻ Loading…';
     body.innerHTML='<div class="lb-empty">Loading live results…</div>';
-    Promise.all(DESIGNS.map(getOne)).then(function(rows){
+    Promise.all(DESIGNS.map(function(d){
+      return getPair(d.slug).then(function(vs){
+        return Object.assign({up:vs.up, down:vs.down}, d);
+      });
+    })).then(function(rows){
       var allFailed = rows.every(function(r){return r.up==null && r.down==null;});
       if(allFailed){
         body.innerHTML='<div class="lb-error">Could not reach the vote service. Try again in a moment.</div>';
         upTotalEl.textContent='—'; downTotalEl.textContent='—'; netTotalEl.textContent='—';
       } else {
-        render(rows);
+        renderRows(rows);
       }
       btn.disabled=false; btn.textContent='↻ Refresh';
     });
