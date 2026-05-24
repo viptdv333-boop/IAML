@@ -85,6 +85,49 @@
   .card[data-voted="down"] .vote-btn.down:hover{background:linear-gradient(135deg,#475266,#2a3340)}
   .card[aria-busy="true"] .votes{opacity:.55;pointer-events:none}
 
+  /* Leaderboard */
+  #leaderboard{margin-top:56px;scroll-margin-top:24px}
+  .lb-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:16px}
+  .lb-head h2{font:600 24px/1.1 "EB Garamond",serif;color:var(--blue);margin:0}
+  .lb-head h2 .accent{display:inline-block;width:28px;height:2px;background:var(--red);vertical-align:middle;margin-right:10px;transform:translateY(-4px)}
+  .lb-head .lede{font-size:13px;color:var(--ink-2);max-width:520px;margin:6px 0 0}
+  .lb-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+  .lb-meta strong{color:var(--ink);font-weight:700}
+  .lb-dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:6px;vertical-align:middle;transform:translateY(-1px)}
+  .lb-dot-up  {background:#C4272F}
+  .lb-dot-down{background:#3a4658}
+  .lb-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .lb-table th,.lb-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+  .lb-table tr:last-child td{border-bottom:none}
+  .lb-table th{background:#fbfaf6;font:600 11px/1 "DM Sans",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .lb-table .lb-name button{appearance:none;background:none;border:0;cursor:pointer;color:var(--ink);font:inherit;font-weight:600;text-align:left;padding:0}
+  .lb-table .lb-name button:hover{color:var(--red);text-decoration:underline}
+  .lb-table .lb-page{display:block;font-size:11px;color:var(--ink-2);font-weight:400;letter-spacing:.04em;margin-top:2px}
+  .lb-table .lb-rank{font-family:"EB Garamond",serif;font-weight:700;font-size:18px;color:var(--blue);width:48px;text-align:center}
+  .lb-rank.gold  {color:var(--gold)}
+  .lb-rank.silver{color:#8c96a3}
+  .lb-rank.bronze{color:#b07a3a}
+  .lb-num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);text-align:right;width:80px}
+  .lb-up-cell  {color:#C4272F}
+  .lb-down-cell{color:#3a4658}
+  .lb-net-pos  {color:#C4272F}
+  .lb-net-neg  {color:#3a4658}
+  .lb-net-zero {color:var(--ink-2)}
+  .lb-bar-cell{width:28%;min-width:160px}
+  .lb-bar-head{width:28%}
+  .lb-bars{display:flex;flex-direction:column;gap:5px}
+  .lb-bar{position:relative;height:7px;background:#eee5d2;border-radius:999px;overflow:hidden}
+  .lb-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;transition:width .4s ease}
+  .lb-bar-up   i{background:linear-gradient(90deg,#C4272F,#e35761)}
+  .lb-bar-down i{background:linear-gradient(90deg,#3a4658,#6b7686)}
+  .lb-empty{padding:24px;text-align:center;color:var(--ink-2);font-size:14px;background:#fff;border:1px dashed var(--line);border-radius:10px}
+  @media (max-width:760px){
+    .lb-table th,.lb-table td{padding:10px 8px;font-size:13px}
+    .lb-bar-cell,.lb-bar-head{display:none}
+    .lb-num{width:60px}
+    .lb-table .lb-page{display:none}
+  }
+
   .section-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin:48px 0 16px}
   .section-head h2{font:600 22px/1.1 "EB Garamond",serif;color:var(--blue);margin:0}
   .section-head h2 .accent{display:inline-block;width:26px;height:2px;background:var(--red);vertical-align:middle;margin-right:10px;transform:translateY(-4px)}
@@ -147,23 +190,24 @@
 
 <main class="wrap">
 
-  <section class="toolbar" aria-label="Catalog controls">
-    <label class="search">
-      <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M11.74 10.34a6 6 0 1 0-1.4 1.4l3.5 3.5a1 1 0 0 0 1.42-1.42l-3.52-3.48ZM7 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"/></svg>
-      <input id="search" type="search" placeholder="Search — name, page (e.g. ulzii, v7, eagle)…" autocomplete="off" />
-    </label>
-    <div class="sorts" role="tablist" aria-label="Sort order">
-      <button class="sort-btn" data-sort="default" aria-pressed="true">Default</button>
-      <button class="sort-btn" data-sort="top"     aria-pressed="false">Top voted</button>
-      <button class="sort-btn" data-sort="liked"   aria-pressed="false">Most ♥</button>
-      <button class="sort-btn" data-sort="hated"   aria-pressed="false">Most ✖</button>
-      <button class="sort-btn" data-sort="hot"     aria-pressed="false">Most votes</button>
-    </div>
-    <div class="toolbar-stats" id="stats">Loading votes…</div>
-  </section>
-
   <section id="grid-section">
     <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="leaderboard">
+    <div class="lb-head">
+      <div>
+        <h2><span class="accent"></span>Voting results</h2>
+        <p class="lede">Live ranking of every design by Net score (♥ − ✖). Updates as votes come in.</p>
+      </div>
+      <div class="lb-meta">
+        <span><span class="lb-dot lb-dot-up"></span>Likes: <strong id="stats-up">…</strong></span>
+        <span><span class="lb-dot lb-dot-down"></span>Dislikes: <strong id="stats-down">…</strong></span>
+        <span>Net: <strong id="stats-net">…</strong></span>
+        <span>Loaded: <strong id="stats-loaded">…</strong>/73</span>
+      </div>
+    </div>
+    <div id="lb-body"><div class="lb-empty">Loading live results…</div></div>
   </section>
 
 </main>
@@ -277,8 +321,6 @@
 
   var counts = {};
   DESIGNS.forEach(function(d){ counts[d.slug] = {up:null, down:null}; });
-  var currentSort = 'default';
-  var currentFilter = '';
 
   function getLs(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
   function setLs(k,v){ try { v?localStorage.setItem(k,v):localStorage.removeItem(k); } catch(e){} }
@@ -306,30 +348,15 @@
   function getCount(ns, slug){ return tFetch(API+'/get/'+ns+'/'+slug).then(function(j){ return (j&&typeof j.value==='number')?j.value:null; }); }
   function hit(ns, slug){       return tFetch(API+'/hit/'+ns+'/'+slug).then(function(j){ return (j&&typeof j.value==='number')?j.value:null; }); }
 
-  var grid    = document.getElementById('grid');
-  var statsEl = document.getElementById('stats');
+  var grid       = document.getElementById('grid');
+  var lbBody     = document.getElementById('lb-body');
+  var statsUp    = document.getElementById('stats-up');
+  var statsDown  = document.getElementById('stats-down');
+  var statsNet   = document.getElementById('stats-net');
+  var statsLoaded= document.getElementById('stats-loaded');
 
-  function visibleDesigns(){
-    var q = currentFilter.trim().toLowerCase();
-    var list = DESIGNS.filter(function(d){
-      if(!q) return true;
-      return (d.label + ' ' + d.page + ' ' + d.slug).toLowerCase().indexOf(q) !== -1;
-    });
-    var scored = list.map(function(d){
-      var c = counts[d.slug] || {up:0,down:0};
-      var u = (c.up==null)?0:Math.max(0,c.up);
-      var dn= (c.down==null)?0:Math.max(0,c.down);
-      return {d:d, up:u, down:dn, net:u-dn, total:u+dn};
-    });
-    switch(currentSort){
-      case 'top':   scored.sort(function(a,b){return b.net - a.net || b.up-a.up || a.d.label.localeCompare(b.d.label);}); break;
-      case 'liked': scored.sort(function(a,b){return b.up  - a.up  || a.d.label.localeCompare(b.d.label);}); break;
-      case 'hated': scored.sort(function(a,b){return b.down- a.down|| a.d.label.localeCompare(b.d.label);}); break;
-      case 'hot':   scored.sort(function(a,b){return b.total-a.total|| a.d.label.localeCompare(b.d.label);}); break;
-      default: break;
-    }
-    return scored.map(function(x){return x.d;});
-  }
+  function rankClass(i){ return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
+  function fmt(n){ return n>0?'+'+n:String(n); }
 
   function cardEl(d){
     var c = counts[d.slug] || {up:null,down:null};
@@ -358,15 +385,67 @@
   }
 
   function renderGrid(){
-    var rows = visibleDesigns();
     grid.innerHTML = '';
-    if(!rows.length){
-      grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No designs match — try a different search.</div>';
-      return;
-    }
     var frag = document.createDocumentFragment();
-    rows.forEach(function(d){ frag.appendChild(cardEl(d)); });
+    DESIGNS.forEach(function(d){ frag.appendChild(cardEl(d)); });
     grid.appendChild(frag);
+  }
+
+  function renderLeaderboard(){
+    var loaded = DESIGNS.filter(function(d){ var c=counts[d.slug]; return c.up!=null || c.down!=null; });
+    if(!loaded.length){ lbBody.innerHTML = '<div class="lb-empty">Loading live results…</div>'; return; }
+
+    var rows = DESIGNS.map(function(d){
+      var c = counts[d.slug] || {};
+      var u = (c.up==null)?0:Math.max(0,c.up);
+      var dn= (c.down==null)?0:Math.max(0,c.down);
+      return {d:d, up:u, down:dn, net:u-dn};
+    });
+    rows.sort(function(a,b){
+      if(b.net !== a.net) return b.net - a.net;
+      if(b.up  !== a.up)  return b.up  - a.up;
+      return a.d.label.localeCompare(b.d.label);
+    });
+    var maxAbs = 1;
+    rows.forEach(function(r){ maxAbs = Math.max(maxAbs, r.up, r.down); });
+
+    var html='<table class="lb-table"><thead><tr>'
+           + '<th>#</th><th>Design</th>'
+           + '<th class="lb-num"><span class="lb-dot lb-dot-up"></span>Likes</th>'
+           + '<th class="lb-num"><span class="lb-dot lb-dot-down"></span>Dislikes</th>'
+           + '<th class="lb-bar-head">Score</th>'
+           + '<th class="lb-num">Net</th>'
+           + '</tr></thead><tbody>';
+    rows.forEach(function(r,i){
+      var upPct   = Math.round((r.up   / maxAbs) * 100);
+      var downPct = Math.round((r.down / maxAbs) * 100);
+      var netCls  = r.net > 0 ? 'lb-net-pos' : (r.net < 0 ? 'lb-net-neg' : 'lb-net-zero');
+      html += '<tr>'
+           +    '<td class="lb-rank '+rankClass(i)+'">'+(i+1)+'</td>'
+           +    '<td class="lb-name"><button type="button" data-slug="'+esc(r.d.slug)+'">'+esc(r.d.label)+'</button>'
+           +      '<span class="lb-page">'+esc(r.d.page)+'</span>'
+           +    '</td>'
+           +    '<td class="lb-num lb-up-cell">'  +r.up  +'</td>'
+           +    '<td class="lb-num lb-down-cell">'+r.down+'</td>'
+           +    '<td class="lb-bar-cell">'
+           +      '<div class="lb-bars">'
+           +        '<div class="lb-bar lb-bar-up"><i style="width:'+upPct+'%"></i></div>'
+           +        '<div class="lb-bar lb-bar-down"><i style="width:'+downPct+'%"></i></div>'
+           +      '</div>'
+           +    '</td>'
+           +    '<td class="lb-num '+netCls+'">'+fmt(r.net)+'</td>'
+           +  '</tr>';
+    });
+    html += '</tbody></table>';
+    lbBody.innerHTML = html;
+
+    /* click on row name opens the same modal */
+    lbBody.querySelectorAll('.lb-name button').forEach(function(b){
+      b.addEventListener('click', function(){
+        var d = DESIGNS.find(function(x){return x.slug === b.getAttribute('data-slug');});
+        if(d) openModal(d);
+      });
+    });
   }
 
   function refreshCardCounts(slug){
@@ -386,11 +465,15 @@
       if(c.up   != null) totalUp   += Math.max(0,c.up);
       if(c.down != null) totalDown += Math.max(0,c.down);
     });
-    statsEl.innerHTML =
-        '<strong>'+totalUp+'</strong> ♥ &nbsp; '
-      + '<strong>'+totalDown+'</strong> ✖ &nbsp; '
-      + 'loaded <strong>'+loaded+'</strong>/'+DESIGNS.length;
+    statsUp.textContent     = totalUp;
+    statsDown.textContent   = totalDown;
+    statsNet.textContent    = fmt(totalUp - totalDown);
+    statsLoaded.textContent = loaded;
   }
+
+  /* Re-render leaderboard after each batch of count updates, debounced */
+  var lbT;
+  function scheduleLeaderboard(){ clearTimeout(lbT); lbT = setTimeout(renderLeaderboard, 250); }
 
   function castVote(d, pol){
     var lsKey = 'iaml-vote-' + d.slug;
@@ -418,6 +501,7 @@
       if(pol === 'up') counts[d.slug].up = v; else counts[d.slug].down = v;
       refreshCardCounts(d.slug);
       refreshStats();
+      scheduleLeaderboard();
       if(modalState.slug === d.slug){
         if(pol === 'up')   modalUpC.textContent   = v;
         if(pol === 'down') modalDownC.textContent = v;
@@ -464,23 +548,11 @@
   modalUp.addEventListener('click',   function(){ var d = DESIGNS.find(function(x){return x.slug===modalState.slug;}); if(d) castVote(d, 'up'); });
   modalDown.addEventListener('click', function(){ var d = DESIGNS.find(function(x){return x.slug===modalState.slug;}); if(d) castVote(d, 'down'); });
 
-  document.getElementById('search').addEventListener('input', function(e){
-    currentFilter = e.target.value;
-    renderGrid();
-  });
-  document.querySelectorAll('.sort-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      document.querySelectorAll('.sort-btn').forEach(function(b){b.setAttribute('aria-pressed','false');});
-      btn.setAttribute('aria-pressed','true');
-      currentSort = btn.getAttribute('data-sort');
-      renderGrid();
-    });
-  });
-
   renderGrid();
+  refreshStats();
   DESIGNS.forEach(function(d){
-    getCount(UP_NS,  d.slug).then(function(v){ counts[d.slug].up   = v; refreshCardCounts(d.slug); refreshStats(); });
-    getCount(DOWN_NS, d.slug).then(function(v){ counts[d.slug].down = v; refreshCardCounts(d.slug); refreshStats(); });
+    getCount(UP_NS,  d.slug).then(function(v){ counts[d.slug].up   = v; refreshCardCounts(d.slug); refreshStats(); scheduleLeaderboard(); });
+    getCount(DOWN_NS, d.slug).then(function(v){ counts[d.slug].down = v; refreshCardCounts(d.slug); refreshStats(); scheduleLeaderboard(); });
   });
 })();
 </script>
