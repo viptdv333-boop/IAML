@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://viptdv333-boop.github.io/IAML/sitemap.xml

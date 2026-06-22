@@ -1,316 +1,346 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>IAML — The International Association for Mongolic Linguistics</title>
+<meta name="description" content="The International Association for Mongolic Linguistics (IAML) unites scholars worldwide to study, document, and promote the Mongolic languages in all their historical and modern varieties."/>
+<link rel="canonical" href="https://viptdv333-boop.github.io/IAML/"/>
+<meta name="theme-color" content="#015197"/>
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="IAML — The International Association for Mongolic Linguistics"/>
+<meta property="og:description" content="Uniting scholars, researchers, and educators dedicated to the study, documentation, and promotion of Mongolic languages."/>
+<meta property="og:url" content="https://viptdv333-boop.github.io/IAML/"/>
+<meta name="twitter:card" content="summary"/>
+<!-- TODO (Phase 5): add a 1200x630 og-image.png + raster favicons (need a rasterizer/design tool) -->
+
+<!-- Favicons -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="iaml-site.css"/>
 <style>
 /* Cormorant Garamond for headings */
-h1, h2, h3, h4 { font-family: 'Cormorant Garamond', 'EB Garamond', serif !important; }
+h1, h2, h3, h4 { font-family: 'Cormorant Garamond', 'EB Garamond', serif; }
 
 /* Ulzii ornament divider */
 .ulzii-divider {
   display: flex; align-items: center; justify-content: center;
-  padding: 48px 0;
-  gap: 0;
+  padding: 48px 0; gap: 0;
   max-width: 700px; margin: 0 auto;
 }
 .ulzii-divider img.ulzii-knot {
-  height: 160px; width: auto; display: block; flex-shrink: 0;
-  opacity: .12;
+  height: 160px; width: auto; display: block; flex-shrink: 0; opacity: .12;
 }
-[data-theme="dark"] .ulzii-divider img.ulzii-knot { filter: invert(1); opacity: .08; }
 .ulzii-divider .ulzii-line {
   flex: 1; height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
   opacity: .3;
 }
 </style>
-<style>
-/* ═══ INTRO OVERLAY ═══ */
-.intro{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#000;transition:opacity 1s ease}
-.intro.done{opacity:0;pointer-events:none}
-.intro video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.intro__dark{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background 2s ease;pointer-events:none}
-.intro__content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:24px;opacity:0;transform:scale(.9);transition:opacity 1.5s ease,transform 1.5s ease}
-.intro__content.show{opacity:1;transform:scale(1)}
-.intro__logo{display:flex;align-items:center;gap:12px}
-.intro__logo svg{height:130px;fill:rgba(255,255,255,.8);transition:fill 1.5s ease}
-.intro__logo svg.golden{fill:#D4A843}
-.intro__logo .i-gl{width:2.5px;height:130px;background:rgba(255,255,255,.4);border-radius:2px;transition:background 1.5s ease}
-.intro__logo .i-gl.golden{background:#D4A843}
-.intro__logo .i-lt{display:flex;flex-direction:column;align-items:center}
-.intro__logo .i-rd{width:10px;height:10px;border-radius:50%;background:#C4272F;margin-bottom:5px;opacity:.7;transition:opacity 1s ease}
-.intro__logo .i-rd.golden{opacity:1}
-.intro__logo .i-le{font-family:'EB Garamond',serif;font-size:56px;font-weight:700;color:rgba(255,255,255,.8);line-height:1.05;letter-spacing:2px;transition:color 1.5s ease}
-.intro__logo .i-le.golden{color:#D4A843}
-.intro__name{font-family:'EB Garamond',serif;font-size:clamp(12px,1.5vw,16px);color:rgba(255,255,255,0);letter-spacing:5px;text-transform:uppercase;transition:color 1.5s ease}
-.intro__name.show{color:rgba(255,255,255,.6)}
-.intro__glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,67,.3),transparent 70%);opacity:0;transition:opacity 1.5s ease,width 1.5s ease,height 1.5s ease;pointer-events:none;transform:translate(-50%,-50%);left:50%;top:50%;z-index:1}
-.intro__glow.show{opacity:1;width:500px;height:500px}
-.intro__glow.flash{opacity:1;width:3000px;height:3000px;background:radial-gradient(circle,rgba(255,250,230,.9),rgba(255,255,255,.5) 30%,transparent 60%);transition:opacity .6s ease,width .8s ease,height .8s ease}
-.intro__circle{position:absolute;width:200px;height:200px;border-radius:50%;border:1.5px solid rgba(212,168,67,0);opacity:0;transition:all 1.5s ease;pointer-events:none;transform:translate(-50%,-50%);left:50%;top:50%;z-index:1}
-.intro__circle.show{border-color:rgba(212,168,67,.3);opacity:1;width:220px;height:220px}
-</style>
 </head>
 <body>
 
-<!-- ═══ INTRO ═══ -->
-<div class="intro" id="intro">
-  <video autoplay muted playsinline id="introVideo">
-    <source src="mongolia-sky.mp4" type="video/mp4"/>
-  </video>
-  <div class="intro__dark" id="introDark"></div>
-  <!-- Video already contains the logo animation -->
-  <!-- Just fade out to site after video plays -->
-  <div style="display:none" id="introContent">
-    <div>
-      <svg viewBox="0 0 105 300" id="introChar"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
-      <div class="i-gl" id="introGL"></div>
-      <div class="i-lt">
-        <div class="i-rd" id="introRD"></div>
-        <span class="i-le" id="iL1">I</span>
-        <span class="i-le" id="iL2">A</span>
-        <span class="i-le" id="iL3">M</span>
-        <span class="i-le" id="iL4">L</span>
-      </div>
-    </div>
-    <div class="intro__name" id="introName">The International Association for Mongolic Linguistics</div>
-  </div>
-</div>
-
-<!-- Ulzii SVG — Өлзій хээ (endless knot, rotated 45°) -->
-<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
-<defs><symbol id="ulzii" viewBox="-15 -15 130 130">
-  <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(45 50 50)">
-    <!-- Left U-loop -->
-    <path d="M 40,42 L 18,42 C 4,42 4,58 18,58 L 40,58"/>
-    <!-- Right U-loop -->
-    <path d="M 60,42 L 82,42 C 96,42 96,58 82,58 L 60,58"/>
-    <!-- Top U-loop -->
-    <path d="M 42,40 L 42,18 C 42,4 58,4 58,18 L 58,40"/>
-    <!-- Bottom U-loop -->
-    <path d="M 42,60 L 42,82 C 42,96 58,96 58,82 L 58,60"/>
-    <!-- Center weave -->
-    <path d="M 40,42 L 60,58"/>
-    <path d="M 40,58 L 60,42"/>
-    <path d="M 42,40 L 58,60"/>
-    <path d="M 58,40 L 42,60"/>
-  </g>
-</symbol></defs>
-</svg>
-</symbol></defs>
+<!-- ═══ SVG DEFS — IAML "M" mark (defined once, reused via <use>) ═══ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <symbol id="mongolM" viewBox="0 0 105 300"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></symbol>
+  </defs>
 </svg>
 
 <!-- ═══ NAV ═══ -->
 <nav class="nav"><div class="nav__in">
-  <a href="#" style="display:flex;align-items:center;gap:12px;transform:scale(1.5);transform-origin:left center">
-    <div class="lc lc--light" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.06)">
-      <div style="display:flex;align-items:center">
-        <svg viewBox="0 0 105 300" style="height:18px;display:block;opacity:.65" fill="#015197" fill-opacity="0.65"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
-        <div style="width:1px;height:18px;background:#D4A843;border-radius:1px;margin:0 1.5px"></div>
-        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:18px">
-          <div style="width:1.5px;height:1.5px;border-radius:50%;background:#C4272F;margin-bottom:.5px"></div>
-          <span class="lm-letter--b" style="font-family:'EB Garamond',serif;font-weight:700;font-size:4px;line-height:1.06">I</span>
-          <span class="lm-letter--b" style="font-family:'EB Garamond',serif;font-weight:700;font-size:4px;line-height:1.06">A</span>
-          <span class="lm-letter--b" style="font-family:'EB Garamond',serif;font-weight:700;font-size:4px;line-height:1.06">M</span>
-          <span class="lm-letter--b" style="font-family:'EB Garamond',serif;font-weight:700;font-size:4px;line-height:1.06">L</span>
-        </div>
-      </div>
-    </div>
-    <div style="width:1px;height:28px;background:#D4A843;opacity:.3"></div>
-    <div>
-      <div style="font-family:'EB Garamond',serif;font-size:13px;font-weight:600;letter-spacing:1px;color:var(--text)">The International Association</div>
-      <div style="font-family:'EB Garamond',serif;font-size:13px;font-weight:600;letter-spacing:1px;color:var(--text)">for Mongolic Linguistics</div>
-    </div>
+  <a href="#top" class="nav__brand" aria-label="IAML — home">
+    <span class="brand-mark">
+      <svg class="brand-mark__m" viewBox="0 0 105 300" aria-hidden="true"><use href="#mongolM"/></svg>
+      <span class="brand-mark__bar"></span>
+      <span class="brand-mark__letters">
+        <span class="brand-mark__dot"></span>
+        <span>I</span><span>A</span><span>M</span><span>L</span>
+      </span>
+    </span>
+    <span class="nav__brand-sep"></span>
+    <span class="nav__brand-text">
+      <span>The International Association</span>
+      <span>for Mongolic Linguistics</span>
+    </span>
   </a>
   <div class="nav__links" id="navLinks">
-    <a href="#about" class="nav__link" data-en="About the IAML" data-mn="IAML-н тухай">About the IAML</a>
-    <a href="#committees" class="nav__link" data-en="Committees" data-mn="Хороод">Committees</a>
-    <a href="#membership" class="nav__link" data-en="Membership" data-mn="Гишүүнчлэл">Membership</a>
-    <a href="#newsletters" class="nav__link" data-en="Newsletters" data-mn="Мэдээллийн товхимол">Newsletters</a>
-    <a href="#events" class="nav__link" data-en="Conferences &amp; Events" data-mn="Хурал &amp; Арга хэмжээ">Conferences &amp; Events</a>
-    <a href="#links" class="nav__link" data-en="Useful Links" data-mn="Хэрэгтэй холбоосууд">Useful Links</a>
+    <a href="#about" class="nav__link">About</a>
+    <a href="#participants" class="nav__link">Participants</a>
+    <a href="#news" class="nav__link">News</a>
+    <a href="#events" class="nav__link">Events</a>
+    <a href="#journal" class="nav__link">Journal</a>
   </div>
   <div class="nav__ctrls">
-    <button class="nav__btn" id="langBtn">MN</button>
-    <button class="nav__btn" id="themeBtn">◐</button>
-    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+    <button class="nav__btn" type="button" data-auth="login">Log in</button>
+    <a href="#join" class="nav__link nav__link--cta" data-auth="register">Join IAML</a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </div></nav>
 
 <!-- ═══ HERO ═══ -->
-<section class="hero">
+<section class="hero" id="top">
   <div class="hero__gold-accent"></div>
   <div class="hero__fade"></div>
   <div class="hero__in">
     <div>
-      <div class="hero__label" data-en="Welcome to IAML" data-mn="IAML-д тавтай морил">Welcome to IAML</div>
-      <h1 data-en="Advancing the Study of Mongolic Languages Worldwide" data-mn="Монгол хэл шинжлэлийг дэлхий даяар хөгжүүлэх нь">Advancing the Study of Mongolic Languages Worldwide</h1>
-      <p class="hero__desc" data-en="Uniting scholars, researchers, and educators dedicated to the study, documentation, and promotion of Mongolic languages and their rich cultural heritage." data-mn="Монгол хэл, соёлын баялаг өвийг судлах, баримтжуулах, сурталчлахад зориулагдсан эрдэмтэн, судлаач, багш нарыг нэгтгэх.">Uniting scholars, researchers, and educators dedicated to the study, documentation, and promotion of Mongolic languages and their rich cultural heritage.</p>
+      <div class="hero__label">Welcome to IAML</div>
+      <h1>Advancing the Study of Mongolic Languages Worldwide</h1>
+      <p class="hero__desc">Uniting scholars, researchers, and educators dedicated to the study, documentation, and promotion of Mongolic languages and their rich cultural heritage.</p>
       <div class="hero__btns">
-        <a href="#membership" class="btn btn--w" data-en="Become a Member" data-mn="Гишүүн болох">Become a Member</a>
-        <a href="#events" class="btn btn--go" data-en="Upcoming Events →" data-mn="Арга хэмжээ →">Upcoming Events →</a>
+        <a href="#join" class="btn btn--w" data-auth="register">Become a Member</a>
+        <a href="#journal" class="btn btn--go">Explore the Journal →</a>
       </div>
+      <p class="hero__join">Already registered? <a href="#join" data-auth="login">Log in →</a></p>
+      <ul class="hero__proof" aria-label="At a glance">
+        <li><strong>Est. 2023</strong><span>founded by Mongolic scholars</span></li>
+        <li><strong>4 Committees</strong><span>executive, scientific, editorial, membership</span></li>
+        <li><strong>Vol. I · 2026</strong><span>Journal of Mongolic Linguistics</span></li>
+      </ul>
     </div>
   </div>
 </section>
 
 <!-- ═══ ABOUT ═══ -->
 <section class="section" id="about"><div class="container">
-  <div class="slabel reveal" data-en="About IAML" data-mn="IAML-н тухай">About IAML</div>
-  <h2 class="reveal" data-en="About Us" data-mn="Бидний тухай">About Us</h2>
+  <div class="slabel reveal">About IAML</div>
+  <h2 class="reveal">About Us</h2>
   <div class="about__text reveal" style="margin-top:32px;max-width:780px">
-    <p data-en="The central aim of the International Association for Mongolic Linguistics (IAML), founded in August 2023, is to promote the study of the Mongolic languages in all their varieties, both historical and modern. IAML is the first global umbrella organization which provides a central contact point for all those who are working on Mongolic languages." data-mn="Олон улсын монгол хэл шинжлэлийн холбоо (IAML) нь 2023 оны 8 сард байгуулагдсан бөгөөд монгол хэлийг түүхэн болон орчин үеийн бүх төрөл, хувилбараар нь судлахыг дэмжих гол зорилготой. IAML нь монгол хэл судлаачдыг нэгтгэсэн анхны олон улсын байгууллага юм.">The central aim of the International Association for Mongolic Linguistics (IAML), founded in August 2023, is to promote the study of the Mongolic languages in all their varieties, both historical and modern. IAML is the first global umbrella organization which provides a central contact point for all those who are working on Mongolic languages.</p>
+    <p>The central aim of the International Association for Mongolic Linguistics (IAML), founded in August 2023, is to promote the study of the Mongolic languages in all their varieties, both historical and modern. IAML is the first global umbrella organization which provides a central contact point for all those who are working on Mongolic languages.</p>
   </div>
 
-  <!-- OBJECTIVES — tiles grid -->
-  <h3 class="reveal" style="margin-top:56px;margin-bottom:24px;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-family:'DM Sans',sans-serif" data-en="Principal Objectives" data-mn="Үндсэн зорилго">Principal Objectives</h3>
+  <!-- OBJECTIVES -->
+  <h3 class="reveal eyebrow eyebrow--blue" style="margin-top:56px;margin-bottom:24px">Principal Objectives</h3>
   <div class="obj-tiles reveal">
     <div class="otile">
       <div class="otile__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg></div>
-      <p data-en="actively contributing to the development of all subject areas of Mongolic linguistics" data-mn="Монгол хэл шинжлэлийн бүх салбарын хөгжилд идэвхтэй хувь нэмэр оруулах">actively contributing to the development of all subject areas of Mongolic linguistics</p>
+      <p>actively contributing to the development of all subject areas of Mongolic linguistics</p>
     </div>
     <div class="otile">
       <div class="otile__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <p data-en="providing an international platform for discussing and comparing results of fundamental research in the field of Mongolic linguistics;" data-mn="Монгол хэл шинжлэлийн судалгааны үр дүнг хэлэлцэх, харьцуулах олон улсын тавцанг бүрдүүлэх;">providing an international platform for discussing and comparing results of fundamental research in the field of Mongolic linguistics;</p>
+      <p>providing an international platform for discussing and comparing results of fundamental research in the field of Mongolic linguistics</p>
     </div>
     <div class="otile">
       <div class="otile__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
-      <p data-en="establishing collaborative agreements and working relations with any other professional organizations with related interests;" data-mn="Холбогдох мэргэжлийн байгууллагуудтай хамтын ажиллагааны гэрээ, харилцаа тогтоох;">establishing collaborative agreements and working relations with any other professional organizations with related interests;</p>
+      <p>establishing collaborative agreements and working relations with other professional organizations with related interests</p>
     </div>
     <div class="otile">
       <div class="otile__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-      <p data-en="disseminating knowledge about various aspects of the Mongolic languages;" data-mn="Монгол хэлний янз бүрийн талаархи мэдлэгийг түгээх;">disseminating knowledge about various aspects of the Mongolic languages;</p>
+      <p>disseminating knowledge about various aspects of the Mongolic languages</p>
     </div>
     <div class="otile">
       <div class="otile__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <p data-en="supporting Mongolic linguistics." data-mn="Монгол хэл шинжлэлийг дэмжих.">supporting Mongolic linguistics.</p>
+      <p>supporting Mongolic linguistics in all its forms</p>
     </div>
   </div>
 
-  <!-- ACTIVITIES — tiles grid -->
-  <h3 class="reveal" style="margin-top:48px;margin-bottom:24px;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-family:'DM Sans',sans-serif" data-en="Public Activities" data-mn="Олон нийтийн үйл ажиллагаа">Public Activities</h3>
+  <!-- ACTIVITIES -->
+  <h3 class="reveal eyebrow eyebrow--gold" style="margin-top:48px;margin-bottom:24px">Public Activities</h3>
   <div class="act-tiles reveal">
     <div class="atile atile--wide">
       <div class="atile__num">01</div>
       <div class="atile__content">
-        <h4 data-en="Biennial Conference" data-mn="Хоёр жилд нэг удаа болох хурал">Biennial Conference</h4>
-        <p data-en="holding a biennial IAML conference, also known as the International Conference on Mongolic Linguistics (ML), serving as a comprehensive forum for exchange of novel knowledge and experience in investigating various aspects of Mongolic languages;" data-mn="Монгол хэл шинжлэлийн олон улсын хурал (ML) нэрээр алдартай IAML-ийн хоёр жил тутмын хурлыг зохион байгуулах нь монгол хэлийг судлах туршлага, шинэ мэдлэг солилцох цогц тавцан болдог;">holding a biennial IAML conference, also known as the International Conference on Mongolic Linguistics (ML), serving as a comprehensive forum for exchange of novel knowledge and experience in investigating various aspects of Mongolic languages;</p>
+        <h4>Biennial Conference</h4>
+        <p>holding a biennial IAML conference, also known as the International Conference on Mongolic Linguistics (ML), serving as a comprehensive forum for exchange of novel knowledge and experience in investigating various aspects of Mongolic languages;</p>
       </div>
     </div>
     <div class="atile">
       <div class="atile__num">02</div>
       <div class="atile__content">
-        <h4 data-en="Newsletter" data-mn="Мэдээллийн товхимол">Newsletter</h4>
-        <p data-en="issuing a regular newsletter where information about various events in the field of Mongolic linguistics and the activities of the association is provided;" data-mn="Монгол хэл шинжлэлийн салбарын үйл явдал болон холбооны үйл ажиллагааны тухай мэдээллийг агуулсан мэдээллийн товхимол тогтмол гаргах;">issuing a regular newsletter where information about various events in the field of Mongolic linguistics and the activities of the association is provided;</p>
+        <h4>Newsletter</h4>
+        <p>issuing a regular newsletter where information about events in the field of Mongolic linguistics and the activities of the association is provided;</p>
       </div>
     </div>
     <div class="atile">
       <div class="atile__num">03</div>
       <div class="atile__content">
-        <h4 data-en="Research Publications" data-mn="Судалгааны хэвлэл">Research Publications</h4>
-        <p data-en="promoting the dissemination of research results in the field of Mongolic linguistics in the form of conference materials and – in the future – an academic journal;" data-mn="Монгол хэл шинжлэлийн судалгааны үр дүнг хурлын материал, ирээдүйд эрдэм шинжилгээний сэтгүүлээр түгээхийг дэмжих;">promoting the dissemination of research results in the field of Mongolic linguistics in the form of conference materials and – in the future – an academic journal;</p>
+        <h4>Research Publications</h4>
+        <p>promoting the dissemination of research results in the form of conference materials and an academic journal;</p>
       </div>
     </div>
     <div class="atile">
       <div class="atile__num">04</div>
       <div class="atile__content">
-        <h4 data-en="Fieldwork" data-mn="Хээрийн судалгаа">Fieldwork</h4>
-        <p data-en="encouraging linguistic fieldwork for the documentation of modern Mongolic language varieties;" data-mn="Орчин үеийн монгол хэлний хувилбаруудыг баримтжуулах хээрийн судалгааг дэмжих;">encouraging linguistic fieldwork for the documentation of modern Mongolic language varieties;</p>
+        <h4>Fieldwork</h4>
+        <p>encouraging linguistic fieldwork for the documentation of modern Mongolic language varieties;</p>
       </div>
     </div>
     <div class="atile">
       <div class="atile__num">05</div>
       <div class="atile__content">
-        <h4 data-en="Grants &amp; Scholarships" data-mn="Тэтгэлэг ба буцалтгүй тусламж">Grants &amp; Scholarships</h4>
-        <p data-en="awarding grants and scholarships for students and young scholars working on Mongolic languages;" data-mn="Монгол хэл дээр ажиллаж буй оюутан, залуу судлаачдад тэтгэлэг олгох;">awarding grants and scholarships for students and young scholars working on Mongolic languages;</p>
+        <h4>Grants &amp; Scholarships</h4>
+        <p>awarding grants and scholarships for students and young scholars working on Mongolic languages;</p>
       </div>
     </div>
     <div class="atile">
       <div class="atile__num">06</div>
       <div class="atile__content">
-        <h4 data-en="Fellowships" data-mn="Эрдэм шинжилгээний тэтгэлэг">Fellowships</h4>
-        <p data-en="providing fellowships for participating in IAML conferences for academics;" data-mn="Эрдэмтдийг IAML-ийн хуралд оролцох эрдэм шинжилгээний тэтгэлгээр хангах;">providing fellowships for participating in IAML conferences for academics;</p>
+        <h4>Fellowships</h4>
+        <p>providing fellowships for academics participating in IAML conferences;</p>
       </div>
     </div>
     <div class="atile atile--wide">
       <div class="atile__num">07</div>
       <div class="atile__content">
-        <h4 data-en="Summer &amp; Winter Schools" data-mn="Зуны ба өвлийн сургууль">Summer &amp; Winter Schools</h4>
-        <p data-en="organizing Summer Schools/Winter Schools in Mongolic linguistics for Mongolian and international university students and teachers in Mongolia." data-mn="Монгол болон гадаадын их сургуулийн оюутан, багш нарт зориулсан монгол хэл шинжлэлийн зуны/өвлийн сургуулийг Монголд зохион байгуулах.">organizing Summer Schools/Winter Schools in Mongolic linguistics for Mongolian and international university students and teachers in Mongolia.</p>
+        <h4>Summer &amp; Winter Schools</h4>
+        <p>organizing Summer and Winter Schools in Mongolic linguistics for Mongolian and international university students and teachers in Mongolia.</p>
       </div>
     </div>
   </div>
 </div></section>
 
 <!-- Ulzii divider -->
-<div class="ulzii-divider"><span class="ulzii-line"></span><img class="ulzii-knot" src="site/ulzii-crisp.png" alt="Өлзій"/><span class="ulzii-line"></span></div>
+<div class="ulzii-divider"><span class="ulzii-line"></span><img class="ulzii-knot" src="site/ulzii-crisp.png" alt=""/><span class="ulzii-line"></span></div>
 
 <!-- ═══ COMMITTEES ═══ -->
 <section class="section section--alt" id="committees"><div class="container">
-  <div class="slabel reveal" data-en="Committees" data-mn="Хороод">Committees</div>
-  <h2 class="reveal" data-en="Governing Bodies" data-mn="Удирдах байгууллагууд">Governing Bodies</h2>
-  <p class="reveal" data-en="IAML's work is guided by dedicated committees of scholars from around the world." data-mn="IAML-ийн үйл ажиллагааг дэлхийн өнцөг булан бүрээс ирсэн эрдэмтдийн хороод чиглүүлдэг." style="font-size:16px;color:var(--text2);line-height:1.8;margin-top:24px;margin-bottom:48px;max-width:720px">IAML's work is guided by dedicated committees of scholars from around the world.</p>
+  <div class="slabel reveal">Committees</div>
+  <h2 class="reveal">Governing Bodies</h2>
+  <p class="reveal section__lead">IAML's work is guided by dedicated committees of scholars from around the world.</p>
   <div class="obj-tiles reveal">
     <div class="otile">
       <div class="otile__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5"><path d="M12 2L3 9l9 7 9-7-9-7z"/><path d="M3 9v6l9 7 9-7V9"/></svg></div>
-      <h4 style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:8px" data-en="Executive Board" data-mn="Гүйцэтгэх зөвлөл">Executive Board</h4>
-      <p data-en="The Executive Board oversees the strategic direction and governance of IAML." data-mn="Гүйцэтгэх зөвлөл нь IAML-ийн стратегийн чиглэл, удирдлагыг хариуцдаг.">The Executive Board oversees the strategic direction and governance of IAML.</p>
+      <h4 class="otile__h">Executive Board</h4>
+      <p>The Executive Board oversees the strategic direction and governance of IAML.</p>
     </div>
     <div class="otile">
       <div class="otile__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg></div>
-      <h4 style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:8px" data-en="Scientific Committee" data-mn="Эрдэм шинжилгээний хороо">Scientific Committee</h4>
-      <p data-en="Sets research priorities and reviews submissions for IAML conferences and publications." data-mn="Судалгааны тэргүүлэх чиглэлүүдийг тогтоож, IAML-ийн хурал, хэвлэлд ирүүлсэн материалыг хянадаг.">Sets research priorities and reviews submissions for IAML conferences and publications.</p>
+      <h4 class="otile__h">Scientific Committee</h4>
+      <p>Sets research priorities and reviews submissions for IAML conferences and publications.</p>
     </div>
     <div class="otile">
       <div class="otile__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-      <h4 style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:8px" data-en="Editorial Board" data-mn="Редакцийн зөвлөл">Editorial Board</h4>
-      <p data-en="Manages the IAML newsletter and oversees forthcoming academic publications." data-mn="IAML-ийн мэдээллийн товхимол, эрдэм шинжилгээний хэвлэлийг хариуцдаг.">Manages the IAML newsletter and oversees forthcoming academic publications.</p>
+      <h4 class="otile__h">Editorial Board</h4>
+      <p>Manages the IAML newsletter and oversees forthcoming academic publications.</p>
     </div>
     <div class="otile">
       <div class="otile__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <h4 style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:8px" data-en="Membership Committee" data-mn="Гишүүнчлэлийн хороо">Membership Committee</h4>
-      <p data-en="Welcomes new members and supports the IAML community of scholars and educators." data-mn="Шинэ гишүүдийг хүлээн авч, IAML-ийн эрдэмтэн, багш нарын нийгэмлэгийг дэмждэг.">Welcomes new members and supports the IAML community of scholars and educators.</p>
+      <h4 class="otile__h">Membership Committee</h4>
+      <p>Welcomes new members and supports the IAML community of scholars and educators.</p>
     </div>
   </div>
 </div></section>
 
-<!-- ═══ MEMBERSHIP ═══ -->
-<section class="section" id="membership"><div class="container">
-  <div class="mem__head">
-    <div class="slabel reveal" data-en="Join IAML" data-mn="IAML-д нэгдэх">Join IAML</div>
-    <h2 class="reveal" data-en="Become a Member" data-mn="Гишүүн болох">Become a Member</h2>
-    <p class="reveal" data-en="Join a growing community of linguists, educators, and cultural advocates." data-mn="Хэл шинжээч, багш, соёлын зөвлөгч нарын нийгэмлэгт нэгдээрэй.">Join a growing community of linguists, educators, and cultural advocates.</p>
-  </div>
-  <div class="mem__cards reveal">
-    <div class="tier"><div><h4 data-en="Student" data-mn="Оюутан">Student</h4><div class="tier__price">$25<span>/yr</span></div></div><ul><li>Digital journal access</li><li>Conference discount</li><li>Newsletter</li></ul><a href="#" class="btn btn--o btn--sm">Join</a></div>
-    <div class="tier tier--f"><div class="tier__badge">Most Popular</div><div><h4 data-en="Professional" data-mn="Мэргэжлийн">Professional</h4><div class="tier__price">$75<span>/yr</span></div></div><ul><li>Print &amp; digital journal</li><li>Full conference access</li><li>Research network</li><li>Voting rights</li></ul><a href="#" class="btn btn--p btn--sm">Join</a></div>
-    <div class="tier"><div><h4 data-en="Institutional" data-mn="Байгууллага">Institutional</h4><div class="tier__price">$300<span>/yr</span></div></div><ul><li>5 member accounts</li><li>Library access</li><li>Co-host events</li><li>Partner page logo</li></ul><a href="#" class="btn btn--o btn--sm">Join</a></div>
+<!-- ═══ PARTICIPANTS (public directory — rendered from backend in Phase 3) ═══ -->
+<section class="section" id="participants"><div class="container">
+  <div class="slabel reveal">Community</div>
+  <h2 class="reveal">Participants</h2>
+  <p class="reveal section__lead">Members of the IAML community, grouped by role. When you register, your profile appears here automatically.</p>
+
+  <div id="participants-list" data-dynamic="participants" class="reveal">
+    <!-- PLACEHOLDER groups — replaced by live data from the database in Phase 3 -->
+    <div class="pgroup">
+      <h3 class="pgroup__title">Executive Board</h3>
+      <div class="pgrid">
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>Member name</h4><p class="pcard__role">President</p><p class="pcard__org">Affiliation</p></div></article>
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>Member name</h4><p class="pcard__role">Vice-President</p><p class="pcard__org">Affiliation</p></div></article>
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>Member name</h4><p class="pcard__role">Secretary</p><p class="pcard__org">Affiliation</p></div></article>
+      </div>
+    </div>
+    <div class="pgroup">
+      <h3 class="pgroup__title">Scientific Committee</h3>
+      <div class="pgrid">
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>Member name</h4><p class="pcard__role">Professor</p><p class="pcard__org">Affiliation</p></div></article>
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>Member name</h4><p class="pcard__role">Researcher</p><p class="pcard__org">Affiliation</p></div></article>
+      </div>
+    </div>
+    <div class="pgroup">
+      <h3 class="pgroup__title">Members</h3>
+      <div class="pgrid">
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>Member name</h4><p class="pcard__role">Lecturer</p><p class="pcard__org">Affiliation</p></div></article>
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>Member name</h4><p class="pcard__role">PhD candidate</p><p class="pcard__org">Affiliation</p></div></article>
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>Member name</h4><p class="pcard__role">Student</p><p class="pcard__org">Affiliation</p></div></article>
+      </div>
+    </div>
   </div>
 </div></section>
 
-<!-- ═══ NEWSLETTERS ═══ -->
-<section class="section" id="newsletters"><div class="container">
-  <div class="slabel reveal" data-en="Newsletters" data-mn="Мэдээллийн товхимол">Newsletters</div>
-  <h2 class="reveal" data-en="Newsletter &amp; Journal" data-mn="Товхимол ба сэтгүүл">Newsletter &amp; Journal</h2>
+<!-- ═══ JOIN / MEMBERSHIP (free registration) ═══ -->
+<section class="section section--alt" id="join"><div class="container">
+  <div class="mem__head">
+    <div class="slabel reveal">Join IAML</div>
+    <h2 class="reveal">Become a Member</h2>
+    <p class="reveal">Membership is free. Register to join a growing community of linguists, educators, and cultural advocates.</p>
+  </div>
+  <div class="join-card reveal">
+    <ul class="join-card__perks">
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Be listed in the public Participants directory</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Subscribe to IAML news and announcements</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Comment on journal articles and publications</li>
+    </ul>
+    <div class="join-card__cta">
+      <a href="#join" class="btn btn--p" data-auth="register">Create a free account</a>
+      <p class="join-card__note">Already a member? <a href="#join" data-auth="login">Log in</a></p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ NEWS (rendered from backend in Phase 3) ═══ -->
+<section class="section" id="news"><div class="container">
+  <div class="slabel reveal">Latest</div>
+  <h2 class="reveal">News</h2>
+  <p class="reveal section__lead">Announcements, calls for papers, and updates from the association.</p>
+  <div class="news-grid reveal" id="news-list" data-dynamic="news">
+    <!-- PLACEHOLDER — replaced by live data in Phase 3 -->
+    <article class="ncard">
+      <div class="ncard__date">2026</div>
+      <h3 class="ncard__title">News headline goes here</h3>
+      <p class="ncard__excerpt">A short summary of the announcement will appear in this space once the news section is connected to the database.</p>
+      <span class="ncard__more">Read more →</span>
+    </article>
+    <article class="ncard">
+      <div class="ncard__date">2026</div>
+      <h3 class="ncard__title">News headline goes here</h3>
+      <p class="ncard__excerpt">A short summary of the announcement will appear in this space once the news section is connected to the database.</p>
+      <span class="ncard__more">Read more →</span>
+    </article>
+    <article class="ncard">
+      <div class="ncard__date">2026</div>
+      <h3 class="ncard__title">News headline goes here</h3>
+      <p class="ncard__excerpt">A short summary of the announcement will appear in this space once the news section is connected to the database.</p>
+      <span class="ncard__more">Read more →</span>
+    </article>
+  </div>
+</div></section>
+
+<!-- Ulzii divider -->
+<div class="ulzii-divider"><span class="ulzii-line"></span><img class="ulzii-knot" src="site/ulzii-crisp.png" alt=""/><span class="ulzii-line"></span></div>
+
+<!-- ═══ EVENTS (rendered from backend in Phase 3) ═══ -->
+<section class="section section--alt" id="events"><div class="container">
+  <div class="slabel reveal">Upcoming Events</div>
+  <h2 class="reveal">Conferences &amp; Events</h2>
+  <div class="reveal" id="events-list" data-dynamic="events">
+    <!-- PLACEHOLDER — replaced by live data in Phase 3 -->
+    <div class="ev"><div class="ev__accent"></div><div class="ev__date"><span class="ev__month">SEP</span><span class="ev__day">15</span><span class="ev__year">2026</span></div><div class="ev__body"><h3>IAML Annual Conference 2026</h3><p class="ev__loc">Ulaanbaatar, Mongolia</p><p class="ev__desc">The inaugural conference featuring keynotes on comparative Mongolic linguistics, phonological typology, and digital approaches to script preservation.</p><a href="mailto:info@iaml.org?subject=Registration%20%E2%80%94%20IAML%20Annual%20Conference%202026" class="btn btn--p btn--sm">Register</a></div></div>
+    <div class="ev"><div class="ev__accent"></div><div class="ev__date"><span class="ev__month">NOV</span><span class="ev__day">08</span><span class="ev__year">2026</span></div><div class="ev__body"><h3>Workshop: Mongolian Script Digitization</h3><p class="ev__loc">Online / Zoom</p><p class="ev__desc">Hands-on workshop on encoding, rendering, and preserving traditional Mongolian, Todo, and Manchu scripts in digital environments.</p><a href="mailto:info@iaml.org?subject=Workshop%20%E2%80%94%20Mongolian%20Script%20Digitization" class="btn btn--o btn--sm">Learn More</a></div></div>
+    <div class="ev"><div class="ev__accent"></div><div class="ev__date"><span class="ev__month">MAR</span><span class="ev__day">22</span><span class="ev__year">2027</span></div><div class="ev__body"><h3>Symposium: Endangered Mongolic Languages</h3><p class="ev__loc">Hohhot, Inner Mongolia</p><p class="ev__desc">Documentation and revitalization of Dagur, Shira Yugur, Moghol, and other endangered Mongolic languages.</p><a href="mailto:info@iaml.org?subject=Symposium%20%E2%80%94%20Endangered%20Mongolic%20Languages" class="btn btn--o btn--sm">Learn More</a></div></div>
+  </div>
+</div></section>
+
+<!-- Ulzii divider -->
+<div class="ulzii-divider"><span class="ulzii-line"></span><img class="ulzii-knot" src="site/ulzii-crisp.png" alt=""/><span class="ulzii-line"></span></div>
+
+<!-- ═══ JOURNAL & ARTICLE ANNOUNCEMENTS ═══ -->
+<section class="section" id="journal"><div class="container">
+  <div class="slabel reveal">Publications</div>
+  <h2 class="reveal">Journal &amp; Article Announcements</h2>
   <div class="pubs__grid reveal">
     <div>
       <div class="pub-cover">
         <div class="pub-cover__border"></div>
         <div style="display:flex;align-items:center;gap:3px">
-          <svg viewBox="0 0 105 300" style="height:60px;display:block;opacity:.6" fill="white"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 43,227 L 43,224 L 43,221 L 43,218 L 44,215 L 44,212 L 44,209 L 44,206 L 44,203 L 44,200 L 41,199 L 38,198 L 35,197 L 32,197 L 29,196 L 26,195 L 23,194 L 20,193 L 19,190 L 19,187 L 22,186 L 25,184 L 28,182 L 31,181 L 34,180 L 37,179 L 40,178 L 43,177 L 44,174 L 44,171 L 44,168 L 44,165 L 44,162 L 44,159 L 42,157 L 39,156 L 36,155 L 33,155 L 30,154 L 27,153 L 24,153 L 21,152 L 19,149 L 19,146 L 21,144 L 24,142 L 27,141 L 30,139 L 33,138 L 36,137 L 39,136 L 42,136 L 44,133 L 44,130 L 44,127 L 44,124 L 44,121 L 44,118 L 44,115 L 44,112 L 44,109 L 44,106 L 44,103 L 44,100 L 44,97 L 44,94 L 44,91 L 44,88 L 42,87 L 40,90 L 38,93 L 35,96 L 33,99 L 30,102 L 28,105 L 26,107 L 24,110 L 22,113 L 19,115 L 16,114 L 13,112 L 10,111 L 7,110 L 4,109 L 2,106 L 4,103 L 7,102 L 10,99 L 13,97 L 16,95 L 19,93 L 22,91 L 25,89 L 28,87 L 31,84 L 34,83 L 37,80 L 40,78 L 43,76 L 44,73 L 44,70 L 44,67 L 44,64 L 44,61 L 43,58 L 40,58 L 37,57 L 34,56 L 31,56 L 28,55 L 25,54 L 22,53 L 20,52 L 19,49 L 20,46 L 23,44 L 26,43 L 29,42 L 32,40 L 35,39 L 38,38 L 41,38 L 44,37 L 47,37 L 50,37 L 53,37 L 56,37 L 59,37 L 62,36 L 65,34 L 66,31 L 66,28 L 65,25 L 65,22 L 64,19 L 63,16 L 61,13 L 60,10 L 60,7 Z"/></svg>
-          <div style="width:1.5px;height:60px;background:#D4A843;opacity:.5;border-radius:1px;margin:0 2px"></div>
-          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px">
-            <div style="width:3px;height:3px;border-radius:50%;background:#C4272F;margin-bottom:2px"></div>
-            <span style="font-family:'EB Garamond',serif;font-weight:700;font-size:13px;line-height:1.06;color:rgba(255,255,255,.8)">I</span>
-            <span style="font-family:'EB Garamond',serif;font-weight:700;font-size:13px;line-height:1.06;color:rgba(255,255,255,.8)">A</span>
-            <span style="font-family:'EB Garamond',serif;font-weight:700;font-size:13px;line-height:1.06;color:rgba(255,255,255,.8)">M</span>
-            <span style="font-family:'EB Garamond',serif;font-weight:700;font-size:13px;line-height:1.06;color:rgba(255,255,255,.8)">L</span>
+          <svg class="pub-cover__m" viewBox="0 0 105 300" aria-hidden="true"><use href="#mongolM"/></svg>
+          <div class="pub-cover__rule"></div>
+          <div class="pub-cover__letters">
+            <span class="pub-cover__dot"></span>
+            <span>I</span><span>A</span><span>M</span><span>L</span>
           </div>
         </div>
         <div class="pub-cover__sep"></div>
@@ -321,41 +351,30 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', 'EB Garamond', serif !import
     <div class="pub-info">
       <h3>Inaugural Issue</h3>
       <p>Peer-reviewed articles on Mongolic phonology, morphology, syntax, historical linguistics, sociolinguistics, and language documentation.</p>
-      <a href="#" class="btn btn--p btn--sm" style="margin-bottom:32px">Read Online</a>
+      <a href="mailto:info@iaml.org?subject=Journal%20of%20Mongolic%20Linguistics%20%E2%80%94%20Vol.%20I" class="btn btn--p btn--sm" style="margin-bottom:32px">Request Access</a>
       <div class="pub-articles">
-        <h4>Recent Articles</h4>
-        <div class="pa"><span class="pa__tag">Phonology</span><h5>Vowel Harmony in Khalkha Mongolian: A Revised Analysis</h5><p>B. Bat-Erdene, T. Yamamoto — 2026</p></div>
-        <div class="pa"><span class="pa__tag">Syntax</span><h5>Case Stacking in Buryat: Evidence from Fieldwork</h5><p>S. Rinchen, M. Grünthal — 2026</p></div>
-        <div class="pa"><span class="pa__tag">Documentation</span><h5>Digital Archiving of Moghol: Challenges and Methods</h5><p>A. Weiers, D. Tserenpil — 2026</p></div>
+        <h4>Article Announcements</h4>
+        <div id="articles-list" data-dynamic="articles">
+          <!-- PLACEHOLDER — replaced by live data (+ comments) in Phase 3 -->
+          <div class="pa"><span class="pa__tag">Phonology</span><h5>Article title to be announced</h5><p>Author names — 2026</p><p class="pa__note">Comments open to registered members.</p></div>
+          <div class="pa"><span class="pa__tag">Syntax</span><h5>Article title to be announced</h5><p>Author names — 2026</p><p class="pa__note">Comments open to registered members.</p></div>
+          <div class="pa"><span class="pa__tag">Documentation</span><h5>Article title to be announced</h5><p>Author names — 2026</p><p class="pa__note">Comments open to registered members.</p></div>
+        </div>
       </div>
     </div>
   </div>
 </div></section>
 
 <!-- Ulzii divider -->
-<div class="ulzii-divider"><span class="ulzii-line"></span><img class="ulzii-knot" src="site/ulzii-crisp.png" alt="Өлзій"/><span class="ulzii-line"></span></div>
-
-<!-- ═══ EVENTS ═══ -->
-<section class="section section--alt" id="events"><div class="container">
-  <div class="slabel reveal" data-en="Upcoming Events" data-mn="Удахгүй болох арга хэмжээ">Upcoming Events</div>
-  <h2 class="reveal" data-en="Conferences &amp; Events" data-mn="Хурал ба арга хэмжээ">Conferences &amp; Events</h2>
-  <div class="reveal">
-    <div class="ev"><div class="ev__accent"></div><div class="ev__date"><span class="ev__month">SEP</span><span class="ev__day">15</span><span class="ev__year">2026</span></div><div class="ev__body"><h3>IAML Annual Conference 2026</h3><p class="ev__loc">Ulaanbaatar, Mongolia</p><p class="ev__desc">The inaugural conference featuring keynotes on comparative Mongolic linguistics, phonological typology, and digital approaches to script preservation.</p><a href="#" class="btn btn--p btn--sm">Register</a></div></div>
-    <div class="ev"><div class="ev__accent"></div><div class="ev__date"><span class="ev__month">NOV</span><span class="ev__day">08</span><span class="ev__year">2026</span></div><div class="ev__body"><h3>Workshop: Mongolian Script Digitization</h3><p class="ev__loc">Online / Zoom</p><p class="ev__desc">Hands-on workshop on encoding, rendering, and preserving traditional Mongolian, Todo, and Manchu scripts in digital environments.</p><a href="#" class="btn btn--o btn--sm">Learn More</a></div></div>
-    <div class="ev"><div class="ev__accent"></div><div class="ev__date"><span class="ev__month">MAR</span><span class="ev__day">22</span><span class="ev__year">2027</span></div><div class="ev__body"><h3>Symposium: Endangered Mongolic Languages</h3><p class="ev__loc">Hohhot, Inner Mongolia</p><p class="ev__desc">Documentation and revitalization of Dagur, Shira Yugur, Moghol, and other endangered Mongolic languages.</p><a href="#" class="btn btn--o btn--sm">Learn More</a></div></div>
-  </div>
-</div></section>
-
-<!-- Ulzii divider -->
-<div class="ulzii-divider"><span class="ulzii-line"></span><img class="ulzii-knot" src="site/ulzii-crisp.png" alt="Өлзій"/><span class="ulzii-line"></span></div>
+<div class="ulzii-divider"><span class="ulzii-line"></span><img class="ulzii-knot" src="site/ulzii-crisp.png" alt=""/><span class="ulzii-line"></span></div>
 
 <!-- ═══ USEFUL LINKS ═══ -->
 <section class="section section--alt" id="links"><div class="container">
-  <div class="slabel reveal" data-en="Useful Links" data-mn="Хэрэгтэй холбоосууд">Useful Links</div>
-  <h2 class="reveal" data-en="Resources &amp; Partners" data-mn="Эх сурвалж ба хамтрагчид">Resources &amp; Partners</h2>
-  <p class="reveal" data-en="Curated resources, partner institutions, and tools for the Mongolic linguistics community." data-mn="Монгол хэл шинжлэлийн нийгэмлэгт зориулсан эх сурвалж, хамтрагч байгууллагууд, хэрэгслүүд." style="font-size:16px;color:var(--text2);line-height:1.8;margin-top:24px;margin-bottom:48px;max-width:720px">Curated resources, partner institutions, and tools for the Mongolic linguistics community.</p>
+  <div class="slabel reveal">Useful Links</div>
+  <h2 class="reveal">Resources &amp; Partners</h2>
+  <p class="reveal section__lead">Curated resources, partner institutions, and tools for the Mongolic linguistics community.</p>
 
-  <h3 class="reveal" style="margin-top:8px;margin-bottom:24px;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-family:'DM Sans',sans-serif" data-en="Partner Institutions" data-mn="Хамтрагч байгууллагууд">Partner Institutions</h3>
+  <h3 class="reveal eyebrow eyebrow--blue" style="margin-top:8px;margin-bottom:24px">Partner Institutions</h3>
   <div class="partners__grid reveal">
     <div class="ptr">National University of Mongolia</div>
     <div class="ptr">Inner Mongolia University</div>
@@ -367,94 +386,100 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', 'EB Garamond', serif !import
     <div class="ptr">Kalmyk State University</div>
   </div>
 
-  <h3 class="reveal" style="margin-top:48px;margin-bottom:24px;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-family:'DM Sans',sans-serif" data-en="Resources &amp; Tools" data-mn="Эх сурвалж ба хэрэгсэл">Resources &amp; Tools</h3>
+  <h3 class="reveal eyebrow eyebrow--gold" style="margin-top:48px;margin-bottom:24px">Resources &amp; Tools</h3>
+  <!-- TODO: replace mailto placeholders with real resource URLs once provided -->
   <div class="partners__grid reveal">
-    <a href="#" class="ptr" style="text-decoration:none" data-en="Mongolic Languages Database" data-mn="Монгол хэлний мэдээллийн сан">Mongolic Languages Database</a>
-    <a href="#" class="ptr" style="text-decoration:none" data-en="Traditional Script Archive" data-mn="Уламжлалт бичгийн архив">Traditional Script Archive</a>
-    <a href="#" class="ptr" style="text-decoration:none" data-en="Teaching Materials" data-mn="Сургалтын материал">Teaching Materials</a>
-    <a href="#" class="ptr" style="text-decoration:none" data-en="Academic Bibliography" data-mn="Эрдэм шинжилгээний номзүй">Academic Bibliography</a>
+    <a href="mailto:info@iaml.org?subject=Resource%20%E2%80%94%20Mongolic%20Languages%20Database" class="ptr ptr--link">Mongolic Languages Database</a>
+    <a href="mailto:info@iaml.org?subject=Resource%20%E2%80%94%20Traditional%20Script%20Archive" class="ptr ptr--link">Traditional Script Archive</a>
+    <a href="mailto:info@iaml.org?subject=Resource%20%E2%80%94%20Teaching%20Materials" class="ptr ptr--link">Teaching Materials</a>
+    <a href="mailto:info@iaml.org?subject=Resource%20%E2%80%94%20Academic%20Bibliography" class="ptr ptr--link">Academic Bibliography</a>
   </div>
 </div></section>
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="footer" id="contact"><div class="footer__in">
   <div class="footer__brand">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-      <div style="width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1.5px solid rgba(212,168,67,.2);background:rgba(255,255,255,.04)">
-        <div style="display:flex;align-items:center">
-          <svg viewBox="0 0 105 300" style="height:20px;display:block;opacity:.5" fill="white"><path d="M 62,4 L 64,6 L 66,9 L 68,12 L 69,15 L 71,18 L 73,21 L 74,24 L 76,27 L 77,30 L 78,33 L 78,36 L 79,39 L 78,42 L 78,45 L 77,48 L 74,51 L 71,52 L 68,53 L 65,53 L 62,53 L 59,53 L 58,56 L 58,59 L 58,62 L 58,65 L 58,68 L 58,71 L 58,74 L 58,77 L 58,80 L 58,83 L 58,86 L 58,89 L 58,92 L 58,95 L 58,98 L 58,101 L 58,104 L 58,107 L 58,110 L 58,113 L 58,116 L 58,119 L 58,122 L 58,125 L 58,128 L 58,131 L 58,134 L 58,137 L 58,140 L 58,143 L 58,146 L 58,149 L 58,152 L 58,155 L 58,158 L 58,161 L 58,164 L 58,167 L 58,170 L 58,173 L 58,176 L 58,179 L 58,182 L 60,184 L 63,183 L 66,182 L 69,181 L 72,181 L 75,180 L 78,179 L 81,178 L 83,180 L 84,183 L 84,186 L 84,189 L 84,192 L 84,195 L 84,198 L 85,201 L 85,204 L 87,207 L 90,210 L 93,211 L 92,214 L 89,216 L 86,216 L 83,216 L 80,214 L 77,211 L 75,208 L 75,205 L 74,202 L 74,199 L 73,196 L 73,193 L 73,190 L 72,188 L 69,188 L 66,189 L 63,189 L 60,190 L 58,192 L 58,195 L 58,198 L 58,201 L 58,204 L 58,207 L 58,210 L 58,213 L 58,216 L 58,219 L 57,222 L 57,225 L 57,228 L 57,231 L 57,234 L 57,237 L 57,240 L 54,240 L 51,240 L 48,240 L 45,240 L 42,242 L 39,244 L 36,246 L 33,249 L 30,251 L 28,254 L 26,257 L 29,258 L 32,258 L 35,258 L 38,258 L 41,258 L 44,258 L 47,258 L 50,259 L 53,260 L 56,261 L 59,262 L 62,263 L 65,265 L 68,267 L 71,269 L 74,271 L 77,274 L 78,271 L 78,268 L 78,265 L 78,262 L 78,259 L 79,256 L 79,253 L 80,250 L 81,247 L 82,244 L 84,241 L 87,238 L 90,237 L 93,235 L 96,234 L 99,234 L 102,233 L 102,236 L 99,239 L 96,242 L 95,245 L 94,248 L 94,251 L 93,254 L 93,257 L 92,260 L 92,263 L 92,266 L 92,269 L 92,272 L 92,275 L 92,278 L 92,281 L 92,284 L 92,287 L 91,290 L 90,293 L 88,295 L 85,294 L 82,292 L 79,289 L 76,287 L 73,284 L 70,281 L 67,279 L 64,277 L 61,275 L 58,273 L 55,271 L 52,270 L 49,269 L 46,269 L 43,269 L 40,269 L 37,269 L 34,269 L 31,269 L 28,270 L 25,270 L 22,271 L 19,272 L 16,273 L 13,274 L 10,275 L 10,272 L 11,269 L 12,266 L 13,263 L 14,260 L 15,257 L 17,254 L 19,251 L 21,248 L 23,245 L 25,242 L 28,239 L 31,237 L 34,234 L 37,232 L 40,231 L 43,230 L 46,230 L 49,230 L 52,230 L 55,230 L 56,227 L 56,224 L 56,221 L 56,218 L 56,215 L 56,212 L 56,209 L 56,206 L 56,203 L 56,200 L 56,197 L 56,194 L 56,191 L 55,188 L 55,185 L 55,182 L 55,179 L 55,176 L 55,173 L 55,170 L 55,167 L 55,164 L 55,161 L 55,158 L 55,155 L 55,152 L 55,149 L 55,146 L 55,143 L 55,140 L 55,137 L 55,134 L 55,131 L 55,128 L 55,125 L 55,122 L 55,119 L 55,116 L 55,113 L 55,110 L 55,107 L 55,104 L 55,101 L 55,98 L 55,95 L 55,92 L 55,89 L 55,86 L 55,83 L 55,80 L 55,77 L 55,74 L 55,71 L 55,68 L 55,65 L 55,62 L 55,59 L 55,56 L 52,53 L 49,53 L 46,53 L 43,53 L 40,53 L 37,51 L 35,48 L 34,45 L 34,42 L 34,39 L 34,36 L 35,33 L 36,30 L 37,27 L 39,24 L 40,21 L 42,18 L 44,15 L 45,12 L 47,9 L 49,6 L 51,4 L 54,4 L 57,4 L 60,4 L 62,4 Z"/></svg>
-          <div style="width:1px;height:20px;background:rgba(212,168,67,.5);border-radius:1px;margin:0 1.5px"></div>
-          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:20px">
-            <div style="width:1.5px;height:1.5px;border-radius:50%;background:rgba(196,39,47,.6);margin-bottom:.5px"></div>
-            <span style="font-family:'EB Garamond',serif;font-weight:700;font-size:4.5px;line-height:1.06;color:rgba(255,255,255,.6)">I</span>
-            <span style="font-family:'EB Garamond',serif;font-weight:700;font-size:4.5px;line-height:1.06;color:rgba(255,255,255,.6)">A</span>
-            <span style="font-family:'EB Garamond',serif;font-weight:700;font-size:4.5px;line-height:1.06;color:rgba(255,255,255,.6)">M</span>
-            <span style="font-family:'EB Garamond',serif;font-weight:700;font-size:4.5px;line-height:1.06;color:rgba(255,255,255,.6)">L</span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div style="font-family:'EB Garamond',serif;font-size:12px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,.45)">The International Association</div>
-        <div style="font-family:'EB Garamond',serif;font-size:12px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,.45)">for Mongolic Linguistics</div>
+    <div class="footer__brand-row">
+      <span class="footer__mark">
+        <svg viewBox="0 0 105 300" aria-hidden="true"><use href="#mongolM"/></svg>
+        <span class="footer__mark-bar"></span>
+        <span class="footer__mark-letters">
+          <span class="footer__mark-dot"></span>
+          <span>I</span><span>A</span><span>M</span><span>L</span>
+        </span>
+      </span>
+      <div class="footer__brand-text">
+        <span>The International Association</span>
+        <span>for Mongolic Linguistics</span>
       </div>
     </div>
     <p>The International Association for Mongolic Linguistics. Uniting scholars worldwide.</p>
   </div>
-  <div class="footer__col"><h4 data-en="Navigate" data-mn="Цэс">Navigate</h4><ul><li><a href="#about" data-en="About the IAML" data-mn="IAML-н тухай">About the IAML</a></li><li><a href="#committees" data-en="Committees" data-mn="Хороод">Committees</a></li><li><a href="#membership" data-en="Membership" data-mn="Гишүүнчлэл">Membership</a></li><li><a href="#newsletters" data-en="Newsletters" data-mn="Мэдээллийн товхимол">Newsletters</a></li><li><a href="#events" data-en="Conferences &amp; Events" data-mn="Хурал ба арга хэмжээ">Conferences &amp; Events</a></li><li><a href="#links" data-en="Useful Links" data-mn="Хэрэгтэй холбоосууд">Useful Links</a></li></ul></div>
-  <div class="footer__col"><h4 data-en="Resources" data-mn="Эх сурвалж">Resources</h4><ul><li><a href="#">Language Database</a></li><li><a href="#">Script Archive</a></li><li><a href="#">Teaching Materials</a></li></ul></div>
-  <div class="footer__col"><h4 data-en="Contact" data-mn="Холбоо барих">Contact</h4><ul><li>info@iaml.org</li><li>Ulaanbaatar, Mongolia</li><li style="display:flex;gap:12px;margin-top:8px"><a href="#" title="Instagram" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.08);transition:background .2s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a><a href="#" title="Facebook" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.08);transition:background .2s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li></ul></div>
-</div><div class="footer__bot"><span>© 2026 IAML</span><span>Privacy · Terms</span></div></footer>
+  <div class="footer__col"><h4>Navigate</h4><ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#participants">Participants</a></li>
+    <li><a href="#committees">Committees</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#events">Conferences &amp; Events</a></li>
+    <li><a href="#journal">Journal</a></li>
+  </ul></div>
+  <div class="footer__col"><h4>Community</h4><ul>
+    <li><a href="#join" data-auth="register">Become a Member</a></li>
+    <li><a href="#join" data-auth="login">Log in</a></li>
+    <li><a href="#links">Resources</a></li>
+  </ul></div>
+  <div class="footer__col"><h4>Contact</h4><ul>
+    <li><a href="mailto:info@iaml.org">info@iaml.org</a></li>
+    <li>Ulaanbaatar, Mongolia</li>
+    <!-- TODO: add real social profile URLs (Instagram / Facebook / etc.) when provided -->
+  </ul></div>
+</div><div class="footer__bot"><span>© 2026 IAML</span><span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span></div></footer>
 
-<script>
-// ═══ INTRO ANIMATION TIMELINE ═══
-(function(){
-  const intro = document.getElementById('intro');
-  const content = document.getElementById('introContent');
-  const name = document.getElementById('introName');
-  const glow = document.getElementById('introGlow');
-  const circle = document.getElementById('introCircle');
-  const dark = document.getElementById('introDark');
-  const charSvg = document.getElementById('introChar');
-  const gl = document.getElementById('introGL');
-  const rd = document.getElementById('introRD');
-  const letters = [document.getElementById('iL1'),document.getElementById('iL2'),document.getElementById('iL3'),document.getElementById('iL4')];
+<!-- ═══ AUTH MODAL (UI shell — wired to Supabase in Phase 2) ═══ -->
+<div class="auth" id="authModal" hidden>
+  <div class="auth__backdrop" data-auth-close></div>
+  <div class="auth__dialog" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="auth__close" type="button" data-auth-close aria-label="Close">×</button>
+    <div class="auth__tabs">
+      <button class="auth__tab is-active" type="button" data-auth-tab="login">Log in</button>
+      <button class="auth__tab" type="button" data-auth-tab="register">Register</button>
+    </div>
 
-  // Video already has logo animation baked in
-  // Just let it play, then fade out to site
-  
-  const video = document.getElementById('introVideo');
-  
-  // When video ends, fade out
-  video.addEventListener('ended', ()=>{
-    intro.classList.add('done');
-    setTimeout(()=>{ intro.style.display='none'; },1000);
-  });
-  
-  // Fallback: if video loops or is long, fade after 12s
-  setTimeout(()=>{
-    intro.classList.add('done');
-    setTimeout(()=>{ intro.style.display='none'; video.pause(); },1000);
-  },12000);
-  
-  // Click to skip
-  intro.addEventListener('click', ()=>{
-    intro.classList.add('done');
-    setTimeout(()=>{ intro.style.display='none'; video.pause(); },800);
-  });
-})();
+    <form class="auth__form is-active" id="authLogin" novalidate>
+      <h3 id="authTitle">Welcome back</h3>
+      <label>Email<input type="email" name="email" autocomplete="email" required/></label>
+      <label>Password<input type="password" name="password" autocomplete="current-password" required/></label>
+      <button class="btn btn--p" type="submit">Log in</button>
+      <p class="auth__msg" data-auth-msg></p>
+    </form>
 
-// ═══ SITE CONTROLS ═══
-const themeBtn=document.getElementById('themeBtn');
-const html=document.documentElement;
-const st=localStorage.getItem('iaml-theme');
-if(st){html.dataset.theme=st;themeBtn.textContent=st==='dark'?'☀':'◐'}
-themeBtn.onclick=()=>{const n=html.dataset.theme==='dark'?'light':'dark';html.dataset.theme=n;themeBtn.textContent=n==='dark'?'☀':'◐';localStorage.setItem('iaml-theme',n)};
-const langBtn=document.getElementById('langBtn');
-let lang='en';
-langBtn.onclick=()=>{lang=lang==='en'?'mn':'en';langBtn.textContent=lang==='en'?'MN':'EN';document.querySelectorAll('[data-en]').forEach(el=>{el.textContent=el.dataset[lang]||el.dataset.en});html.lang=lang};
-document.getElementById('burger').onclick=()=>{document.getElementById('navLinks').classList.toggle('open')};
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.12});
-document.querySelectorAll('.reveal, .obj-tiles, .act-tiles').forEach(el=>obs.observe(el));
-</script>
+    <form class="auth__form" id="authRegister" novalidate>
+      <h3>Create your free account</h3>
+      <label>Full name<input type="text" name="full_name" autocomplete="name" required/></label>
+      <label>Email<input type="email" name="email" autocomplete="email" required/></label>
+      <label>Password<input type="password" name="password" autocomplete="new-password" minlength="8" required/></label>
+      <div class="auth__row">
+        <label>Title / position<input type="text" name="title" placeholder="e.g. Professor, PhD candidate"/></label>
+        <label>Category
+          <select name="category">
+            <option value="Members">Members</option>
+            <option value="Executive Board">Executive Board</option>
+            <option value="Scientific Committee">Scientific Committee</option>
+            <option value="Editorial Board">Editorial Board</option>
+            <option value="Students">Students</option>
+          </select>
+        </label>
+      </div>
+      <label>Affiliation<input type="text" name="affiliation" placeholder="University / institution"/></label>
+      <label class="auth__check"><input type="checkbox" name="is_news_subscriber" checked/> Subscribe to IAML news</label>
+      <p class="auth__fineprint">By registering you agree to appear in the public Participants directory. See our <a href="privacy.html">Privacy Policy</a>.</p>
+      <button class="btn btn--p" type="submit">Create account</button>
+      <p class="auth__msg" data-auth-msg></p>
+    </form>
+  </div>
+</div>
+
+<script src="assets/js/supabaseClient.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>

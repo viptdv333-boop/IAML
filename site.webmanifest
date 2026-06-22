@@ -1,0 +1,13 @@
+{
+  "name": "International Association for Mongolic Linguistics",
+  "short_name": "IAML",
+  "description": "Uniting scholars worldwide to study, document, and promote the Mongolic languages.",
+  "start_url": "/IAML/",
+  "scope": "/IAML/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#015197",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

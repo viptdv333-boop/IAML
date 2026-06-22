@@ -1,0 +1,9 @@
+# Local dev / editor config
+.claude/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Logs / temp
+*.log
