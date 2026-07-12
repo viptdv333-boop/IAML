@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contacts — IAML</title>
+<meta name="description" content="Contact the International Association for Mongolic Linguistics."/>
+<meta name="theme-color" content="#015197"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=EB+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="iaml-site.css"/>
+<style>h1,h2,h3,h4{font-family:'Cormorant Garamond','EB Garamond',serif;}</style>
+</head>
+<body data-page="contacts">
+<div id="site-header"></div>
+<main>
+  <header class="page-head"><div class="container">
+    <div class="slabel">Get in touch</div>
+    <h1>Contacts</h1>
+    <p>Questions, proposals, or media enquiries — send us a message.</p>
+  </div></header>
+
+  <section class="section"><div class="container">
+    <div class="contacts__grid">
+      <form class="cform cform--card" data-gated novalidate>
+        <h3>Send a message</h3>
+        <div class="auth__row">
+          <label>Your name<input type="text" name="name" required/></label>
+          <label>Email<input type="email" name="email" required/></label>
+        </div>
+        <label>Subject<input type="text" name="subject"/></label>
+        <label>Message<textarea name="message" rows="6" required></textarea></label>
+        <button class="btn btn--p" type="submit">Send message</button>
+        <p class="cform__msg" data-form-msg></p>
+      </form>
+
+      <!-- Phase F: contact details rendered from the backend -->
+      <aside class="contacts__info">
+        <h3>Association</h3>
+        <p class="contacts__line"><strong>Email</strong><a href="mailto:info@iaml.org">info@iaml.org</a></p>
+        <p class="contacts__line"><strong>Address</strong>Ulaanbaatar, Mongolia</p>
+        <!-- TODO: social profile links from backend when provided -->
+      </aside>
+    </div>
+  </div></section>
+</main>
+<div id="site-footer"></div>
+<script src="assets/js/supabaseClient.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pages.js"></script>
+</body>
+</html>

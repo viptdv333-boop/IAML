@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Events — IAML</title>
+<meta name="description" content="Upcoming conferences, workshops, and symposia from the International Association for Mongolic Linguistics."/>
+<meta name="theme-color" content="#015197"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=EB+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="iaml-site.css"/>
+<style>h1,h2,h3,h4{font-family:'Cormorant Garamond','EB Garamond',serif;}</style>
+</head>
+<body data-page="events">
+<div id="site-header"></div>
+<main>
+  <header class="page-head"><div class="container">
+    <div class="slabel">Upcoming</div>
+    <h1>Conferences &amp; Events</h1>
+    <p>Conferences, workshops, and symposia. Times shown in UTC+3.</p>
+  </div></header>
+
+  <section class="section"><div class="container">
+    <!-- Phase B: rendered from the database. Vertical list, opens in a modal. -->
+    <div class="ev-list" id="events-list">
+      <div class="ev" data-card-open tabindex="0" role="button"><div class="ev__accent"></div>
+        <div class="ev__date"><span class="ev__month">SEP</span><span class="ev__day">15</span><span class="ev__year">2026</span></div>
+        <div class="ev__body"><h3>IAML Annual Conference 2026</h3><p class="ev__loc">Ulaanbaatar, Mongolia · 09:00 (UTC+3)</p><p class="ev__desc">The inaugural conference featuring keynotes on comparative Mongolic linguistics, phonological typology, and digital approaches to script preservation.</p><span class="btn btn--o btn--sm">Details</span>
+          <template class="card__full"><h2>IAML Annual Conference 2026</h2><p class="ev__loc">Ulaanbaatar, Mongolia · 15 Sep 2026, 09:00 (UTC+3)</p><p>Placeholder full description (managed from the backend later).</p></template>
+        </div>
+      </div>
+      <div class="ev" data-card-open tabindex="0" role="button"><div class="ev__accent"></div>
+        <div class="ev__date"><span class="ev__month">NOV</span><span class="ev__day">08</span><span class="ev__year">2026</span></div>
+        <div class="ev__body"><h3>Workshop: Mongolian Script Digitization</h3><p class="ev__loc">Online / Zoom · 13:00 (UTC+3)</p><p class="ev__desc">Hands-on workshop on encoding, rendering, and preserving traditional Mongolian, Todo, and Manchu scripts in digital environments.</p><span class="btn btn--o btn--sm">Details</span>
+          <template class="card__full"><h2>Workshop: Mongolian Script Digitization</h2><p class="ev__loc">Online / Zoom · 8 Nov 2026, 13:00 (UTC+3)</p><p>Placeholder full description.</p></template>
+        </div>
+      </div>
+      <div class="ev" data-card-open tabindex="0" role="button"><div class="ev__accent"></div>
+        <div class="ev__date"><span class="ev__month">MAR</span><span class="ev__day">22</span><span class="ev__year">2027</span></div>
+        <div class="ev__body"><h3>Symposium: Endangered Mongolic Languages</h3><p class="ev__loc">Hohhot, Inner Mongolia · 10:00 (UTC+3)</p><p class="ev__desc">Documentation and revitalization of Dagur, Shira Yugur, Moghol, and other endangered Mongolic languages.</p><span class="btn btn--o btn--sm">Details</span>
+          <template class="card__full"><h2>Symposium: Endangered Mongolic Languages</h2><p class="ev__loc">Hohhot, Inner Mongolia · 22 Mar 2027, 10:00 (UTC+3)</p><p>Placeholder full description.</p></template>
+        </div>
+      </div>
+    </div>
+  </div></section>
+</main>
+<div id="site-footer"></div>
+<script src="assets/js/supabaseClient.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pages.js"></script>
+</body>
+</html>

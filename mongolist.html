@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mongolist — IAML</title>
+<meta name="description" content="Subscribe by email to IAML news, events, publications, participants, and Discuss updates."/>
+<meta name="theme-color" content="#015197"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=EB+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="iaml-site.css"/>
+<style>h1,h2,h3,h4{font-family:'Cormorant Garamond','EB Garamond',serif;}</style>
+</head>
+<body data-page="mongolist">
+<div id="site-header"></div>
+<main>
+  <header class="page-head"><div class="container">
+    <div class="slabel">Stay in touch</div>
+    <h1>Mongolist</h1>
+    <p>Subscribe by email to what matters to you. Registration and log in are required.</p>
+  </div></header>
+
+  <section class="section"><div class="container" style="max-width:760px">
+    <!-- Not-logged-in gate (shown until auth in Phase C) -->
+    <div class="gate" data-requires-auth>
+      <p>Please log in or create an account to manage your subscription.</p>
+      <div class="gate__btns">
+        <button class="btn btn--p" type="button" data-auth="login">Log in</button>
+        <button class="btn btn--o" type="button" data-auth="register">Sign up</button>
+      </div>
+    </div>
+
+    <!-- Subscription preferences (per topic: on/off + frequency) -->
+    <form class="sub-form" data-gated novalidate>
+      <p class="sub-form__intro">Choose topics and how often you want to hear about each.</p>
+      <div class="sub-row"><label class="sub-row__topic"><input type="checkbox" name="news" checked/> News</label><select name="news_freq" aria-label="News frequency"><option value="instant">Instant</option><option value="daily" selected>Daily digest</option><option value="weekly">Weekly digest</option></select></div>
+      <div class="sub-row"><label class="sub-row__topic"><input type="checkbox" name="events" checked/> Events</label><select name="events_freq" aria-label="Events frequency"><option value="instant">Instant</option><option value="daily" selected>Daily digest</option><option value="weekly">Weekly digest</option></select></div>
+      <div class="sub-row"><label class="sub-row__topic"><input type="checkbox" name="publications" checked/> Publications</label><select name="publications_freq" aria-label="Publications frequency"><option value="instant">Instant</option><option value="daily" selected>Daily digest</option><option value="weekly">Weekly digest</option></select></div>
+      <div class="sub-row"><label class="sub-row__topic"><input type="checkbox" name="participants"/> New participants</label><select name="participants_freq" aria-label="Participants frequency"><option value="instant">Instant</option><option value="daily">Daily digest</option><option value="weekly" selected>Weekly digest</option></select></div>
+      <div class="sub-row"><label class="sub-row__topic"><input type="checkbox" name="discuss"/> New Discuss questions</label><select name="discuss_freq" aria-label="Discuss frequency"><option value="instant">Instant</option><option value="daily" selected>Daily digest</option><option value="weekly">Weekly digest</option></select></div>
+      <button class="btn btn--p" type="submit">Save preferences</button>
+      <p class="cform__msg" data-form-msg></p>
+    </form>
+  </div></section>
+</main>
+<div id="site-footer"></div>
+<script src="assets/js/supabaseClient.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pages.js"></script>
+</body>
+</html>

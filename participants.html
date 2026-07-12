@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Participants — IAML</title>
+<meta name="description" content="Members of the International Association for Mongolic Linguistics, listed by position."/>
+<meta name="theme-color" content="#015197"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=EB+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="iaml-site.css"/>
+<style>h1,h2,h3,h4{font-family:'Cormorant Garamond','EB Garamond',serif;}</style>
+</head>
+<body data-page="participants">
+<div id="site-header"></div>
+<main>
+  <header class="page-head"><div class="container">
+    <div class="slabel">Community</div>
+    <h1>Participants</h1>
+    <p>Members of the IAML community, grouped by position. Managed by the association.</p>
+  </div></header>
+
+  <section class="section"><div class="container">
+    <!-- Phase B: groups & members rendered from the database (5 fixed positions from the members file) -->
+    <div id="participants-list">
+      <div class="pgroup"><h3 class="pgroup__title">Position A</h3><div class="pgrid">
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>First Last</h4><p class="pcard__role">Position A</p></div></article>
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>First Last</h4><p class="pcard__role">Position A</p></div></article>
+      </div></div>
+      <div class="pgroup"><h3 class="pgroup__title">Position B</h3><div class="pgrid">
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>First Last</h4><p class="pcard__role">Position B</p></div></article>
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>First Last</h4><p class="pcard__role">Position B</p></div></article>
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>First Last</h4><p class="pcard__role">Position B</p></div></article>
+      </div></div>
+      <div class="pgroup"><h3 class="pgroup__title">Position C</h3><div class="pgrid">
+        <article class="pcard"><span class="pcard__avatar">—</span><div class="pcard__body"><h4>First Last</h4><p class="pcard__role">Position C</p></div></article>
+      </div></div>
+    </div>
+  </div></section>
+
+  <section class="section section--alt"><div class="container">
+    <div class="join-card contact-admin">
+      <div>
+        <h3 style="margin-bottom:10px">Contact the membership admin</h3>
+        <p class="section__lead" style="margin:0">Questions about membership or your listing? Send a message to the association.</p>
+      </div>
+      <form class="cform" data-gated novalidate>
+        <label>Your name<input type="text" name="name" required/></label>
+        <label>Email<input type="email" name="email" required/></label>
+        <label>Message<textarea name="message" rows="4" required></textarea></label>
+        <button class="btn btn--p" type="submit">Send message</button>
+        <p class="cform__msg" data-form-msg></p>
+      </form>
+    </div>
+  </div></section>
+</main>
+<div id="site-footer"></div>
+<script src="assets/js/supabaseClient.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pages.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Discuss — IAML</title>
+<meta name="description" content="Community discussion for Mongolic linguistics. Ask questions and share suggestions. Anyone can read; registered members can post."/>
+<meta name="theme-color" content="#015197"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=EB+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="iaml-site.css"/>
+<style>h1,h2,h3,h4{font-family:'Cormorant Garamond','EB Garamond',serif;}</style>
+</head>
+<body data-page="discuss">
+<div id="site-header"></div>
+<main>
+  <header class="page-head"><div class="container">
+    <div class="slabel">Community</div>
+    <h1>Discuss</h1>
+    <p>Ask a question or share a suggestion. Anyone can read; registered members can post and reply.</p>
+  </div></header>
+
+  <section class="section"><div class="container" style="max-width:820px">
+    <div class="discuss__bar">
+      <button class="btn btn--p" type="button" data-new-thread>Ask a question</button>
+      <span class="discuss__hint">Newest first</span>
+    </div>
+
+    <!-- Phase D: threads rendered from the database -->
+    <div class="thread-list">
+      <article class="thread" data-card-open tabindex="0" role="button">
+        <div class="thread__author"><span class="avatar avatar--sm">B</span><span class="thread__name">Bat Erdene</span></div>
+        <h3 class="thread__title">How do you gloss converb chains in Khalkha?</h3>
+        <p class="thread__snippet">I'm working on a corpus annotation scheme and would love input on how others handle long converb chains…</p>
+        <div class="thread__meta"><span>3 replies</span><span>·</span><span>2026-07-08 (UTC+3)</span></div>
+        <template class="card__full">
+          <div class="thread__author"><span class="avatar avatar--sm">B</span><span class="thread__name">Bat Erdene</span><span class="thread__when">2026-07-08 (UTC+3)</span></div>
+          <h2>How do you gloss converb chains in Khalkha?</h2>
+          <p>I'm working on a corpus annotation scheme and would love input on how others handle long converb chains. Placeholder body — real threads come from the backend.</p>
+          <div class="comments">
+            <div class="comment"><span class="avatar avatar--sm">S</span><div class="comment__body"><span class="comment__name">Sarangerel D.</span><p>We treat each converb as a separate clause node. Placeholder reply.</p>
+              <div class="comment comment--nested"><span class="avatar avatar--sm">B</span><div class="comment__body"><span class="comment__name">Bat Erdene</span><p>That makes sense, thanks! Placeholder nested reply.</p></div></div>
+            </div></div>
+            <div class="comment"><span class="avatar avatar--sm">T</span><div class="comment__body"><span class="comment__name">Temujin Y.</span><p>There's a nice paper on this. Placeholder reply.</p></div></div>
+          </div>
+          <form class="reply-form" data-gated novalidate>
+            <label class="sr-only" for="replyText">Your reply</label>
+            <textarea id="replyText" name="reply" rows="3" placeholder="Write a reply…" required></textarea>
+            <div class="reply-form__row"><button class="btn btn--p btn--sm" type="submit">Reply</button><button class="linkbtn" type="button" data-report>Report</button></div>
+            <p class="cform__msg" data-form-msg></p>
+          </form>
+        </template>
+      </article>
+
+      <article class="thread" data-card-open tabindex="0" role="button">
+        <div class="thread__author"><span class="avatar avatar--sm">S</span><span class="thread__name">Sarangerel Dorj</span></div>
+        <h3 class="thread__title">Recommended fonts for Traditional Mongolian script?</h3>
+        <p class="thread__snippet">Looking for open, well-rendering fonts for vertical Mongolian in web contexts…</p>
+        <div class="thread__meta"><span>1 reply</span><span>·</span><span>2026-07-02 (UTC+3)</span></div>
+        <template class="card__full">
+          <div class="thread__author"><span class="avatar avatar--sm">S</span><span class="thread__name">Sarangerel Dorj</span><span class="thread__when">2026-07-02 (UTC+3)</span></div>
+          <h2>Recommended fonts for Traditional Mongolian script?</h2>
+          <p>Looking for open, well-rendering fonts for vertical Mongolian in web contexts. Placeholder body.</p>
+          <div class="comments"><div class="comment"><span class="avatar avatar--sm">T</span><div class="comment__body"><span class="comment__name">Temujin Y.</span><p>Placeholder reply.</p></div></div></div>
+          <form class="reply-form" data-gated novalidate>
+            <textarea name="reply" rows="3" placeholder="Write a reply…" required></textarea>
+            <div class="reply-form__row"><button class="btn btn--p btn--sm" type="submit">Reply</button><button class="linkbtn" type="button" data-report>Report</button></div>
+            <p class="cform__msg" data-form-msg></p>
+          </form>
+        </template>
+      </article>
+    </div>
+  </div></section>
+</main>
+<div id="site-footer"></div>
+<script src="assets/js/supabaseClient.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pages.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>News — IAML</title>
+<meta name="description" content="News, announcements, and calls for papers from the International Association for Mongolic Linguistics."/>
+<meta name="theme-color" content="#015197"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=EB+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="iaml-site.css"/>
+<style>h1,h2,h3,h4{font-family:'Cormorant Garamond','EB Garamond',serif;}</style>
+</head>
+<body data-page="news">
+<div id="site-header"></div>
+<main>
+  <header class="page-head"><div class="container">
+    <div class="slabel">Latest</div>
+    <h1>News</h1>
+    <p>Announcements, calls for papers, and updates from the association. Times shown in UTC+3.</p>
+  </div></header>
+
+  <section class="section"><div class="container">
+    <!-- Phase B: cards rendered from the database; carousel pages through all items -->
+    <div class="carousel" data-carousel>
+      <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev aria-label="Previous">‹</button>
+      <div class="carousel__track" data-carousel-track>
+        <article class="card news-card" data-card-open tabindex="0" role="button">
+          <time class="card__date">2026-07-10 · 14:30 (UTC+3)</time>
+          <h3 class="card__title">Call for papers — IAML Annual Conference 2026</h3>
+          <p class="card__preview">Submissions are now open for the inaugural IAML conference in Ulaanbaatar. We welcome abstracts across all areas of Mongolic linguistics, from historical phonology to language documentation and revitalization. This is a placeholder preview of roughly 150 words that will be replaced with real content from the backend.</p>
+          <span class="card__more">Read more →</span>
+          <template class="card__full"><time class="card__date">2026-07-10 · 14:30 (UTC+3)</time><h2>Call for papers — IAML Annual Conference 2026</h2><p>Submissions are now open for the inaugural IAML conference in Ulaanbaatar. We welcome abstracts across all areas of Mongolic linguistics. This is placeholder body text of up to 500 words that the admin will manage from the backend in a later phase.</p></template>
+        </article>
+        <article class="card news-card" data-card-open tabindex="0" role="button">
+          <time class="card__date">2026-06-28 · 09:00 (UTC+3)</time>
+          <h3 class="card__title">New members welcomed to the association</h3>
+          <p class="card__preview">The Membership Committee is delighted to welcome a new cohort of scholars and students to the IAML community. Placeholder preview text (~150 words) to be replaced with real content.</p>
+          <span class="card__more">Read more →</span>
+          <template class="card__full"><time class="card__date">2026-06-28 · 09:00 (UTC+3)</time><h2>New members welcomed to the association</h2><p>Placeholder body text (up to 500 words), managed from the backend later.</p></template>
+        </article>
+        <article class="card news-card" data-card-open tabindex="0" role="button">
+          <time class="card__date">2026-06-15 · 18:45 (UTC+3)</time>
+          <h3 class="card__title">Journal of Mongolic Linguistics — Vol. I in preparation</h3>
+          <p class="card__preview">The Editorial Board announces progress on the inaugural volume. Placeholder preview text (~150 words).</p>
+          <span class="card__more">Read more →</span>
+          <template class="card__full"><time class="card__date">2026-06-15 · 18:45 (UTC+3)</time><h2>Journal of Mongolic Linguistics — Vol. I in preparation</h2><p>Placeholder body text (up to 500 words).</p></template>
+        </article>
+        <article class="card news-card" data-card-open tabindex="0" role="button">
+          <time class="card__date">2026-05-30 · 11:20 (UTC+3)</time>
+          <h3 class="card__title">Summer School in Mongolic linguistics announced</h3>
+          <p class="card__preview">Placeholder preview text (~150 words) for an upcoming summer school announcement.</p>
+          <span class="card__more">Read more →</span>
+          <template class="card__full"><time class="card__date">2026-05-30 · 11:20 (UTC+3)</time><h2>Summer School in Mongolic linguistics announced</h2><p>Placeholder body text (up to 500 words).</p></template>
+        </article>
+        <article class="card news-card" data-card-open tabindex="0" role="button">
+          <time class="card__date">2026-05-12 · 16:00 (UTC+3)</time>
+          <h3 class="card__title">Fieldwork grants: applications open</h3>
+          <p class="card__preview">Placeholder preview text (~150 words) about fieldwork grant applications.</p>
+          <span class="card__more">Read more →</span>
+          <template class="card__full"><time class="card__date">2026-05-12 · 16:00 (UTC+3)</time><h2>Fieldwork grants: applications open</h2><p>Placeholder body text (up to 500 words).</p></template>
+        </article>
+        <article class="card news-card" data-card-open tabindex="0" role="button">
+          <time class="card__date">2026-04-25 · 10:10 (UTC+3)</time>
+          <h3 class="card__title">Partnership with the Mongolian Academy of Sciences</h3>
+          <p class="card__preview">Placeholder preview text (~150 words) about a new institutional partnership.</p>
+          <span class="card__more">Read more →</span>
+          <template class="card__full"><time class="card__date">2026-04-25 · 10:10 (UTC+3)</time><h2>Partnership with the Mongolian Academy of Sciences</h2><p>Placeholder body text (up to 500 words).</p></template>
+        </article>
+      </div>
+      <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next aria-label="Next">›</button>
+    </div>
+  </div></section>
+</main>
+<div id="site-footer"></div>
+<script src="assets/js/supabaseClient.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pages.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My account — IAML</title>
+<meta name="description" content="Manage your IAML profile and avatar."/>
+<meta name="robots" content="noindex"/>
+<meta name="theme-color" content="#015197"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=EB+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="iaml-site.css"/>
+<style>h1,h2,h3,h4{font-family:'Cormorant Garamond','EB Garamond',serif;}</style>
+</head>
+<body data-page="account">
+<div id="site-header"></div>
+<main>
+  <header class="page-head"><div class="container">
+    <div class="slabel">Member area</div>
+    <h1>My account</h1>
+    <p>Manage your profile and avatar. Your name and avatar are shown publicly in Discuss.</p>
+  </div></header>
+
+  <section class="section"><div class="container" style="max-width:640px">
+    <div class="gate" data-requires-auth>
+      <p>Please log in to manage your account.</p>
+      <div class="gate__btns">
+        <button class="btn btn--p" type="button" data-auth="login">Log in</button>
+        <button class="btn btn--o" type="button" data-auth="register">Sign up</button>
+      </div>
+    </div>
+
+    <form class="profile-form" data-gated novalidate>
+      <div class="avatar-edit">
+        <span class="avatar avatar--lg" id="avatarPreview">—</span>
+        <div>
+          <label class="btn btn--o btn--sm" style="cursor:pointer">Upload photo<input type="file" name="avatar" accept="image/png,image/jpeg,image/webp" hidden/></label>
+          <p class="profile-form__hint">JPG, PNG or WebP, up to 2&nbsp;MB. Optional — otherwise your initials are shown.</p>
+        </div>
+      </div>
+      <div class="auth__row">
+        <label>First name<input type="text" name="first_name" required/></label>
+        <label>Last name<input type="text" name="last_name" required/></label>
+      </div>
+      <label>Place of work <span class="profile-form__badge">admin-only</span><input type="text" name="workplace" required/></label>
+      <button class="btn btn--p" type="submit">Save profile</button>
+      <p class="cform__msg" data-form-msg></p>
+    </form>
+
+    <p class="account__link">Manage email subscriptions on the <a href="mongolist.html">Mongolist</a> page.</p>
+  </div></section>
+</main>
+<div id="site-footer"></div>
+<script src="assets/js/supabaseClient.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pages.js"></script>
+</body>
+</html>
