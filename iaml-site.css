@@ -877,7 +877,14 @@ a.ptr { color: var(--text2); }
 .hero__seal { position: absolute; right: 64px; top: 50%; transform: translateY(-50%); z-index: 2; pointer-events: none; }
 .hero__seal svg { display: block; width: min(320px, 24vw); height: auto; filter: drop-shadow(0 10px 44px rgba(0,0,0,.28)); }
 @media (min-width: 1001px) { .hero__copy { max-width: calc(100% - min(320px, 24vw) - 56px); } }
-@media (max-width: 1000px) { .hero__seal { display: none; } }
+@media (max-width: 1000px) {
+  /* Small screens: seal flows above the heading and fills the blue space */
+  .hero__seal { position: static; transform: none; margin-bottom: 44px; }
+  .hero__seal svg { width: clamp(150px, 36vw, 230px); filter: drop-shadow(0 8px 32px rgba(0,0,0,.25)); }
+}
+@media (max-width: 860px) {
+  .hero__seal svg { margin: 0 auto; }
+}
 
 /* ── AUTH MODAL ── */
 body.auth-open { overflow: hidden; }
