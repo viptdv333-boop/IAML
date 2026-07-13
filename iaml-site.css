@@ -203,10 +203,15 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
   animation: shineSweep 10s ease-in-out 1.2s infinite;
   pointer-events: none; z-index: 1;
 }
+@keyframes shineSweepBtn {
+  0%   { transform: translateX(-120%); }
+  22%  { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
 .btn--gold::after {
   background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.5) 50%, transparent 58%);
   transform: translateX(-120%);
-  animation: shineSweep 10s ease-in-out 1.2s infinite;
+  animation: shineSweepBtn 5s ease-in-out 1.2s infinite;
 }
 
 .btn--sm { padding: 10px 22px; font-size: 13px; }
