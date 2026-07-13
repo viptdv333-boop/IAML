@@ -325,40 +325,12 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
   line-height: 1.8; max-width: 900px; margin-bottom: 44px;
 }
 .hero__btns { display: flex; gap: 14px; flex-wrap: wrap; }
-.hero__join {
-  margin: 18px 0 0; font-size: 14px;
-  color: rgba(255,255,255,.6); letter-spacing: .02em;
-}
-.hero__join a {
-  color: #D4A843; text-decoration: none;
-  border-bottom: 1px dotted rgba(212,168,67,.5);
-  transition: color .15s, border-color .15s;
-}
-.hero__join a:hover { color: #fff; border-color: #fff; }
-.hero__proof {
-  list-style: none; padding: 0;
-  margin: 40px 0 0;
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px; max-width: 720px;
-  border-top: 1px solid rgba(255,255,255,.18);
-  padding-top: 28px;
-}
-.hero__proof li { display: flex; flex-direction: column; gap: 4px; }
-.hero__proof strong {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600; font-size: 18px; color: #fff; letter-spacing: -.01em;
-}
-.hero__proof span {
-  font-size: 12px; color: rgba(255,255,255,.55);
-  letter-spacing: .04em; line-height: 1.4;
-}
 
 @media (max-width: 860px) {
   .hero__in { padding: 140px 32px 100px; text-align: center; }
   .hero__desc { margin: 0 auto 40px; }
   .hero__btns { justify-content: center; }
   .hero__label { justify-content: center; }
-  .hero__proof { grid-template-columns: 1fr; gap: 16px; padding-top: 22px; margin-top: 30px; text-align: left; }
 }
 
 /* ── ABOUT ── */
