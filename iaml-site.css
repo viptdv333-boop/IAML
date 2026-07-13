@@ -190,6 +190,25 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
 .btn--gold { background: var(--gold); color: #0F172A; }
 .btn--gold:hover { background: #c69434; box-shadow: 0 6px 20px rgba(212,168,67,.35); }
 
+/* ── PERIODIC SHINE SWEEP — runs across the header bar and the gold CTA every 10s ── */
+@keyframes shineSweep {
+  0%   { transform: translateX(-120%); }
+  14%  { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
+.nav::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 42%, rgba(212,168,67,.16) 50%, transparent 58%);
+  transform: translateX(-120%);
+  animation: shineSweep 10s ease-in-out 1.2s infinite;
+  pointer-events: none; z-index: 1;
+}
+.btn--gold::after {
+  background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.5) 50%, transparent 58%);
+  transform: translateX(-120%);
+  animation: shineSweep 10s ease-in-out 1.2s infinite;
+}
+
 .btn--sm { padding: 10px 22px; font-size: 13px; }
 
 /* ── NAV ── */
