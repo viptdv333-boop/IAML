@@ -187,6 +187,9 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
 .btn--red { background: var(--red); color: #fff; }
 .btn--red:hover { box-shadow: 0 6px 20px rgba(188,32,38,.3); }
 
+.btn--gold { background: var(--gold); color: #0F172A; }
+.btn--gold:hover { background: #c69434; box-shadow: 0 6px 20px rgba(212,168,67,.35); }
+
 .btn--sm { padding: 10px 22px; font-size: 13px; }
 
 /* ── NAV ── */
