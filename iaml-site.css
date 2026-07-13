@@ -779,7 +779,25 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
 .nav__brand-sep { width: 1px; height: 30px; background: var(--gold); opacity: .3; }
 .nav__brand-text { display: flex; flex-direction: column; }
 .nav__brand-text span { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; color: var(--text); line-height: 1.25; }
-@media (max-width: 600px) { .nav__brand-text, .nav__brand-sep { display: none; } }
+@media (max-width: 600px) {
+  /* Compact mobile header: seal + association name stay visible */
+  .nav__in { height: 80px; padding: 0 16px; }
+  .nav__links.open { top: 80px; }
+  .nav__brand { gap: 10px; }
+  .brand-seal svg { width: 52px; height: 52px; }
+  .nav__brand-sep { display: none; }
+  .nav__brand-text span { font-size: 10px; letter-spacing: .4px; }
+  .nav__ctrls { gap: 4px; }
+  .nav__btn { padding: 4px 9px; }
+  .nav__link--cta { padding: 6px 11px; font-size: 14px; }
+}
+@media (max-width: 400px) {
+  /* Smallest phones: "Log in" lives inside the Sign up modal (tab) */
+  .nav__btn { display: none; }
+}
+@media (max-width: 340px) {
+  .nav__brand-text { display: none; }
+}
 
 /* ── PARTICIPANTS DIRECTORY ── */
 .pgroup { margin-top: 40px; }
