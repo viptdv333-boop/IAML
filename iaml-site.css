@@ -878,17 +878,41 @@ a.ptr { color: var(--text2); }
 .footer__seal svg { display: block; width: 56px; height: 56px; }
 .footer__brand-text span { display: block; font-family: 'Cormorant Garamond', serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,.45); }
 
-/* ── HERO SEAL (white seal on blue, per placement rules) ── */
+/* ── HERO SEAL: white seal on blue, spinning like a coin on its edge ── */
 .hero__seal { position: absolute; right: 64px; top: 50%; transform: translateY(-50%); z-index: 2; pointer-events: none; }
-.hero__seal svg { display: block; width: min(320px, 24vw); height: auto; filter: drop-shadow(0 10px 44px rgba(0,0,0,.28)); }
+.coin { --size: min(320px, 24vw); --thick: 12px; perspective: 1300px; }
+.coin__body {
+  position: relative; width: var(--size); height: var(--size);
+  transform-style: preserve-3d;
+  animation: coinSpin 7s linear infinite;
+}
+.coin__face { position: absolute; inset: 0; display: block; width: 100%; height: 100%; backface-visibility: hidden; }
+.coin__face--front { transform: translateZ(calc(var(--thick) / 2)); }
+.coin__face--back { transform: rotateY(180deg) translateZ(calc(var(--thick) / 2)); }
+.coin__wall { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.coin__seg {
+  --R: calc(var(--size) * .45);            /* radius of the seal ring */
+  position: absolute; left: 0; top: 0;
+  width: calc(var(--R) * .0982 + 1px);      /* 2π/64 of the circumference (+1px overlap) */
+  height: var(--thick);
+  margin: calc(var(--thick) / -2) 0 0 calc(var(--R) * -.0491 - .5px);
+  background: linear-gradient(180deg, #A98428, #F1DC96 50%, #A98428);
+  backface-visibility: hidden;
+  transform: rotateZ(calc(var(--k) * 5.625deg)) translateY(calc(var(--R) * -1)) rotateX(90deg);
+}
+.coin__seg:nth-child(even) { background: linear-gradient(180deg, #8F6D1E, #D4A843 50%, #8F6D1E); }
+@keyframes coinSpin {
+  from { transform: rotateX(-9deg) rotateY(0deg); }
+  to   { transform: rotateX(-9deg) rotateY(360deg); }
+}
 @media (min-width: 1001px) { .hero__copy { max-width: calc(100% - min(320px, 24vw) - 56px); } }
 @media (max-width: 1000px) {
-  /* Small screens: seal flows above the heading and fills the blue space */
+  /* Small screens: the coin flows above the heading and fills the blue space */
   .hero__seal { position: static; transform: none; margin-bottom: 44px; }
-  .hero__seal svg { width: clamp(150px, 36vw, 230px); filter: drop-shadow(0 8px 32px rgba(0,0,0,.25)); }
+  .coin { --size: clamp(150px, 36vw, 230px); --thick: 8px; }
 }
 @media (max-width: 860px) {
-  .hero__seal svg { margin: 0 auto; }
+  .hero__seal .coin__body { margin: 0 auto; }
 }
 
 /* ── AUTH MODAL ── */

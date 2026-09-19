@@ -34,7 +34,7 @@
       '<circle cx="100" cy="100" r="82" fill="none" stroke="#2E7ABF" stroke-width="1"/>' +
       '<path id="sealBlueTop" d="M 100,100 m -76,0 a 76,76 0 1,1 152,0" fill="none"/>' +
       '<path id="sealBlueBot" d="M 24,100 a 76,76 0 0,0 152,0" fill="none"/>' +
-      '<text font-family="Cormorant Garamond,serif" font-size="7" font-weight="600" fill="#003F87" letter-spacing="1.5"><textPath href="#sealBlueTop" startOffset="50%" text-anchor="middle">INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</textPath></text>' +
+      '<text font-family="Cormorant Garamond,serif" font-size="6" font-weight="600" fill="#003F87" letter-spacing="1"><textPath href="#sealBlueTop" startOffset="50%" text-anchor="middle">INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</textPath></text>' +
       '<text font-family="DM Sans,sans-serif" font-size="7" fill="#2E7ABF" letter-spacing="0.5"><textPath href="#sealBlueBot" startOffset="50%" text-anchor="middle">ОЛОН УЛСЫН МОНГОЛ ХЭЛ СУДЛАЛЫН НИЙГЭМЛЭГ</textPath></text>' +
       '<text x="100" y="94" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="30" font-weight="700" fill="#003F87" letter-spacing="3">IAML</text>' +
       '<line x1="60" y1="108" x2="140" y2="108" stroke="#D4A843" stroke-width="1"/>' +
@@ -48,7 +48,7 @@
       '<circle cx="100" cy="100" r="82" fill="none" stroke="#5BA3D9" stroke-width="1"/>' +
       '<path id="sealWhiteTop" d="M 100,100 m -76,0 a 76,76 0 1,1 152,0" fill="none"/>' +
       '<path id="sealWhiteBot" d="M 24,100 a 76,76 0 0,0 152,0" fill="none"/>' +
-      '<text font-family="Cormorant Garamond,serif" font-size="7" font-weight="600" fill="#F8FAFC" letter-spacing="1.5"><textPath href="#sealWhiteTop" startOffset="50%" text-anchor="middle">INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</textPath></text>' +
+      '<text font-family="Cormorant Garamond,serif" font-size="6" font-weight="600" fill="#F8FAFC" letter-spacing="1"><textPath href="#sealWhiteTop" startOffset="50%" text-anchor="middle">INTERNATIONAL ASSOCIATION FOR MONGOLIC LINGUISTICS</textPath></text>' +
       '<text font-family="DM Sans,sans-serif" font-size="7" fill="#5BA3D9" letter-spacing="0.5"><textPath href="#sealWhiteBot" startOffset="50%" text-anchor="middle">ОЛОН УЛСЫН МОНГОЛ ХЭЛ СУДЛАЛЫН НИЙГЭМЛЭГ</textPath></text>' +
       '<text x="100" y="94" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="30" font-weight="700" fill="#F8FAFC" letter-spacing="3">IAML</text>' +
       '<line x1="60" y1="108" x2="140" y2="108" stroke="#D4A843" stroke-width="1"/>' +
@@ -289,6 +289,27 @@
     els.forEach(function (el) { obs.observe(el); });
   }
 
+  /* ── Coin spin: build the milled gold edge (64 facets) between the two faces ── */
+  function initCoins() {
+    document.querySelectorAll(".coin__body").forEach(function (body) {
+      var wall = document.createElement("span");
+      wall.className = "coin__wall";
+      for (var k = 0; k < 64; k++) {
+        var seg = document.createElement("span");
+        seg.className = "coin__seg";
+        seg.style.setProperty("--k", k);
+        wall.appendChild(seg);
+      }
+      body.insertBefore(wall, body.querySelector(".coin__face--back"));
+      // save battery: spin only while the coin is on screen
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+          body.style.animationPlayState = entries[0].isIntersecting ? "running" : "paused";
+        }).observe(body);
+      }
+    });
+  }
+
   /* Expose helpers for page modules */
   window.IAML = {
     esc: esc,
@@ -307,6 +328,7 @@
     try { wireAuth(); } catch (e) {}
     try { wireGlobal(); } catch (e) {}
     try { initReveal(); } catch (e) {}
+    try { initCoins(); } catch (e) {}
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
