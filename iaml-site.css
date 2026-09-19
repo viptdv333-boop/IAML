@@ -901,6 +901,23 @@ a.ptr { color: var(--text2); }
   transform: rotateZ(calc(var(--k) * 5.625deg)) translateY(calc(var(--R) * -1)) rotateX(90deg);
 }
 .coin__seg:nth-child(even) { background: linear-gradient(180deg, #8F6D1E, #D4A843 50%, #8F6D1E); }
+/* Ground shadow: an ellipse under the coin that narrows and widens with the spin (|cos| of the angle) */
+.coin__shadow {
+  position: absolute; left: 50%; top: calc(var(--size) + 30px);
+  width: calc(var(--size) * .82); height: calc(var(--size) * .11);
+  margin-left: calc(var(--size) * -.41);
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(2,12,40,.6), rgba(2,12,40,.3) 55%, rgba(2,12,40,0));
+  filter: blur(3px);
+  animation: coinShadow 7s linear infinite;
+}
+@keyframes coinShadow {
+  0%, 100% { transform: scaleX(1); }
+  10% { transform: scaleX(.81); }  20% { transform: scaleX(.31); }  25% { transform: scaleX(.07); }
+  30% { transform: scaleX(.31); }  40% { transform: scaleX(.81); }  50% { transform: scaleX(1); }
+  60% { transform: scaleX(.81); }  70% { transform: scaleX(.31); }  75% { transform: scaleX(.07); }
+  80% { transform: scaleX(.31); }  90% { transform: scaleX(.81); }
+}
 @keyframes coinSpin {
   from { transform: rotateX(-9deg) rotateY(0deg); }
   to   { transform: rotateX(-9deg) rotateY(360deg); }
@@ -908,7 +925,7 @@ a.ptr { color: var(--text2); }
 @media (min-width: 1001px) { .hero__copy { max-width: calc(100% - min(320px, 24vw) - 56px); } }
 @media (max-width: 1000px) {
   /* Small screens: the coin flows above the heading and fills the blue space */
-  .hero__seal { position: static; transform: none; margin-bottom: 44px; }
+  .hero__seal { position: relative; transform: none; margin-bottom: 68px; }
   .coin { --size: clamp(150px, 36vw, 230px); --thick: 8px; }
 }
 @media (max-width: 860px) {
@@ -1033,12 +1050,21 @@ body.modal-open { overflow: hidden; }
 .cform .btn, .profile-form .btn { align-self: flex-start; }
 
 /* Contacts layout */
-.contacts__grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
-.contacts__info { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--r); padding: 28px; }
-.contacts__info h3 { margin-bottom: 16px; }
-.contacts__line { display: flex; flex-direction: column; gap: 2px; margin-bottom: 16px; font-size: 14px; color: var(--text2); }
-.contacts__line strong { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); font-family: 'DM Sans',sans-serif; }
-.contacts__line a { color: var(--text); }
+.contacts__grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: stretch; }
+.contacts__people { display: grid; grid-template-rows: repeat(3, 1fr); gap: 16px; }
+.pcontact {
+  display: flex; flex-direction: column; justify-content: center; gap: 4px;
+  background: var(--bg-alt); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+  border-radius: var(--r); padding: 22px 28px; min-width: 0;
+  transition: transform .3s, box-shadow .3s;
+}
+.pcontact:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.pcontact__pos { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue); }
+.pcontact__name { font-family: 'Cormorant Garamond', serif; font-size: 26px; line-height: 1.15; color: var(--text); }
+.pcontact__mail { font-size: 14px; color: var(--text2); overflow-wrap: anywhere; }
+.pcontact__mail a { color: var(--blue); font-weight: 500; }
+.pcontact__mail a:hover { text-decoration: underline; }
+.pcontact .is-empty { color: var(--text2); opacity: .65; font-style: italic; }
 .contact-admin .cform { width: 100%; }
 @media (max-width: 760px) { .contacts__grid { grid-template-columns: 1fr; gap: 24px; } }
 

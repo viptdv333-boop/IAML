@@ -303,8 +303,11 @@
       body.insertBefore(wall, body.querySelector(".coin__face--back"));
       // save battery: spin only while the coin is on screen
       if ("IntersectionObserver" in window) {
+        var shadow = body.parentNode.querySelector(".coin__shadow");
         new IntersectionObserver(function (entries) {
-          body.style.animationPlayState = entries[0].isIntersecting ? "running" : "paused";
+          var st = entries[0].isIntersecting ? "running" : "paused";
+          body.style.animationPlayState = st;
+          if (shadow) shadow.style.animationPlayState = st;
         }).observe(body);
       }
     });

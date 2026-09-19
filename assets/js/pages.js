@@ -205,6 +205,27 @@
     }).join("");
   }
 
+  /* ── Contacts: three equal blocks — position, first & last name, email (Phase F: from DB) ── */
+  var CONTACT_PEOPLE = [
+    { position: "President", name: "Juha Janhunen", email: "" },
+    { position: "Secretary", name: "", email: "" },
+    { position: "CTO (Chief Technology Officer)", name: "", email: "" }
+  ];
+  function initContacts() {
+    var mount = document.getElementById("contacts-people");
+    if (!mount) return;
+    var esc = (window.IAML && window.IAML.esc) || function (x) { return String(x); };
+    mount.innerHTML = CONTACT_PEOPLE.map(function (p) {
+      var mail = /^[^\s@<>]+@[^\s@<>]+$/.test(p.email || "")
+        ? '<a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a>'
+        : '<span class="is-empty">Email to be added</span>';
+      return '<article class="pcontact">' +
+        '<p class="pcontact__pos">' + esc(p.position) + '</p>' +
+        '<h4 class="pcontact__name' + (p.name ? '' : ' is-empty') + '">' + esc(p.name || "First Last") + '</h4>' +
+        '<p class="pcontact__mail">' + mail + '</p></article>';
+    }).join("");
+  }
+
   /* ── Custom page slug (placeholder until Phase B) ── */
   function initCustomPage() {
     if (document.body.getAttribute("data-page") !== "custom") return;
@@ -225,6 +246,7 @@
     try { initAvatar(); } catch (e) {}
     try { initParticipants(); } catch (e) {}
     try { initUsefulLinks(); } catch (e) {}
+    try { initContacts(); } catch (e) {}
     try { initCustomPage(); } catch (e) {}
   });
 })();
