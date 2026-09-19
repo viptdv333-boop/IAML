@@ -226,12 +226,14 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
 }
 .nav__in {
   max-width: none; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 80px; height: 108px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 0 clamp(16px, 1.6vw, 80px); height: 108px;
 }
-.nav__links { display: flex; gap: 44px; }
+.nav__brand, .nav__ctrls { flex-shrink: 0; }
+.nav__links { display: flex; gap: clamp(14px, 1.6vw, 44px); }
+@media (min-width: 1600px) { .nav__in { padding: 0 48px; } .nav__links { gap: 36px; } }
 .nav__link {
-  font-size: 16px; color: var(--text2); font-weight: 500;
+  font-size: clamp(14px, 1.05vw, 16px); color: var(--text2); font-weight: 500;
   white-space: nowrap;
   transition: color .2s; position: relative;
 }
@@ -263,7 +265,7 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
 .burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
 .burger span { display: block; width: 18px; height: 1.5px; background: var(--text); margin: 4px 0; }
 
-@media (max-width: 860px) {
+@media (max-width: 1000px) {
   .nav__links { display: none; }
   .burger { display: block; }
   .nav__links.open {
@@ -777,7 +779,9 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
 .brand-seal svg { display: block; width: 64px; height: 64px; }
 .nav__brand-sep { width: 1px; height: 30px; background: var(--gold); opacity: .3; }
 .nav__brand-text { display: flex; flex-direction: column; }
-.nav__brand-text span { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; color: var(--text); line-height: 1.25; }
+.nav__brand-text span { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; color: var(--text); line-height: 1.25; white-space: nowrap; }
+/* 9 menu items: on mid-width desktops the bar keeps only the seal so nothing is pushed off-screen */
+@media (min-width: 1001px) and (max-width: 1260px) { .nav__brand-text, .nav__brand-sep { display: none; } }
 @media (max-width: 600px) {
   /* Compact mobile header: seal + association name stay visible */
   .nav__in { height: 80px; padding: 0 16px; }
@@ -1060,3 +1064,66 @@ body.modal-open { overflow: hidden; }
 
 /* Utility */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+
+/* ── MANIFESTO (About) ── */
+.manifesto { margin-top: 32px; max-width: 780px; }
+.manifesto p { font-size: 16px; color: var(--text2); line-height: 1.9; margin-bottom: 22px; }
+.manifesto p.manifesto__lead { font-size: 19px; color: var(--text); line-height: 1.8; }
+.manifesto p.manifesto__note { font-style: italic; border-left: 3px solid var(--gold); padding-left: 16px; margin-bottom: 0; }
+
+/* ── MONGOLIST text block ── */
+.mlist { margin-bottom: 48px; }
+.mlist__lead { font-size: 17px; line-height: 1.85; color: var(--text); margin-bottom: 20px; }
+.mlist__conduct {
+  background: var(--bg-alt); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+  border-radius: var(--r); padding: 16px 20px; margin-bottom: 14px;
+  font-size: 14.5px; line-height: 1.75; color: var(--text2);
+}
+.mlist__conduct strong { color: var(--blue); }
+.mlist__host { font-size: 14px; color: var(--text2); margin-bottom: 28px; }
+.mlist__cmds { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mlist__cmd { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; min-width: 0; }
+.mlist__cmd h3 { font-size: 22px; margin-bottom: 10px; }
+.mlist__cmd p { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 14px; }
+.mlist__code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: var(--ink); color: var(--gold-l); padding: 12px 16px;
+  border-radius: 8px; font-size: 14px; overflow-x: auto; margin: 0;
+}
+@media (max-width: 700px) { .mlist__cmds { grid-template-columns: 1fr; } }
+
+/* ── USEFUL LINKS (categories) ── */
+.linkcats { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+.chip {
+  display: inline-flex; align-items: center; padding: 8px 18px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--card-bg);
+  font-size: 13px; font-weight: 600; color: var(--text2);
+  transition: color .2s, border-color .2s, background .2s, transform .2s;
+}
+.chip:hover { color: var(--blue); border-color: var(--blue); background: var(--bg-alt); transform: translateY(-1px); }
+.lgroup { margin-top: 48px; scroll-margin-top: 132px; }
+.lgroup__blurb { font-size: 14px; color: var(--text2); margin: -6px 0 18px; }
+.lgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.lcard {
+  display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden;
+  background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 22px 24px; transition: transform .3s, box-shadow .3s, border-color .3s;
+}
+.lcard::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--sky-l));
+  transform: scaleX(0); transform-origin: left; transition: transform .3s;
+}
+a.lcard:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--sky-l); }
+a.lcard:hover::before { transform: scaleX(1); }
+.lcard h4 { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.35; }
+.lcard p { font-size: 13px; color: var(--text2); line-height: 1.65; }
+.lcard__url { margin-top: 6px; font-size: 12px; font-weight: 600; color: var(--blue); word-break: break-all; }
+.lcard__tag {
+  align-self: flex-start; margin-top: 6px; font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--text2);
+  background: var(--bg-alt); border: 1px dashed var(--border); border-radius: 4px; padding: 3px 9px;
+}
+.lcard--soon { border-style: dashed; }
+@media (max-width: 700px) { .lgrid { grid-template-columns: 1fr; } .lgroup { scroll-margin-top: 104px; } }

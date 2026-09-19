@@ -159,6 +159,52 @@
     }).join("");
   }
 
+  /* ── Useful Links (categories; Phase B: fetched from DB). Items without a url render as "coming soon". ── */
+  var LINK_CATEGORIES = [
+    { id: "corpora",      title: "Corpora",      blurb: "Text and speech corpora of Mongolic languages." },
+    { id: "data-banks",   title: "Data banks",   blurb: "Databases and archives of linguistic data." },
+    { id: "dictionaries", title: "Dictionaries", blurb: "Dictionaries and lexical resources." },
+    { id: "textbooks",    title: "Textbooks",    blurb: "Learning and teaching materials." },
+    { id: "monographs",   title: "Monographs",   blurb: "Monographs and scholarly books available online." }
+  ];
+  var USEFUL_LINKS = [
+    { cat: "corpora",      title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
+    { cat: "corpora",      title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
+    { cat: "data-banks",   title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
+    { cat: "data-banks",   title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
+    { cat: "dictionaries", title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
+    { cat: "dictionaries", title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
+    { cat: "textbooks",    title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
+    { cat: "textbooks",    title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
+    { cat: "monographs",   title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
+    { cat: "monographs",   title: "Resource title", desc: "A short description of this resource will appear here.", url: "" }
+  ];
+
+  function initUsefulLinks() {
+    var mount = document.getElementById("links-list");
+    if (!mount) return;
+    var esc = (window.IAML && window.IAML.esc) || function (s) { return String(s); };
+    function host(u) { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return u; } }
+    function card(l) {
+      var safe = /^https?:\/\//i.test(l.url || "");
+      var body = '<h4>' + esc(l.title) + '</h4>' + (l.desc ? '<p>' + esc(l.desc) + '</p>' : '');
+      if (!safe) return '<div class="lcard lcard--soon">' + body + '<span class="lcard__tag">Link coming soon</span></div>';
+      return '<a class="lcard" href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + body +
+        '<span class="lcard__url">' + esc(host(l.url)) + ' ↗</span></a>';
+    }
+    var cats = document.getElementById("links-cats");
+    if (cats) cats.innerHTML = LINK_CATEGORIES.map(function (c) {
+      return '<a class="chip" href="#' + esc(c.id) + '">' + esc(c.title) + '</a>';
+    }).join("");
+    mount.innerHTML = LINK_CATEGORIES.map(function (c) {
+      var items = USEFUL_LINKS.filter(function (l) { return l.cat === c.id; });
+      if (!items.length) return "";
+      return '<div class="pgroup lgroup" id="' + esc(c.id) + '"><h3 class="pgroup__title">' + esc(c.title) + '</h3>' +
+        (c.blurb ? '<p class="lgroup__blurb">' + esc(c.blurb) + '</p>' : '') +
+        '<div class="lgrid">' + items.map(card).join("") + '</div></div>';
+    }).join("");
+  }
+
   /* ── Custom page slug (placeholder until Phase B) ── */
   function initCustomPage() {
     if (document.body.getAttribute("data-page") !== "custom") return;
@@ -178,6 +224,7 @@
     try { initForum(); } catch (e) {}
     try { initAvatar(); } catch (e) {}
     try { initParticipants(); } catch (e) {}
+    try { initUsefulLinks(); } catch (e) {}
     try { initCustomPage(); } catch (e) {}
   });
 })();

@@ -20,7 +20,8 @@
     { key: "participants", label: "Participants", href: "participants.html" },
     { key: "mongolist",    label: "Mongolist",    href: "mongolist.html" },
     { key: "discuss",      label: "Discuss",      href: "discuss.html" },
-    { key: "contacts",     label: "Contacts",     href: "contacts.html" }
+    { key: "contacts",     label: "Contacts",     href: "contacts.html" },
+    { key: "links",        label: "Useful Links", href: "useful-links.html" }
   ];
 
   var prefersReduced = window.matchMedia &&

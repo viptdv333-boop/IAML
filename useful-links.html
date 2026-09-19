@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Useful Links — IAML</title>
+<meta name="description" content="Online resources on Mongolic languages: corpora, data banks, dictionaries, textbooks, and monographs."/>
+<meta name="theme-color" content="#003F87"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="iaml-site.css"/>
+<style>h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}</style>
+</head>
+<body data-page="links">
+<div id="site-header"></div>
+<main>
+  <header class="page-head"><div class="container">
+    <div class="slabel">Resources</div>
+    <h1>Useful Links</h1>
+    <p>Existing online resources on Mongolic languages — corpora, data banks, dictionaries, textbooks, and monographs.</p>
+  </div></header>
+
+  <section class="section"><div class="container">
+    <!-- Category chips + groups are rendered by pages.js from LINK_CATEGORIES / USEFUL_LINKS (Phase B: from the database) -->
+    <nav class="linkcats" id="links-cats" aria-label="Link categories"></nav>
+    <div id="links-list">
+      <noscript><p>Please enable JavaScript to view the list of resources.</p></noscript>
+    </div>
+  </div></section>
+</main>
+<div id="site-footer"></div>
+<script src="assets/js/supabaseClient.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pages.js"></script>
+</body>
+</html>
