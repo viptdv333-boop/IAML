@@ -208,8 +208,8 @@
   /* ── Contacts: three equal blocks — position, first & last name, email (Phase F: from DB) ── */
   var CONTACT_PEOPLE = [
     { position: "President", name: "Juha Janhunen", email: "" },
-    { position: "Secretary", name: "", email: "" },
-    { position: "CTO (Chief Technology Officer)", name: "", email: "" }
+    { position: "Executive Director", name: "Erdene-Ochir Tumen-Ochir", email: "" },
+    { position: "CTO (Chief Technology Officer)", name: "Denis Tikhomirov", email: "" }
   ];
   function initContacts() {
     var mount = document.getElementById("contacts-people");
