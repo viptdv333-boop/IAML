@@ -346,8 +346,14 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
   background: var(--gold); display: block;
 }
 .hero h1 {
-  color: #fff; margin-bottom: 24px;
-  max-width: 1300px; text-wrap: pretty;
+  color: #fff; margin-bottom: 16px;
+  max-width: 1300px; text-wrap: balance;
+  font-size: clamp(34px, 5vw, 60px);
+}
+.hero__sub {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(22px, 2.6vw, 34px); line-height: 1.25; letter-spacing: .2px;
+  color: var(--gold-l); max-width: 900px; margin-bottom: 24px;
 }
 .hero__desc {
   font-size: 19px; color: rgba(255,255,255,.7);
@@ -358,6 +364,7 @@ h3 { font-size: clamp(20px, 2.5vw, 28px); }
 @media (max-width: 860px) {
   .hero__in { padding: 140px 32px 100px; text-align: center; }
   .hero__desc { margin: 0 auto 40px; }
+  .hero__sub { margin-left: auto; margin-right: auto; }
   .hero__btns { justify-content: center; }
   .hero__label { justify-content: center; }
 }
@@ -1070,7 +1077,6 @@ body.modal-open { overflow: hidden; }
 .manifesto { margin-top: 32px; max-width: 780px; }
 .manifesto p { font-size: 16px; color: var(--text2); line-height: 1.9; margin-bottom: 22px; }
 .manifesto p.manifesto__lead { font-size: 19px; color: var(--text); line-height: 1.8; }
-.manifesto p.manifesto__note { font-style: italic; border-left: 3px solid var(--gold); padding-left: 16px; margin-bottom: 0; }
 
 /* ── MONGOLIST text block ── */
 .mlist { margin-bottom: 48px; }
