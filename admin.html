@@ -6,33 +6,25 @@
 <title>Admin — IAML</title>
 <meta name="robots" content="noindex"/>
 <meta name="theme-color" content="#003F87"/>
+<meta name="color-scheme" content="light"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
-<link rel="manifest" href="site.webmanifest"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="iaml-site.css?v=20260919-7"/>
-<style>h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}</style>
+<link rel="stylesheet" href="assets/css/admin.css?v=20261001-1"/>
 </head>
-<body data-page="admin">
-<div id="site-header"></div>
-<main>
-  <header class="page-head"><div class="container">
-    <div class="slabel">Restricted</div>
-    <h1>Admin</h1>
-    <p>Content, menu, participants, moderation, contacts, and subscribers.</p>
-  </div></header>
-  <section class="section"><div class="container" style="max-width:640px">
-    <div class="gate" data-requires-auth>
-      <p>This area is restricted to administrators. Please log in with an admin account.</p>
-      <div class="gate__btns"><button class="btn btn--p" type="button" data-auth="login">Log in</button></div>
-    </div>
-    <p class="section__lead">The full admin panel (manage menu &amp; custom pages, News/Events/Publications, participants &amp; positions, Discuss moderation, contact recipients, subscribers) is built in Phase G.</p>
-  </div></section>
-</main>
-<div id="site-footer"></div>
-<script src="assets/js/supabaseClient.js?v=20260919-7"></script>
-<script src="assets/js/app.js?v=20260919-7"></script>
-<script src="assets/js/pages.js?v=20260919-7"></script>
+<body class="adm" data-page="admin">
+<div id="adm-root">
+  <div class="boot"><p class="muted">Loading the admin panel…</p></div>
+  <noscript><div class="boot"><p>The IAML admin panel needs JavaScript. Please enable it and reload this page.</p></div></noscript>
+</div>
+<div id="adm-toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
+<script src="assets/js/api.js?v=20261001-1" defer></script>
+<script src="assets/js/md.js?v=20261001-1" defer></script>
+<script src="assets/js/admin-ui.js?v=20261001-1" defer></script>
+<script src="assets/js/admin-crud.js?v=20261001-1" defer></script>
+<script src="assets/js/admin-content.js?v=20261001-1" defer></script>
+<script src="assets/js/admin-ops.js?v=20261001-1" defer></script>
+<script src="assets/js/admin.js?v=20261001-1" defer></script>
 </body>
 </html>

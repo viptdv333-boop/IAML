@@ -1,0 +1,25 @@
+# Local smoke test of the whole stack: plain HTTP on http://localhost:18080, no certificates,
+# mail goes to the mail_outbox table only (MAIL_TRANSPORT=log). Unique project name => nothing else on the
+# machine is touched. Needs a current Docker Compose (2.24+ for the "!override" tag; tested with 5.0.2).
+#
+#   deploy/gen-env.sh --local                       # creates deploy/local.env (git-ignored) with throw-away secrets
+#   docker compose --env-file deploy/local.env -f docker-compose.yml -f docker-compose.local.yml up -d --build
+#   curl http://localhost:18080/api/health
+#   docker compose --env-file deploy/local.env -f docker-compose.yml -f docker-compose.local.yml down -v
+#
+# The helper scripts (deploy/backup.sh, deploy/create-admin.sh ...) talk to this stack when you export
+#   COMPOSE_FILE=docker-compose.yml:docker-compose.local.yml  COMPOSE_ENV_FILES=deploy/local.env
+# (COMPOSE_PATH_SEPARATOR=: on Windows). See docs/DEPLOY.md, "Локальная проверка".
+name: iaml-deploytest
+
+services:
+  app:
+    environment:
+      SITE_URL: http://localhost:${HTTP_PORT:-18080}
+      MAIL_TRANSPORT: log
+
+  caddy:
+    ports: !override
+      - "127.0.0.1:${HTTP_PORT:-18080}:80"
+    volumes:
+      - ./deploy/Caddyfile.local:/etc/caddy/Caddyfile:ro

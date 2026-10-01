@@ -1,0 +1,18 @@
+# Caddyfile for the LOCAL smoke test (docker-compose.local.yml): plain HTTP, no certificates, any Host header.
+# The site body is the very same file the production Caddyfile uses, so the test exercises the real config.
+{
+	auto_https off
+
+	servers {
+		timeouts {
+			read_header 10s
+			read_body 60s
+			write 60s
+			idle 2m
+		}
+	}
+}
+
+:80 {
+	import /etc/caddy/Caddyfile.common
+}

@@ -1,0 +1,112 @@
+# IAML production stack on ONE server:  PostgreSQL + Node app + Caddy (automatic HTTPS).
+#
+# All settings come from the .env file that lives next to this file (it is NOT in git).
+#   template : deploy/.env.example          generator: deploy/gen-env.sh
+#   start    : docker compose up -d --build
+#   guide    : docs/DEPLOY.md (first deployment) and docs/OPERATIONS.md (day-to-day), both in Russian.
+#
+# Only Caddy publishes ports (80, 443). The database and the app are reachable on the internal Docker
+# networks only, so nothing but HTTP(S) is exposed to the internet.
+name: iaml
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"   # rotate: at most 5 x 10 MB of logs per container
+    max-file: "5"
+
+services:
+  # ------------------------------------------------------------------ PostgreSQL
+  db:
+    image: postgres:16-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-iaml}
+      POSTGRES_DB: ${POSTGRES_DB:-iaml}
+      # NOTE: PostgreSQL reads the password only when it creates the data directory (first start).
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is empty - run deploy/gen-env.sh (docs/DEPLOY.md, step 6)}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks: [data]
+    healthcheck:
+      # -h 127.0.0.1 = TCP check: the temporary server of the first initialisation does not listen on TCP
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    stop_grace_period: 30s
+    mem_limit: ${DB_MEM_LIMIT:-512m}
+    security_opt: ["no-new-privileges:true"]
+    logging: *default-logging
+
+  # ------------------------------------------------------------------ Node app (API + static site)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    init: true
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-iaml}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-iaml}
+      SITE_URL: ${SITE_URL:-https://${DOMAIN:?DOMAIN is empty - fill it in .env (docs/DEPLOY.md, step 6)}}
+      SESSION_SECRET: ${SESSION_SECRET:?SESSION_SECRET is empty - run deploy/gen-env.sh (docs/DEPLOY.md, step 6)}
+      TRUST_PROXY: "1"              # exactly one proxy hop (Caddy) in front: it sets the real client IP
+      MAIL_TRANSPORT: ${MAIL_TRANSPORT:-resend}
+      RESEND_API_KEY: ${RESEND_API_KEY:?RESEND_API_KEY is empty - see docs/DEPLOY.md, step 7 (Resend)}
+      MAIL_FROM: ${MAIL_FROM:?MAIL_FROM is empty - e.g. IAML <no-reply@your-domain>, see docs/DEPLOY.md, step 7}
+      MAIL_MIN_INTERVAL_MS: ${MAIL_MIN_INTERVAL_MS:-600}
+      SITE_TZ: ${SITE_TZ:-Etc/GMT-3}
+      DIGEST_HOUR: ${DIGEST_HOUR:-8}
+      DIGEST_WEEKDAY: ${DIGEST_WEEKDAY:-1}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      MIGRATE_ON_START: "true"
+    volumes:
+      - uploads:/data/uploads
+    networks: [edge, data]
+    read_only: true
+    tmpfs: ["/tmp"]
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    stop_grace_period: 30s          # the app force-exits after 15 s; docker's default of 10 s would cut it short
+    mem_limit: ${APP_MEM_LIMIT:-768m}
+    logging: *default-logging
+
+  # ------------------------------------------------------------------ Caddy (HTTPS + reverse proxy)
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+      - "${HTTPS_PORT:-443}:443/udp"   # HTTP/3
+    environment:
+      DOMAIN: ${DOMAIN:?DOMAIN is empty - fill it in .env (docs/DEPLOY.md, step 6)}
+      ACME_EMAIL: ${ACME_EMAIL:?ACME_EMAIL is empty - fill it in .env (docs/DEPLOY.md, step 6)}
+      WWW_HOST: ${WWW_HOST:-http://www.invalid}   # optional www -> apex redirect, see deploy/Caddyfile
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./deploy/Caddyfile.common:/etc/caddy/Caddyfile.common:ro
+      - caddy_data:/data        # certificates and ACME account: keep it, or Let's Encrypt limits will bite
+      - caddy_config:/config
+    networks: [edge]
+    mem_limit: ${CADDY_MEM_LIMIT:-256m}
+    security_opt: ["no-new-privileges:true"]
+    logging: *default-logging
+
+networks:
+  edge: {}            # Caddy <-> app; has internet access (the app calls the Resend API)
+  data:
+    internal: true    # app <-> db; no route to or from the internet
+
+volumes:
+  pgdata:             # PostgreSQL data          (back up: deploy/backup.sh)
+  uploads:            # avatars                  (back up: deploy/backup.sh)
+  caddy_data:         # TLS certificates
+  caddy_config:

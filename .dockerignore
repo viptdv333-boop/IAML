@@ -1,0 +1,35 @@
+# Allow-list build context: everything is excluded unless it is listed below, so design drafts (logo/),
+# docs/, git history, secrets (.env), backups and node_modules can never end up in the image.
+#
+# To print exactly what docker sees (run from the repository root, then remove the throw-away image):
+#   printf 'FROM node:24-bookworm-slim\nCOPY . /ctx\n' | docker build -q -t iaml-ctx-check -f - .
+#   docker run --rm iaml-ctx-check find /ctx -type f ; docker rmi iaml-ctx-check
+*
+
+# --- backend (production dependencies are installed inside the image, not copied) ---
+!backend/package.json
+!backend/package-lock.json
+!backend/src
+!backend/migrations
+!backend/seeds
+!backend/scripts
+
+# --- static site: exactly what backend/src/plugins/static.js is allowed to serve ---
+!*.html
+!iaml-site.css
+!favicon.svg
+!site.webmanifest
+!assets
+!site
+
+# --- container entrypoint ---
+!deploy/docker-entrypoint.sh
+
+# --- safety net: excluded even inside the directories above ---
+**/node_modules
+**/.env
+**/.env.*
+**/*.env
+**/*.log
+**/.DS_Store
+**/Thumbs.db

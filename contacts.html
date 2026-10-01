@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="iaml-site.css?v=20260919-7"/>
+<link rel="stylesheet" href="iaml-site.css?v=20261001-1"/>
 <style>h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}</style>
 </head>
 <body data-page="contacts">
@@ -25,7 +25,7 @@
 
   <section class="section"><div class="container">
     <div class="contacts__grid">
-      <form class="cform cform--card" data-gated novalidate>
+      <form class="cform cform--card" id="contactForm" data-gated novalidate>
         <h3>Send a message</h3>
         <div class="auth__row">
           <label>Your name<input type="text" name="name" required/></label>
@@ -37,14 +37,15 @@
         <p class="cform__msg" data-form-msg></p>
       </form>
 
-      <!-- Phase F: people & emails come from the backend; see CONTACT_PEOPLE in pages.js -->
+      <!-- People & e-mails come from GET /api/contacts (CONTACT_PEOPLE in pages.js is the static fallback) -->
       <div class="contacts__people" id="contacts-people"></div>
     </div>
   </div></section>
 </main>
 <div id="site-footer"></div>
-<script src="assets/js/supabaseClient.js?v=20260919-7"></script>
-<script src="assets/js/app.js?v=20260919-7"></script>
-<script src="assets/js/pages.js?v=20260919-7"></script>
+<script defer src="assets/js/api.js?v=20261001-1"></script>
+<script defer src="assets/js/app.js?v=20261001-1"></script>
+<script defer src="assets/js/pages.js?v=20261001-1"></script>
+<script defer src="assets/js/auth.js?v=20261001-1"></script>
 </body>
 </html>

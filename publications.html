@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="iaml-site.css?v=20260919-7"/>
+<link rel="stylesheet" href="iaml-site.css?v=20261001-1"/>
 <style>h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}</style>
 </head>
 <body data-page="publications">
@@ -25,8 +25,8 @@
 
   <section class="section"><div class="container">
     <!-- Phase B: rendered from the database; carousel pages through all items -->
-    <div class="carousel" data-carousel>
-      <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev aria-label="Previous">‹</button>
+    <div class="carousel" id="pubsCarousel" data-carousel>
+      <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev aria-label="Previous page">‹</button>
       <div class="carousel__track" data-carousel-track>
         <article class="card pub-card" data-card-open tabindex="0" role="button">
           <span class="pa__tag">Phonology</span>
@@ -61,13 +61,14 @@
           <template class="card__full"><span class="pa__tag">Historical</span><h2>Reconstructing Proto-Mongolic Sibilants</h2><p class="card__authors">Author names — 2026</p><p>Placeholder full summary text.</p></template>
         </article>
       </div>
-      <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next aria-label="Next">›</button>
+      <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next aria-label="Next page">›</button>
     </div>
   </div></section>
 </main>
 <div id="site-footer"></div>
-<script src="assets/js/supabaseClient.js?v=20260919-7"></script>
-<script src="assets/js/app.js?v=20260919-7"></script>
-<script src="assets/js/pages.js?v=20260919-7"></script>
+<script defer src="assets/js/api.js?v=20261001-1"></script>
+<script defer src="assets/js/app.js?v=20261001-1"></script>
+<script defer src="assets/js/pages.js?v=20261001-1"></script>
+<script defer src="assets/js/auth.js?v=20261001-1"></script>
 </body>
 </html>

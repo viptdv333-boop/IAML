@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="iaml-site.css?v=20260919-7"/>
+<link rel="stylesheet" href="iaml-site.css?v=20261001-1"/>
 <style>h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}</style>
 </head>
 <body data-page="discuss">
@@ -24,12 +24,14 @@
   </div></header>
 
   <section class="section"><div class="container" style="max-width:820px">
+    <!-- Static placeholder threads (GitHub Pages draft without a backend). With a backend discuss.js hides this block and
+         renders the live forum (GET /api/discuss/threads, thread view at #thread-<id>) next to it. -->
+    <div id="discuss-static">
     <div class="discuss__bar">
       <button class="btn btn--p" type="button" data-new-thread>Ask a question</button>
       <span class="discuss__hint">Newest first</span>
     </div>
 
-    <!-- Phase D: threads rendered from the database -->
     <div class="thread-list">
       <article class="thread" data-card-open tabindex="0" role="button">
         <div class="thread__author"><span class="avatar avatar--sm">B</span><span class="thread__name">Bat Erdene</span></div>
@@ -73,11 +75,14 @@
         </template>
       </article>
     </div>
+    </div>
   </div></section>
 </main>
 <div id="site-footer"></div>
-<script src="assets/js/supabaseClient.js?v=20260919-7"></script>
-<script src="assets/js/app.js?v=20260919-7"></script>
-<script src="assets/js/pages.js?v=20260919-7"></script>
+<script defer src="assets/js/api.js?v=20261001-1"></script>
+<script defer src="assets/js/app.js?v=20261001-1"></script>
+<script defer src="assets/js/pages.js?v=20261001-1"></script>
+<script defer src="assets/js/auth.js?v=20261001-1"></script>
+<script defer src="assets/js/discuss.js?v=20261001-1"></script>
 </body>
 </html>

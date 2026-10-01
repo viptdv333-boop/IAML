@@ -1,0 +1,121 @@
+# GitHub Actions workflow (tests + Docker image check).
+# It is stored here, not in .github/workflows/, because pushing a workflow file needs a GitHub token with the
+# `workflow` scope. To switch CI on: create .github/workflows/ci.yml with this content (GitHub web editor:
+# Add file -> Create new file), or run `gh auth refresh -s workflow` and move the file with git.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ------------------------------------------------------------------ backend tests (Node 24 + PostgreSQL 16)
+  test:
+    name: Backend tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: iaml_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d iaml_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      NODE_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/iaml_test
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/iaml_test
+      SITE_URL: http://localhost:3000
+      SESSION_SECRET: ci-only-session-secret-0123456789abcdef0
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+
+  # ------------------------------------------------------------------ the production image builds and starts
+  docker:
+    name: Docker image
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: iaml_smoke
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d iaml_smoke"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build the image
+        run: docker build --tag iaml-app:ci .
+
+      - name: Check the image contents
+        run: |
+          # runs as the unprivileged "node" user (uid 1000)
+          test "$(docker run --rm --entrypoint id iaml-app:ci -u)" = "1000"
+          # drafts, docs, git history and secrets never enter the image
+          docker run --rm --entrypoint sh iaml-app:ci -c '
+            for p in /app/logo /app/docs /app/.git /app/.env /app/public/logo /app/public/docs /app/public/backend; do
+              if [ -e "$p" ]; then echo "unexpected path in the image: $p"; exit 1; fi
+            done
+            ls -1 /app/public'
+          # sharp (libvips) works on the slim image: PNG in, 256x256 WebP out
+          docker run --rm --entrypoint node iaml-app:ci -e "
+            const sharp = (await import('sharp')).default;
+            const png = await sharp({ create: { width: 64, height: 48, channels: 3, background: '#003F87' } }).png().toBuffer();
+            const meta = await sharp(await sharp(png).resize(256, 256, { fit: 'cover' }).webp().toBuffer()).metadata();
+            if (meta.format !== 'webp' || meta.width !== 256) throw new Error('sharp is broken');
+            console.log('sharp ok');"
+
+      - name: Smoke test (migrations, seed, health check)
+        run: |
+          docker run -d --name iaml-ci --network host \
+            -e DATABASE_URL=postgres://postgres:postgres@localhost:5432/iaml_smoke \
+            -e SITE_URL=http://localhost:3000 \
+            -e SESSION_SECRET=ci-only-session-secret-0123456789abcdef0 \
+            iaml-app:ci
+          for _ in $(seq 1 30); do
+            if curl -fsS http://localhost:3000/api/health; then
+              echo
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs iaml-ci
+          exit 1
+
+      - name: Container logs
+        if: always()
+        run: docker logs iaml-ci || true

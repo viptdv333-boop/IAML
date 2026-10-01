@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="iaml-site.css?v=20260919-7"/>
+<link rel="stylesheet" href="iaml-site.css?v=20261001-1"/>
 <style>h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}</style>
 </head>
 <body data-page="mongolist">
@@ -34,8 +34,10 @@
       </div>
     </div>
 
-    <!-- Not-logged-in gate (shown until auth in Phase C) -->
-    <div class="gate" data-requires-auth>
+    <div id="mlistBox">
+    <!-- Not-logged-in gate: in static mode (no backend) it stays next to the gated form; with a backend account.js shows
+         the gate to visitors and the live subscription form to logged-in members -->
+    <div class="gate" id="mlistGate" data-requires-auth>
       <p>Please log in or create an account to manage your subscription.</p>
       <div class="gate__btns">
         <button class="btn btn--p" type="button" data-auth="login">Log in</button>
@@ -43,8 +45,8 @@
       </div>
     </div>
 
-    <!-- Subscription preferences (per topic: on/off + frequency) -->
-    <form class="sub-form" data-gated novalidate>
+    <!-- Subscription preferences (per topic: on/off + frequency); static markup, replaced by the live form (GET/PUT /api/me/subscriptions) -->
+    <form class="sub-form" id="subForm" data-gated novalidate>
       <p class="sub-form__intro">Choose topics and how often you want to hear about each.</p>
       <div class="sub-row"><label class="sub-row__topic"><input type="checkbox" name="news" checked/> News</label><select name="news_freq" aria-label="News frequency"><option value="instant">Instant</option><option value="daily" selected>Daily digest</option><option value="weekly">Weekly digest</option></select></div>
       <div class="sub-row"><label class="sub-row__topic"><input type="checkbox" name="events" checked/> Events</label><select name="events_freq" aria-label="Events frequency"><option value="instant">Instant</option><option value="daily" selected>Daily digest</option><option value="weekly">Weekly digest</option></select></div>
@@ -54,11 +56,14 @@
       <button class="btn btn--p" type="submit">Save preferences</button>
       <p class="cform__msg" data-form-msg></p>
     </form>
+    </div>
   </div></section>
 </main>
 <div id="site-footer"></div>
-<script src="assets/js/supabaseClient.js?v=20260919-7"></script>
-<script src="assets/js/app.js?v=20260919-7"></script>
-<script src="assets/js/pages.js?v=20260919-7"></script>
+<script defer src="assets/js/api.js?v=20261001-1"></script>
+<script defer src="assets/js/app.js?v=20261001-1"></script>
+<script defer src="assets/js/pages.js?v=20261001-1"></script>
+<script defer src="assets/js/auth.js?v=20261001-1"></script>
+<script defer src="assets/js/account.js?v=20261001-1"></script>
 </body>
 </html>

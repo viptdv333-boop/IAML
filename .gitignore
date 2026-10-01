@@ -7,3 +7,21 @@ Thumbs.db
 
 # Logs / temp
 *.log
+
+# Dependencies / runtime data
+node_modules/
+backend/data/
+
+# Secrets — never commit (this repository is public)
+.env
+.env.*
+!.env.example
+deploy/*.env
+deploy/secrets/
+
+# Editors
+.vscode/
+.idea/
+
+# Server backups (deploy/backup.sh)
+backups/

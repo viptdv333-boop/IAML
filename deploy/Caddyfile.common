@@ -1,0 +1,63 @@
+# Site body shared by deploy/Caddyfile (production, HTTPS) and deploy/Caddyfile.local (local test, plain HTTP).
+# It is imported inside a site block:   import /etc/caddy/Caddyfile.common
+# Nothing here needs to be edited for a normal deployment; settings live in .env.
+
+encode zstd gzip
+
+# Avatar upload is limited to 2 MB by the app; the rest leaves room for the multipart overhead.
+request_body {
+	max_size 3MB
+}
+
+header -Server
+
+# Access log: JSON on stdout (docker compose logs caddy). Query strings are cut off (they can carry one-time
+# tokens such as /api/unsubscribe?t=...); Cookie, Authorization and Referer headers and all response headers
+# (Set-Cookie!) never reach the log.
+log {
+	output stdout
+	format filter {
+		wrap json
+		request>uri regexp \?.* ""
+		request>headers>Cookie delete
+		request>headers>Authorization delete
+		request>headers>Referer delete
+		resp_headers delete
+	}
+}
+
+# The app is the only backend. Caddy does not cache anything: every dynamic answer comes straight from it
+# (the app sets Cache-Control itself: no-store for /api, no-cache for html/js/css, long-lived for avatars).
+reverse_proxy app:3000 {
+	# Caddy discards a client-supplied X-Forwarded-For and sets the real peer address itself (no
+	# trusted_proxies are configured). The app runs with TRUST_PROXY=true and rate-limits by that address.
+
+	# Hide short app restarts (docker compose up -d, crash + restart) from visitors: retry for up to 10 s.
+	lb_try_duration 10s
+	lb_try_interval 250ms
+
+	transport http {
+		dial_timeout 5s
+		response_header_timeout 60s
+	}
+}
+
+# Friendly page while the app is down for longer than lb_try_duration.
+handle_errors {
+	@unavailable expression {err.status_code} in [502, 503, 504]
+	handle @unavailable {
+		header Content-Type "text/html; charset=utf-8"
+		header Cache-Control "no-store"
+		header Retry-After "30"
+		respond <<HTML
+			<!doctype html>
+			<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+			<title>IAML - back in a minute</title></head>
+			<body style="font-family:system-ui,sans-serif;max-width:32rem;margin:15vh auto;padding:0 1rem;color:#1a1a1a">
+			<h1 style="color:#003F87;font-size:1.4rem">The site is restarting</h1>
+			<p>The International Association for Mongolic Linguistics web site is being updated or restarted.
+			Please reload this page in a minute.</p>
+			</body></html>
+			HTML 503
+	}
+}

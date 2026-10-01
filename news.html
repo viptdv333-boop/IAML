@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="iaml-site.css?v=20260919-7"/>
+<link rel="stylesheet" href="iaml-site.css?v=20261001-1"/>
 <style>h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}</style>
 </head>
 <body data-page="news">
@@ -25,8 +25,8 @@
 
   <section class="section"><div class="container">
     <!-- Phase B: cards rendered from the database; carousel pages through all items -->
-    <div class="carousel" data-carousel>
-      <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev aria-label="Previous">‹</button>
+    <div class="carousel" id="newsCarousel" data-carousel>
+      <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev aria-label="Previous page">‹</button>
       <div class="carousel__track" data-carousel-track>
         <article class="card news-card" data-card-open tabindex="0" role="button">
           <time class="card__date">2026-07-10 · 14:30 (UTC+3)</time>
@@ -71,13 +71,14 @@
           <template class="card__full"><time class="card__date">2026-04-25 · 10:10 (UTC+3)</time><h2>Partnership with the Mongolian Academy of Sciences</h2><p>Placeholder body text (up to 500 words).</p></template>
         </article>
       </div>
-      <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next aria-label="Next">›</button>
+      <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next aria-label="Next page">›</button>
     </div>
   </div></section>
 </main>
 <div id="site-footer"></div>
-<script src="assets/js/supabaseClient.js?v=20260919-7"></script>
-<script src="assets/js/app.js?v=20260919-7"></script>
-<script src="assets/js/pages.js?v=20260919-7"></script>
+<script defer src="assets/js/api.js?v=20261001-1"></script>
+<script defer src="assets/js/app.js?v=20261001-1"></script>
+<script defer src="assets/js/pages.js?v=20261001-1"></script>
+<script defer src="assets/js/auth.js?v=20261001-1"></script>
 </body>
 </html>

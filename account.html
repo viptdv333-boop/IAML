@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="iaml-site.css?v=20260919-7"/>
+<link rel="stylesheet" href="iaml-site.css?v=20261001-1"/>
 <style>h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}</style>
 </head>
 <body data-page="account">
@@ -25,7 +25,10 @@
   </div></header>
 
   <section class="section"><div class="container" style="max-width:640px">
-    <div class="gate" data-requires-auth>
+    <!-- Static mode (no backend): the gate and the gated form below stay as they are.
+         With a backend account.js shows the gate to visitors and the live form + the sections further down to members. -->
+    <div id="accountBox">
+    <div class="gate" id="accountGate" data-requires-auth>
       <p>Please log in to manage your account.</p>
       <div class="gate__btns">
         <button class="btn btn--p" type="button" data-auth="login">Log in</button>
@@ -33,29 +36,73 @@
       </div>
     </div>
 
-    <form class="profile-form" data-gated novalidate>
+    <form class="profile-form" id="profileForm" data-gated novalidate>
       <div class="avatar-edit">
         <span class="avatar avatar--lg" id="avatarPreview">—</span>
         <div>
-          <label class="btn btn--o btn--sm" style="cursor:pointer">Upload photo<input type="file" name="avatar" accept="image/png,image/jpeg,image/webp" hidden/></label>
+          <div class="avatar-edit__btns">
+            <label class="btn btn--o btn--sm filebtn">Upload photo<input class="sr-only" type="file" id="avatarFile" name="avatar" accept="image/png,image/jpeg,image/webp"/></label>
+            <button class="btn btn--o btn--sm" type="button" id="avatarRemove" hidden>Remove photo</button>
+          </div>
           <p class="profile-form__hint">JPG, PNG or WebP, up to 2&nbsp;MB. Optional — otherwise your initials are shown.</p>
+          <p class="cform__msg" id="avatarMsg" aria-live="polite"></p>
         </div>
       </div>
       <div class="auth__row">
-        <label>First name<input type="text" name="first_name" required/></label>
-        <label>Last name<input type="text" name="last_name" required/></label>
+        <label>First name<input type="text" name="first_name" autocomplete="given-name" maxlength="80" required/></label>
+        <label>Last name<input type="text" name="last_name" autocomplete="family-name" maxlength="80" required/></label>
       </div>
-      <label>Place of work <span class="profile-form__badge">admin-only</span><input type="text" name="workplace" required/></label>
+      <label>Place of work <span class="profile-form__badge">admin-only</span><input type="text" name="workplace" autocomplete="organization" maxlength="200" required/></label>
+      <div class="field" id="accountEmailRow" hidden>
+        <label for="accountEmail">Email</label>
+        <input id="accountEmail" type="email" name="email" readonly aria-describedby="accountEmailHint"/>
+        <p class="field-hint" id="accountEmailHint">Used to log in and for Mongolist e-mails. It can’t be changed here — contact the administrators if it needs to be updated.</p>
+      </div>
       <button class="btn btn--p" type="submit">Save profile</button>
-      <p class="cform__msg" data-form-msg></p>
+      <p class="cform__msg" data-form-msg aria-live="polite"></p>
     </form>
+    </div>
 
     <p class="account__link">Manage email subscriptions on the <a href="mongolist.html">Mongolist</a> page.</p>
+
+    <!-- Members only (shown by account.js when a backend answers and somebody is logged in) -->
+    <div id="accountMore" hidden>
+      <section class="account__section" aria-labelledby="pwHeading">
+        <h2 id="pwHeading">Change password</h2>
+        <form class="profile-form" id="passwordForm" novalidate>
+          <div class="field">
+            <label for="accCurPw">Current password</label>
+            <div class="pw"><input id="accCurPw" type="password" name="current_password" autocomplete="current-password" maxlength="128"/><button class="pw__toggle" type="button" data-pw-toggle aria-label="Show password" aria-pressed="false">Show</button></div>
+          </div>
+          <div class="field">
+            <label for="accNewPw">New password</label>
+            <div class="pw"><input id="accNewPw" type="password" name="new_password" autocomplete="new-password" maxlength="128" aria-describedby="accNewPwHint"/><button class="pw__toggle" type="button" data-pw-toggle aria-label="Show password" aria-pressed="false">Show</button></div>
+            <p class="field-hint" id="accNewPwHint">At least 8 characters. You will be logged out on your other devices.</p>
+          </div>
+          <button class="btn btn--p" type="submit">Change password</button>
+          <p class="cform__msg" data-form-msg aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="account__section" aria-labelledby="logoutHeading">
+        <h2 id="logoutHeading">Log out</h2>
+        <p>End your session on this device.</p>
+        <div class="account__actions"><button class="btn btn--o" type="button" id="logoutBtn">Log out</button></div>
+      </section>
+
+      <section class="account__section account__danger" aria-labelledby="delHeading">
+        <h2 id="delHeading">Delete account</h2>
+        <p>Permanently deletes your account, your Mongolist subscriptions and your photo. Your Discuss posts stay, shown as “Deleted user”. This can’t be undone.</p>
+        <div class="account__actions"><button class="btn btn--red" type="button" id="deleteAccountBtn">Delete my account…</button></div>
+      </section>
+    </div>
   </div></section>
 </main>
 <div id="site-footer"></div>
-<script src="assets/js/supabaseClient.js?v=20260919-7"></script>
-<script src="assets/js/app.js?v=20260919-7"></script>
-<script src="assets/js/pages.js?v=20260919-7"></script>
+<script defer src="assets/js/api.js?v=20261001-1"></script>
+<script defer src="assets/js/app.js?v=20261001-1"></script>
+<script defer src="assets/js/pages.js?v=20261001-1"></script>
+<script defer src="assets/js/auth.js?v=20261001-1"></script>
+<script defer src="assets/js/account.js?v=20261001-1"></script>
 </body>
 </html>

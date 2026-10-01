@@ -1,0 +1,33 @@
+# IAML production Caddyfile. Certificates (Let's Encrypt) are obtained and renewed automatically; HTTP is
+# redirected to HTTPS automatically. Port 80 and 443 (tcp+udp) must be reachable from the internet.
+#
+# The values come from the environment of the caddy container (docker-compose.yml, which reads .env):
+#   DOMAIN, ACME_EMAIL, WWW_HOST.  Edit .env, not this file.
+{
+	email {$ACME_EMAIL}
+
+	# Slow-client protection (slowloris); generous enough for a 2 MB avatar upload on a slow mobile link.
+	servers {
+		timeouts {
+			read_header 10s
+			read_body 60s
+			write 60s
+			idle 2m
+		}
+	}
+
+	# To test without hitting Let's Encrypt rate limits, temporarily add:
+	#   acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+{$DOMAIN} {
+	import /etc/caddy/Caddyfile.common
+}
+
+# Optional www.<domain> -> <domain> redirect. Off by default: WWW_HOST is then the dummy plain-HTTP host
+# "http://www.invalid" that never receives traffic and needs no certificate.
+# To enable: create a DNS A record for www, set  WWW_HOST=www.your-domain  in .env, run  docker compose up -d
+# (without the DNS record Caddy would fail to get a certificate for www and keep retrying).
+{$WWW_HOST} {
+	redir https://{$DOMAIN}{uri} permanent
+}
