@@ -3,12 +3,12 @@
 -- anything the administrator edited later is never overwritten.
 
 -- ── the five fixed positions ──
-insert into positions (name, singular, sort_order) values
-  ('President', 'President', 1),
-  ('Honorary President', 'Honorary President', 2),
-  ('Vice Presidents', 'Vice President', 3),
-  ('Executive Director', 'Executive Director', 4),
-  ('Board Members', 'Board Member', 5)
+insert into positions (name, singular, sort_order, name_mn, singular_mn) values
+  ('President', 'President', 1, 'Ерөнхийлөгч', 'Ерөнхийлөгч'),
+  ('Honorary President', 'Honorary President', 2, 'Хүндэт ерөнхийлөгч', 'Хүндэт ерөнхийлөгч'),
+  ('Vice Presidents', 'Vice President', 3, 'Дэд ерөнхийлөгчид', 'Дэд ерөнхийлөгч'),
+  ('Executive Director', 'Executive Director', 4, 'Гүйцэтгэх захирал', 'Гүйцэтгэх захирал'),
+  ('Board Members', 'Board Member', 5, 'Удирдах зөвлөлийн гишүүд', 'Удирдах зөвлөлийн гишүүн')
 on conflict (name) do nothing;
 
 -- ── participants roster (30 people, from the members file) ──
@@ -54,40 +54,41 @@ begin
 end $$;
 
 -- ── core menu (order / titles / visibility are editable in the admin panel) ──
-insert into menu_items (key, title, href, sort_order, is_core) values
-  ('about',        'About',        'index.html',        1, true),
-  ('news',         'News',         'news.html',         2, true),
-  ('events',       'Events',       'events.html',       3, true),
-  ('publications', 'Publications', 'publications.html', 4, true),
-  ('participants', 'Participants', 'participants.html', 5, true),
-  ('mongolist',    'Mongolist',    'mongolist.html',    6, true),
-  ('discuss',      'Discuss',      'discuss.html',      7, true),
-  ('contacts',     'Contacts',     'contacts.html',     8, true),
-  ('links',        'Useful Links', 'useful-links.html', 9, true)
+insert into menu_items (key, title, href, sort_order, is_core, title_mn) values
+  ('about',        'About',        'index.html',        1, true, 'Бидний тухай'),
+  ('news',         'News',         'news.html',         2, true, 'Мэдээ'),
+  ('events',       'Events',       'events.html',       3, true, 'Арга хэмжээ'),
+  ('publications', 'Publications', 'publications.html', 4, true, 'Нийтлэлүүд'),
+  ('participants', 'Participants', 'participants.html', 5, true, 'Оролцогчид'),
+  ('mongolist',    'Mongolist',    'mongolist.html',    6, true, 'Mongolist'),
+  ('discuss',      'Discuss',      'discuss.html',      7, true, 'Хэлэлцүүлэг'),
+  ('contacts',     'Contacts',     'contacts.html',     8, true, 'Холбоо барих'),
+  ('links',        'Useful Links', 'useful-links.html', 9, true, 'Ашигтай холбоосууд')
 on conflict (key) do nothing;
 
 -- ── Useful Links categories (entries are added by the administrator) ──
-insert into link_categories (slug, title, blurb, sort_order) values
-  ('corpora',      'Corpora',      'Text and speech corpora of Mongolic languages.',   1),
-  ('data-banks',   'Data banks',   'Databases and archives of linguistic data.',       2),
-  ('dictionaries', 'Dictionaries', 'Dictionaries and lexical resources.',              3),
-  ('textbooks',    'Textbooks',    'Learning and teaching materials.',                 4),
-  ('monographs',   'Monographs',   'Monographs and scholarly books available online.', 5)
+insert into link_categories (slug, title, blurb, sort_order, title_mn, blurb_mn) values
+  ('corpora',      'Corpora',      'Text and speech corpora of Mongolic languages.',   1, 'Корпусууд',         'Монгол хэлүүдийн бичвэр болон яриан корпусууд.'),
+  ('data-banks',   'Data banks',   'Databases and archives of linguistic data.',       2, 'Өгөгдлийн сангууд', 'Хэл шинжлэлийн өгөгдлийн сан, архивууд.'),
+  ('dictionaries', 'Dictionaries', 'Dictionaries and lexical resources.',              3, 'Толь бичгүүд',      'Толь бичиг болон үгийн сангийн нөөцүүд.'),
+  ('textbooks',    'Textbooks',    'Learning and teaching materials.',                 4, 'Сурах бичгүүд',     'Сургалт, заах аргын материалууд.'),
+  ('monographs',   'Monographs',   'Monographs and scholarly books available online.', 5, 'Монографиуд',       'Онлайнаар унших боломжтой эрдэм шинжилгээний монографи, номууд.')
 on conflict (slug) do nothing;
 
 -- ── Contacts: three people blocks (e-mail addresses are added in the admin panel) ──
 do $$
 begin
   if not exists (select 1 from contact_people) then
-    insert into contact_people (position, name, email, sort_order) values
-      ('President',                      'Juha Janhunen',            null, 1),
-      ('Executive Director',             'Erdene-Ochir Tumen-Ochir', null, 2),
-      ('CTO (Chief Technology Officer)', 'Denis Tikhomirov',         null, 3);
+    insert into contact_people (position, name, email, sort_order, position_mn) values
+      ('President',                      'Juha Janhunen',            null, 1, 'Ерөнхийлөгч'),
+      ('Executive Director',             'Erdene-Ochir Tumen-Ochir', null, 2, 'Гүйцэтгэх захирал'),
+      ('CTO (Chief Technology Officer)', 'Denis Tikhomirov',         null, 3, 'Технологийн захирал (CTO)');
   end if;
 end $$;
 
 -- ── site settings (editable in the admin panel) ──
 insert into site_settings (key, value) values
   ('contact.email',   '"info@iaml.org"'::jsonb),
-  ('contact.address', '"Ulaanbaatar, Mongolia"'::jsonb)
+  ('contact.address', '"Ulaanbaatar, Mongolia"'::jsonb),
+  ('contact.address_mn', '"Улаанбаатар, Монгол улс"'::jsonb)
 on conflict (key) do nothing;

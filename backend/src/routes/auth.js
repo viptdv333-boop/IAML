@@ -40,6 +40,7 @@ const REGISTER = {
   workplace: v.str({ max: 200 }),
   email: v.email(),
   password: passwordRule(),
+  lang: v.enum(['en', 'mn']).optional('en'),
   website: v.str({ max: 200 }).optional(''),
 };
 const VERIFY = { email: v.email(), code: v.str({ min: 6, max: 6 }), password: passwordRule() };
@@ -82,7 +83,7 @@ export default async function authRoutes(app) {
        values ($1, $2, $3, now() + make_interval(mins => $4))`,
       [user.id, purpose, hashCode(secret, user.id, purpose, code), CODE_TTL_MIN],
     );
-    const mail = (purpose === 'verify_email' ? verifyEmailMail : resetPasswordMail)({ code, siteUrl: config.siteUrl });
+    const mail = (purpose === 'verify_email' ? verifyEmailMail : resetPasswordMail)({ code, siteUrl: config.siteUrl, lang: user.lang });
     await enqueueMail(tx, { to: user.email, ...mail, purpose, priority: 1 });
     return true;
   }
@@ -132,7 +133,7 @@ export default async function authRoutes(app) {
 
   const findUser = (tx, email) =>
     tx.one(
-      `select id, email, password_hash, first_name, last_name, workplace, avatar_file, role, email_verified_at, disabled_at, created_at
+      `select id, email, password_hash, first_name, last_name, workplace, avatar_file, role, lang, email_verified_at, disabled_at, created_at
          from users where email = $1`,
       [email],
     );
@@ -149,14 +150,14 @@ export default async function authRoutes(app) {
 
     const register = () => db.tx(async (tx) => {
       const existing = await tx.one(
-        `select id, email, first_name, last_name, email_verified_at, disabled_at from users where email = $1 for update`,
+        `select id, email, first_name, last_name, lang, email_verified_at, disabled_at from users where email = $1 for update`,
         [body.email],
       );
       if (!existing) {
         const user = await tx.one(
-          `insert into users (email, password_hash, first_name, last_name, workplace) values ($1, $2, $3, $4, $5)
-           returning id, email, first_name, last_name`,
-          [body.email, hash, body.first_name, body.last_name, body.workplace],
+          `insert into users (email, password_hash, first_name, last_name, workplace, lang) values ($1, $2, $3, $4, $5, $6)
+           returning id, email, first_name, last_name, lang`,
+          [body.email, hash, body.first_name, body.last_name, body.workplace, body.lang],
         );
         await issueCode(tx, user, 'verify_email');
       } else if (!existing.email_verified_at && !existing.disabled_at) {
@@ -165,10 +166,10 @@ export default async function authRoutes(app) {
         // the password is chosen again at /verify, by the person who holds the code.
         if (!(await hasActiveCode(tx, existing.id, 'verify_email'))) {
           await tx.query(
-            'update users set password_hash = $2, first_name = $3, last_name = $4, workplace = $5 where id = $1',
-            [existing.id, hash, body.first_name, body.last_name, body.workplace],
+            'update users set password_hash = $2, first_name = $3, last_name = $4, workplace = $5, lang = $6 where id = $1',
+            [existing.id, hash, body.first_name, body.last_name, body.workplace, body.lang],
           );
-          await issueCode(tx, existing, 'verify_email');
+          await issueCode(tx, { ...existing, lang: body.lang }, 'verify_email');
         }
       } else {
         // someone registers an address that already has an account: tell the owner (at most once an hour)
@@ -177,7 +178,7 @@ export default async function authRoutes(app) {
           [existing.email],
         );
         if (!recent) {
-          await enqueueMail(tx, { to: existing.email, ...accountExistsMail({ siteUrl: config.siteUrl }), purpose: 'account_exists', priority: 4 });
+          await enqueueMail(tx, { to: existing.email, ...accountExistsMail({ siteUrl: config.siteUrl, lang: existing.lang }), purpose: 'account_exists', priority: 4 });
         }
       }
     });
@@ -214,7 +215,7 @@ export default async function authRoutes(app) {
     const out = await db.tx(async (tx) => {
       const row = await tx.one(`select id from email_codes where id = $1 and consumed_at is null and expires_at > now() for update`, [first.codeId]);
       const u = row && await tx.one(
-        `select id, email, first_name, last_name, workplace, avatar_file, role, email_verified_at, disabled_at, created_at from users where id = $1 for update`,
+        `select id, email, first_name, last_name, workplace, avatar_file, role, lang, email_verified_at, disabled_at, created_at from users where id = $1 for update`,
         [first.userId],
       );
       if (!row || !u || u.email_verified_at || u.disabled_at) return { error: invalidCode() };
@@ -313,7 +314,7 @@ export default async function authRoutes(app) {
     const out = await db.tx(async (tx) => {
       const row = await tx.one(`select id from email_codes where id = $1 and consumed_at is null and expires_at > now() for update`, [first.codeId]);
       const u = row && await tx.one(
-        `select id, email, first_name, last_name, workplace, avatar_file, role, email_verified_at, disabled_at, created_at from users where id = $1 for update`,
+        `select id, email, first_name, last_name, workplace, avatar_file, role, lang, email_verified_at, disabled_at, created_at from users where id = $1 for update`,
         [first.userId],
       );
       if (!row || !u || !u.email_verified_at || u.disabled_at) return { error: invalidCode() };

@@ -18,6 +18,7 @@ const userItem = (r) => ({
   last_name: r.last_name,
   workplace: r.workplace,
   role: r.role,
+  lang: r.lang,
   email_verified: !!r.email_verified_at,
   disabled: !!r.disabled_at,
   avatar_url: avatarUrl(r.avatar_file),

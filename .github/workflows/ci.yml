@@ -1,7 +1,4 @@
-# GitHub Actions workflow (tests + Docker image check).
-# It is stored here, not in .github/workflows/, because pushing a workflow file needs a GitHub token with the
-# `workflow` scope. To switch CI on: create .github/workflows/ci.yml with this content (GitHub web editor:
-# Add file -> Create new file), or run `gh auth refresh -s workflow` and move the file with git.
+# GitHub Actions: backend tests (Node + PostgreSQL) and a production Docker image check.
 name: CI
 
 on:

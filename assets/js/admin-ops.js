@@ -570,6 +570,7 @@
           } },
           { label: "Workplace", render: function (it) { return it.workplace ? h("span", { class: "cell-clip", title: it.workplace, text: A.fmt.clip(it.workplace, 60) }) : "—"; } },
           { label: "Role", render: function (it) { return it.role === "admin" ? A.badge("Admin", "info") : A.badge("Member", "neutral"); } },
+          { label: "E-mail language", render: function (it) { return it.lang === "mn" ? A.badge("Mongolian", "gold") : "English"; } },
           { label: "Status", render: function (it) {
             if (it.disabled) return A.badge("Disabled", "danger");
             if (!it.email_verified) return A.badge("Unverified", "gold");

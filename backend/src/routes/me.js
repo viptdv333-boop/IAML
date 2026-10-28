@@ -27,6 +27,7 @@ const PROFILE = {
   first_name: v.name(),
   last_name: v.name(),
   workplace: v.str({ max: 200 }),
+  lang: v.enum(['en', 'mn']),
 };
 const PASSWORD = { current_password: v.str({ min: 1, max: 128, trim: false }), new_password: passwordRule() };
 const DELETE_ME = { password: v.str({ min: 1, max: 128, trim: false }) };
@@ -51,7 +52,7 @@ export default async function meRoutes(app) {
   const avatarsDir = path.join(config.uploadsDir, 'avatars');
 
   const loadSelf = (id) =>
-    db.one('select id, email, first_name, last_name, workplace, avatar_file, role, created_at from users where id = $1', [id]);
+    db.one('select id, email, first_name, last_name, workplace, avatar_file, role, lang, created_at from users where id = $1', [id]);
 
   const removeAvatarFile = async (file) => {
     if (!file || !/^[0-9a-f-]{36}\.webp$/.test(file)) return;

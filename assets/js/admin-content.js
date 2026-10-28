@@ -16,7 +16,19 @@
 
   /* ───────── shared bits ───────── */
   function titleCell(item, sub) {
-    return h("div", { class: "cell-title" }, [h("strong", { text: item.title || item.name || "" }), sub ? h("div", { class: "cell-sub", text: sub }) : null]);
+    var kids = [h("strong", { text: item.title || item.name || "" })];
+    if (item.has_mn) kids.push(" ", A.badge("MN", "info"));   /* a Mongolian version exists */
+    if (sub) kids.push(h("div", { class: "cell-sub", text: sub }));
+    return h("div", { class: "cell-title" }, kids);
+  }
+
+  /* "Mongolian version (optional)" block appended to a form. Same limits as the English fields; empty = not translated
+     (the Mongolian site then shows the English text). See docs/I18N.md. */
+  function mnSection(fields) {
+    return [
+      { name: "_mn_heading", type: "heading", label: "Mongolian version (optional)" },
+      { name: "_mn_note", type: "note", render: function () { return { tone: "neutral", text: "Leave empty to show the English text on the Mongolian site." }; } }
+    ].concat(fields);
   }
 
   /* Draft / Scheduled / Published for news, events, publications */
@@ -75,7 +87,7 @@
     label: "News", icon: "news", group: GROUP, order: 10,
     title: "News",
     mount: function (root) {
-      var limits = limitValidator([{ name: "body", words: 500, chars: 8000 }]);
+      var limits = limitValidator([{ name: "body", words: 500, chars: 8000 }, { name: "body_mn", words: 500, chars: 8000 }]);
       var view = A.crud({
         endpoint: "/admin/news", singular: "news item", plural: "news items",
         searchPlaceholder: "Search title or text…",
@@ -87,10 +99,14 @@
         ],
         fields: [{ name: "title", label: "Title", required: true, max: 200 }]
           .concat(PUBLISH_FIELDS)
-          .concat([{ name: "body", label: "Text", type: "textarea", rows: 12, required: true, counter: { words: 500, chars: 8000 }, hint: "Plain text, up to 500 words. Line breaks are kept." }]),
-        defaults: function () { return { title: "", body: "", published_at: "now", is_published: true }; },
+          .concat([{ name: "body", label: "Text", type: "textarea", rows: 12, required: true, counter: { words: 500, chars: 8000 }, hint: "Plain text, up to 500 words. Line breaks are kept." }])
+          .concat(mnSection([
+            { name: "title_mn", label: "Title (Mongolian)", max: 200 },
+            { name: "body_mn", label: "Text (Mongolian)", type: "textarea", rows: 12, counter: { words: 500, chars: 8000 }, hint: "Title and text are both needed for the item to count as translated." }
+          ])),
+        defaults: function () { return { title: "", body: "", title_mn: "", body_mn: "", published_at: "now", is_published: true }; },
         validate: limits,
-        toPayload: function (v) { return { title: v.title, body: v.body, published_at: v.published_at, is_published: v.is_published }; }
+        toPayload: function (v) { return { title: v.title, body: v.body, title_mn: v.title_mn, body_mn: v.body_mn, published_at: v.published_at, is_published: v.is_published }; }
       });
       return mount(root, "News", "Announcements shown on the News page and in the Mongolist digest. A publish time in the future schedules the item.", view);
     }
@@ -106,7 +122,7 @@
     label: "Events", icon: "calendar", group: GROUP, order: 20,
     title: "Events",
     mount: function (root) {
-      var limits = limitValidator([{ name: "body", words: 500, chars: 8000 }]);
+      var limits = limitValidator([{ name: "body", words: 500, chars: 8000 }, { name: "body_mn", words: 500, chars: 8000 }]);
       var view = A.crud({
         endpoint: "/admin/events", singular: "event", plural: "events",
         searchPlaceholder: "Search title, location or summary…",
@@ -128,11 +144,20 @@
         ].concat(PUBLISH_FIELDS).concat([
           { name: "summary", label: "Summary", type: "textarea", rows: 3, max: 400, hint: "Short teaser shown on the Events page (up to 400 characters)." },
           { name: "body", label: "Details", type: "textarea", rows: 8, counter: { words: 500, chars: 8000 }, hint: "Optional full description, up to 500 words." }
-        ]),
-        defaults: function () { return { title: "", location: "", starts_at: "now", ends_at: null, summary: "", body: "", published_at: "now", is_published: true }; },
+        ]).concat(mnSection([
+          { name: "title_mn", label: "Title (Mongolian)", max: 200, hint: "The event counts as translated once its title is filled in; the fields below fall back to English one by one." },
+          { name: "location_mn", label: "Location (Mongolian)", max: 200 },
+          { name: "summary_mn", label: "Summary (Mongolian)", type: "textarea", rows: 3, max: 400 },
+          { name: "body_mn", label: "Details (Mongolian)", type: "textarea", rows: 8, counter: { words: 500, chars: 8000 } }
+        ])),
+        defaults: function () { return { title: "", location: "", starts_at: "now", ends_at: null, summary: "", body: "", title_mn: "", location_mn: "", summary_mn: "", body_mn: "", published_at: "now", is_published: true }; },
         validate: limits,
         toPayload: function (v) {
-          return { title: v.title, location: v.location, starts_at: v.starts_at, ends_at: v.ends_at, summary: v.summary, body: v.body, published_at: v.published_at, is_published: v.is_published };
+          return {
+            title: v.title, location: v.location, starts_at: v.starts_at, ends_at: v.ends_at, summary: v.summary, body: v.body,
+            title_mn: v.title_mn, location_mn: v.location_mn, summary_mn: v.summary_mn, body_mn: v.body_mn,
+            published_at: v.published_at, is_published: v.is_published
+          };
         }
       });
       return mount(root, "Events", "Conferences, workshops and meetings. Times are entered in UTC+3 (the site's time zone).", view);
@@ -144,7 +169,7 @@
     label: "Publications", icon: "book", group: GROUP, order: 30,
     title: "Publications",
     mount: function (root) {
-      var limits = limitValidator([{ name: "summary", words: 500, chars: 8000 }]);
+      var limits = limitValidator([{ name: "summary", words: 500, chars: 8000 }, { name: "summary_mn", words: 500, chars: 8000 }]);
       var view = A.crud({
         endpoint: "/admin/publications", singular: "publication", plural: "publications",
         searchPlaceholder: "Search title, authors, topic or summary…",
@@ -160,10 +185,14 @@
           { name: "topic", label: "Topic", max: 80, placeholder: "e.g. Phonology" }
         ].concat(PUBLISH_FIELDS).concat([
           { name: "summary", label: "Summary", type: "textarea", rows: 10, required: true, counter: { words: 500, chars: 8000 }, hint: "Plain text, up to 500 words." }
-        ]),
-        defaults: function () { return { title: "", authors: "", topic: "", summary: "", published_at: "now", is_published: true }; },
+        ]).concat(mnSection([
+          { name: "title_mn", label: "Title (Mongolian)", max: 300 },
+          { name: "topic_mn", label: "Topic (Mongolian)", max: 80, hint: "Optional; the English topic is shown when empty." },
+          { name: "summary_mn", label: "Summary (Mongolian)", type: "textarea", rows: 10, counter: { words: 500, chars: 8000 }, hint: "Title and summary are both needed for the item to count as translated." }
+        ])),
+        defaults: function () { return { title: "", authors: "", topic: "", summary: "", title_mn: "", topic_mn: "", summary_mn: "", published_at: "now", is_published: true }; },
         validate: limits,
-        toPayload: function (v) { return { title: v.title, authors: v.authors, topic: v.topic, summary: v.summary, published_at: v.published_at, is_published: v.is_published }; }
+        toPayload: function (v) { return { title: v.title, authors: v.authors, topic: v.topic, summary: v.summary, title_mn: v.title_mn, topic_mn: v.topic_mn, summary_mn: v.summary_mn, published_at: v.published_at, is_published: v.is_published }; }
       });
       return mount(root, "Publications", "Books, articles and other output by members.", view);
     }
@@ -202,12 +231,15 @@
           { name: "position_id", label: "Position", type: "select", numeric: true, required: true, placeholder: "Select a position…", options: options },
           { name: "org", label: "Organisation", type: "textarea", rows: 2, max: 300 },
           { name: "is_visible", label: "Visible on the Participants page", type: "switch" }
-        ],
+        ].concat(mnSection([
+          { name: "name_mn", label: "Name (Mongolian)", max: 120, hint: "Optional spelling in Mongolian Cyrillic; otherwise the name above is shown." },
+          { name: "org_mn", label: "Organisation (Mongolian)", type: "textarea", rows: 2, max: 300 }
+        ])),
         defaults: function () {
           var pid = view.state.filters.position_id;
-          return { name: "", position_id: pid ? Number(pid) : null, org: "", is_visible: true };
+          return { name: "", position_id: pid ? Number(pid) : null, org: "", name_mn: "", org_mn: "", is_visible: true };
         },
-        toPayload: function (v) { return { name: v.name, position_id: v.position_id, org: v.org, is_visible: v.is_visible }; }
+        toPayload: function (v) { return { name: v.name, position_id: v.position_id, org: v.org, name_mn: v.name_mn, org_mn: v.org_mn, is_visible: v.is_visible }; }
       });
       holder.appendChild(view.el);
       ctl.destroy = view.destroy;
@@ -240,10 +272,13 @@
         fields: [
           { name: "name", label: "Name", required: true, max: 80, hint: "Group heading, e.g. “Vice Presidents”. Must be unique." },
           { name: "singular", label: "Singular form", max: 80, hint: "Used for a single person, e.g. “Vice President”." }
-        ],
+        ].concat(mnSection([
+          { name: "name_mn", label: "Name (Mongolian)", max: 80 },
+          { name: "singular_mn", label: "Singular form (Mongolian)", max: 80 }
+        ])),
         modalSize: "sm",
-        defaults: function () { return { name: "", singular: "" }; },
-        toPayload: function (v) { return { name: v.name, singular: v.singular }; }
+        defaults: function () { return { name: "", singular: "", name_mn: "", singular_mn: "" }; },
+        toPayload: function (v) { return { name: v.name, singular: v.singular, name_mn: v.name_mn, singular_mn: v.singular_mn }; }
       });
       holder.appendChild(view.el);
       ctl.destroy = view.destroy;
@@ -311,9 +346,12 @@
           { name: "is_published", label: "Published", type: "switch", w: "half", hint: "Unpublished pages are not found on the site." },
           { name: "show_in_menu", label: "Show in menu", type: "switch", w: "half", hint: "Adds or removes this page's entry in the site menu (label and position: see Menu)." },
           { name: "body", label: "Content (Markdown subset)", short: "Content", type: "markdown", rows: 14, counter: { chars: 50000 }, help: syntaxHelp() }
-        ],
-        defaults: function () { return { title: "", slug: "", body: "", is_published: true, show_in_menu: true }; },
-        toPayload: function (v) { return { slug: v.slug, title: v.title, body: v.body, is_published: v.is_published, show_in_menu: v.show_in_menu }; },
+        ].concat(mnSection([
+          { name: "title_mn", label: "Title (Mongolian)", max: 120, hint: "Title and content are both needed for the page to count as translated." },
+          { name: "body_mn", label: "Content (Mongolian, Markdown subset)", short: "Content (MN)", type: "markdown", rows: 14, counter: { chars: 50000 } }
+        ])),
+        defaults: function () { return { title: "", slug: "", body: "", title_mn: "", body_mn: "", is_published: true, show_in_menu: true }; },
+        toPayload: function (v) { return { slug: v.slug, title: v.title, body: v.body, title_mn: v.title_mn, body_mn: v.body_mn, is_published: v.is_published, show_in_menu: v.show_in_menu }; },
         deleteMessage: function (it) { return "“" + it.title + "” and its menu entry will be removed from the site."; }
       });
       return mount(root, "Pages", "Custom pages written in a safe Markdown subset. Each page can have its own entry in the site menu.", view);
@@ -343,8 +381,9 @@
         rowActions: function (it) {
           return it.is_core ? null : A.iconBtn("file", "Manage this page in Pages: " + it.title, null, { href: "#/pages" });
         },
-        fields: [{ name: "title", label: "Menu label", required: true, max: 40, hint: "Shown in the site's top menu (up to 40 characters)." }],
-        toPayload: function (v) { return { title: v.title }; }
+        fields: [{ name: "title", label: "Menu label", required: true, max: 40, hint: "Shown in the site's top menu (up to 40 characters)." }]
+          .concat(mnSection([{ name: "title_mn", label: "Menu label (Mongolian)", max: 40, hint: "Empty = the English label." }])),
+        toPayload: function (v) { return { title: v.title, title_mn: v.title_mn }; }
       });
       return mount(root, "Menu", "Choose what appears in the site's top menu, in which order, and under which name.", view);
     }
@@ -389,12 +428,15 @@
           { name: "description", label: "Description", type: "textarea", rows: 3, max: 400 },
           { name: "url", label: "URL", type: "url", placeholder: "https://…", hint: "Leave empty to show the link as “coming soon”." },
           { name: "is_visible", label: "Visible on the Useful Links page", type: "switch" }
-        ],
+        ].concat(mnSection([
+          { name: "title_mn", label: "Title (Mongolian)", max: 200 },
+          { name: "description_mn", label: "Description (Mongolian)", type: "textarea", rows: 3, max: 400 }
+        ])),
         defaults: function () {
           var cid = view.state.filters.category_id;
-          return { category_id: cid ? Number(cid) : null, title: "", description: "", url: "", is_visible: true };
+          return { category_id: cid ? Number(cid) : null, title: "", description: "", title_mn: "", description_mn: "", url: "", is_visible: true };
         },
-        toPayload: function (v) { return { category_id: v.category_id, title: v.title, description: v.description, url: v.url, is_visible: v.is_visible }; }
+        toPayload: function (v) { return { category_id: v.category_id, title: v.title, description: v.description, title_mn: v.title_mn, description_mn: v.description_mn, url: v.url, is_visible: v.is_visible }; }
       });
       holder.appendChild(view.el);
       ctl.destroy = view.destroy;
@@ -418,9 +460,12 @@
         { name: "title", label: "Title", required: true, max: 80 },
         { name: "slug", label: "Slug", required: true, max: 60, mono: true, hint: "Unique; lowercase letters, digits and single hyphens." },
         { name: "blurb", label: "Short description", type: "textarea", rows: 2, max: 200 }
-      ],
-      defaults: function () { return { title: "", slug: "", blurb: "" }; },
-      toPayload: function (v) { return { slug: v.slug, title: v.title, blurb: v.blurb }; },
+      ].concat(mnSection([
+        { name: "title_mn", label: "Title (Mongolian)", max: 80 },
+        { name: "blurb_mn", label: "Short description (Mongolian)", type: "textarea", rows: 2, max: 200 }
+      ])),
+      defaults: function () { return { title: "", slug: "", blurb: "", title_mn: "", blurb_mn: "" }; },
+      toPayload: function (v) { return { slug: v.slug, title: v.title, blurb: v.blurb, title_mn: v.title_mn, blurb_mn: v.blurb_mn }; },
       deleteMessage: function (it) { return "“" + it.title + "” and all links inside it will be deleted."; }
     });
     root.appendChild(view.el);
@@ -456,9 +501,10 @@
       A.clear(body);
       var form = A.form([
         { name: "contact.email", label: "Contact e-mail", short: "Contact e-mail", type: "email", placeholder: "info@example.org", autocomplete: "off", hint: "Shown publicly. Leave empty to hide it." },
-        { name: "contact.address", label: "Address", type: "textarea", rows: 3, max: 300, hint: "Shown publicly. Line breaks are kept." }
+        { name: "contact.address", label: "Address", type: "textarea", rows: 3, max: 300, hint: "Shown publicly. Line breaks are kept." },
+        { name: "contact.address_mn", label: "Address (Mongolian)", type: "textarea", rows: 3, max: 300, hint: "Shown on the Mongolian site. Empty = the English address." }
       ]);
-      form.set({ "contact.email": settings["contact.email"], "contact.address": settings["contact.address"] });
+      form.set({ "contact.email": settings["contact.email"], "contact.address": settings["contact.address"], "contact.address_mn": settings["contact.address_mn"] });
       var banner = h("div", { class: "banner banner--error", role: "alert", hidden: true });
       var save = A.btn("Save contact details", { kind: "primary", type: "submit", form: form.id });
       var saving = false;
@@ -468,7 +514,7 @@
         saving = true; A.setBusy(save, true, "Saving…");
         form.clearErrors(); banner.hidden = true;
         var v = form.get();
-        api.put("/admin/settings", { settings: { "contact.email": v["contact.email"], "contact.address": v["contact.address"] } }).then(function (res) {
+        api.put("/admin/settings", { settings: { "contact.email": v["contact.email"], "contact.address": v["contact.address"], "contact.address_mn": v["contact.address_mn"] } }).then(function (res) {
           saving = false; A.setBusy(save, false);
           form.set((res && res.settings) || {});
           A.toast("Contact details saved.");
@@ -520,9 +566,12 @@
           { name: "name", label: "Name", required: true, max: 120 },
           { name: "email", label: "E-mail", type: "email", hint: "Optional. Leave empty if it should not be shown." },
           { name: "is_visible", label: "Visible on the Contacts page", type: "switch" }
-        ],
-        defaults: function () { return { position: "", name: "", email: "", is_visible: true }; },
-        toPayload: function (v) { return { position: v.position, name: v.name, email: v.email, is_visible: v.is_visible }; }
+        ].concat(mnSection([
+          { name: "position_mn", label: "Position (Mongolian)", max: 80 },
+          { name: "name_mn", label: "Name (Mongolian)", max: 120, hint: "Optional spelling in Mongolian Cyrillic." }
+        ])),
+        defaults: function () { return { position: "", name: "", email: "", position_mn: "", name_mn: "", is_visible: true }; },
+        toPayload: function (v) { return { position: v.position, name: v.name, email: v.email, position_mn: v.position_mn, name_mn: v.name_mn, is_visible: v.is_visible }; }
       });
 
       var recipients = A.crud({

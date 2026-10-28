@@ -26,6 +26,7 @@ disagree, fix the code or update this file in the same change.
 | Pagination | `?limit=&offset=`; lists return `{ "items": [...], "total": N }`. |
 | Errors | Always `{ "error": { "code": "...", "message": "...", "fields": { "<field>": "<msg>" } } }` (`fields` only for validation). |
 | Cache | API responses are `Cache-Control: no-store`. |
+| Language | Public GET endpoints take `?lang=en|mn` (default `en`) and fall back to English per item/field; items carry `lang` = language delivered. Members have `lang` (e-mail language). Full contract: `docs/I18N.md`. |
 
 ### Error codes
 | HTTP | `code` | Meaning |
@@ -51,7 +52,7 @@ disagree, fix the code or update this file in the same change.
 // Self (returned by auth endpoints and /api/me)
 User = { "id": "uuid", "email": "a@b.org", "first_name": "Ada", "last_name": "Lovelace",
          "workplace": "University of X", "avatar_url": "/uploads/avatars/<uuid>.webp" | null,
-         "role": "member" | "admin", "created_at": "ISO" }
+         "role": "member" | "admin", "lang": "en" | "mn", "created_at": "ISO" }
 
 // Public author card (Discuss). Deleted accounts become { id: null, name: "Deleted user", ... }
 Author = { "id": "uuid" | null, "name": "Ada Lovelace", "first_name": "Ada", "last_name": "Lovelace",
@@ -117,7 +118,7 @@ Registration is **e-mail + password with a one-time 6-digit e-mail code** (confi
 Codes live 15 min, max 5 wrong attempts per code, resend cool-down 60 s, ≤ 5 codes/hour/user.
 
 ### `POST /api/auth/register`
-Body `{ "first_name", "last_name", "workplace", "email", "password", "website": "" }` (`website` honeypot).
+Body `{ "first_name", "last_name", "workplace", "email", "password", "lang"?: "en" | "mn", "website": "" }` (`website` honeypot; `lang` = language of the e-mails, default `en`).
 `201 { "ok": true, "status": "verification_required", "email": "a@b.org" }` — a code is e-mailed.
 Non-enumerating: the same answer is returned if the e-mail is already registered (the owner then gets an
 "you already have an account" e-mail instead of a code). Registering again with an **unverified** e-mail
@@ -139,7 +140,7 @@ Names (`first_name`, `last_name`) may contain only letters, spaces, dots, hyphen
 ### `POST /api/auth/forgot`  `{ "email" }` → `202 { "ok": true }` (always; e-mails a reset code if a verified account exists)
 ### `POST /api/auth/reset`  `{ "email", "code", "password" }` → `200 { "user": User }` + cookie; every other session of the user is revoked.
 
-### `PATCH /api/me`  `{ "first_name"?, "last_name"?, "workplace"? }` → `200 { "user": User }`
+### `PATCH /api/me`  `{ "first_name"?, "last_name"?, "workplace"?, "lang"? }` → `200 { "user": User }`
 ### `POST /api/me/avatar`  multipart field `avatar` (JPEG/PNG/WebP, ≤ 2 MB) → `200 { "user": User }`
 The server re-encodes to a 256×256 WebP (strips EXIF). `DELETE /api/me/avatar` → `200 { "user": User }`.
 ### `POST /api/me/password`  `{ "current_password", "new_password" }` → `204` (other sessions revoked)

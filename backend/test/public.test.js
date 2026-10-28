@@ -43,7 +43,7 @@ describe('public content API', () => {
     const c = client(ctx.app);
     const ok = await c.get('/api/pages/about-us');
     assert.equal(ok.status, 200);
-    assert.deepEqual(Object.keys(ok.body).sort(), ['body', 'slug', 'title', 'updated_at']);
+    assert.deepEqual(Object.keys(ok.body).sort(), ['body', 'lang', 'slug', 'title', 'updated_at']);
     assert.equal((await c.get('/api/pages/draft')).status, 404);
     assert.equal((await c.get('/api/pages/nope')).status, 404);
     assert.equal((await c.get('/api/pages/..%2F..%2Fetc')).status, 404);
@@ -90,7 +90,7 @@ describe('public content API', () => {
     const r = await client(ctx.app).get('/api/events');
     assert.deepEqual(r.body.items.map((e) => e.title), ['ongoing', 'soon', 'later', 'just-ended-no-end', 'long-ago']);
     assert.deepEqual(r.body.items.map((e) => e.is_past), [false, false, false, true, true]);
-    assert.deepEqual(Object.keys(r.body.items[0]).sort(), ['body', 'ends_at', 'id', 'is_past', 'location', 'starts_at', 'summary', 'title']);
+    assert.deepEqual(Object.keys(r.body.items[0]).sort(), ['body', 'ends_at', 'id', 'is_past', 'lang', 'location', 'starts_at', 'summary', 'title']);
   });
 
   test('publications: preview + paging', async () => {

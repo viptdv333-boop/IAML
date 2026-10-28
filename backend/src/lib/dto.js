@@ -13,6 +13,7 @@ export function toSelf(u) {
     workplace: u.workplace,
     avatar_url: avatarUrl(u.avatar_file),
     role: u.role,
+    lang: u.lang ?? 'en',
     created_at: u.created_at,
   };
 }

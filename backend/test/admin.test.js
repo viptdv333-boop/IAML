@@ -247,7 +247,7 @@ describe('links, contacts, settings', () => {
 
     const s = await admin.put(`${A}/settings`, { settings: { 'contact.email': 'info@example.org', 'contact.address': 'Ulaanbaatar', 'session.secret': 'pwned' } });
     assert.equal(s.status, 200);
-    assert.deepEqual(s.body.settings, { 'contact.email': 'info@example.org', 'contact.address': 'Ulaanbaatar' });
+    assert.deepEqual(s.body.settings, { 'contact.email': 'info@example.org', 'contact.address': 'Ulaanbaatar', 'contact.address_mn': null });
     assert.equal((await ctx.db.one(`select count(*)::int as n from site_settings where key = 'session.secret'`)).n, 0);
     assert.equal((await admin.put(`${A}/settings`, { settings: { 'contact.email': 'bad' } })).status, 400);
     const pub = (await client(ctx.app).get('/api/contacts')).body;

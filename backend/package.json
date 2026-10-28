@@ -16,7 +16,8 @@
     "seed:demo": "node --env-file-if-exists=.env scripts/seed.js --demo",
     "admin:create": "node --env-file-if-exists=.env scripts/create-admin.js",
     "test": "node --test --test-concurrency=1 --test-timeout=90000 \"test/*.test.js\"",
-    "check": "node --check src/server.js"
+    "check": "node --check src/server.js",
+    "i18n:check": "node scripts/i18n-check.js"
   },
   "dependencies": {
     "@fastify/cookie": "^11.1.2",
@@ -28,6 +29,7 @@
     "sharp": "^0.35.5"
   },
   "devDependencies": {
+    "jsdom": "^29.1.1",
     "pino-pretty": "^13.1.3"
   }
 }

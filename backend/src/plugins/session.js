@@ -49,7 +49,7 @@ export default async function sessionPlugin(app) {
     if (!token || !TOKEN_RE.test(token)) return;
     const id = hashToken(token);
     const row = await db.one(
-      `select s.last_seen_at, u.id, u.email, u.first_name, u.last_name, u.workplace, u.avatar_file, u.role,
+      `select s.last_seen_at, u.id, u.email, u.first_name, u.last_name, u.workplace, u.avatar_file, u.role, u.lang,
               u.email_verified_at, u.created_at
          from sessions s join users u on u.id = s.user_id
         where s.id = $1 and s.expires_at > now() and u.disabled_at is null`,

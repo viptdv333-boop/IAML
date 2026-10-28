@@ -5,6 +5,7 @@ import { validate, v } from '../../lib/validate.js';
 const SPEC = {
   'contact.email': v.email().optional(null),
   'contact.address': v.str({ max: 300, multiline: true }).optional(null),
+  'contact.address_mn': v.str({ max: 300, multiline: true }).optional(null),
 };
 
 export default async function settingsRoutes(app) {

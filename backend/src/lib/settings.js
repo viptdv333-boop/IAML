@@ -1,5 +1,5 @@
 // Key/value site settings (JSONB), allow-listed keys only.
-export const SETTING_KEYS = ['contact.email', 'contact.address'];
+export const SETTING_KEYS = ['contact.email', 'contact.address', 'contact.address_mn'];
 
 export async function getSettings(db, keys = SETTING_KEYS) {
   const rows = await db.many('select key, value from site_settings where key = any($1)', [keys]);
