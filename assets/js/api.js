@@ -7,6 +7,11 @@
    Static mode: if /api/health does not answer (GitHub Pages draft,
    file://, offline) api.available() resolves false and pages keep
    their static markup.
+
+   Language (docs/I18N.md §3): public GET requests carry ?lang=<UI language>
+   unless it is English; POST /auth/register carries lang; IAML.fmt shows
+   Mongolian month labels. The admin panel does not load the i18n engine
+   (IAML.i18n is undefined there) and therefore always behaves as English.
    ═══════════════════════════════════════════════════ */
 (function () {
   "use strict";
@@ -14,6 +19,15 @@
   var IAML = (window.IAML = window.IAML || {});
   var cfg = window.IAML_CONFIG || {};
   var BASE = (cfg.apiBase || "") + "/api";
+
+  function uiLang() { return (IAML.i18n && IAML.i18n.lang) || "en"; }
+  /* not localised: admin, auth, me, health, discuss (their texts are user data or fixed English) */
+  var NOT_LOCALISED = /^\/(admin|auth|me|health|discuss)(\/|\?|$)/;
+  function withLang(path) {
+    var lang = uiLang();
+    if (lang === "en" || NOT_LOCALISED.test(path) || /[?&]lang=/.test(path)) return path;
+    return path + (path.indexOf("?") === -1 ? "?" : "&") + "lang=" + encodeURIComponent(lang);
+  }
 
   /* ── errors ── */
   function ApiError(status, code, message, fields, extra) {
@@ -34,6 +48,11 @@
     opts = opts || {};
     var headers = { Accept: "application/json", "X-Requested-With": "IAML" };
     var init = { method: method, headers: headers, credentials: "same-origin", cache: "no-store" };
+    if (method === "GET") path = withLang(path);
+    /* the language of the confirmation e-mail */
+    if (method === "POST" && path === "/auth/register" && body && typeof body === "object" && !(body instanceof FormData) && body.lang === undefined) {
+      body = Object.assign({}, body, { lang: uiLang() });
+    }
     if (body instanceof FormData) {
       init.body = body; // browser sets the multipart boundary
     } else if (body !== undefined && body !== null) {
@@ -161,11 +180,20 @@
     dateTime: function (iso) { var p = parts(iso); return p ? p.y + "-" + p2(p.mo + 1) + "-" + p2(p.d) + " · " + p2(p.h) + ":" + p2(p.mi) + " (UTC+3)" : ""; },
     /* "2026-07-10 (UTC+3)" */
     date: function (iso) { var p = parts(iso); return p ? p.y + "-" + p2(p.mo + 1) + "-" + p2(p.d) + " (UTC+3)" : ""; },
-    /* "15 Sep 2026, 09:00 (UTC+3)" */
-    long: function (iso) { var p = parts(iso); return p ? p.d + " " + MONTHS_LONG[p.mo] + " " + p.y + ", " + p2(p.h) + ":" + p2(p.mi) + " (UTC+3)" : ""; },
+    /* "15 Sep 2026, 09:00 (UTC+3)"  ·  Mongolian: "2026 оны 9-р сарын 15, 09:00 (UTC+3)" */
+    long: function (iso) {
+      var p = parts(iso);
+      if (!p) return "";
+      var clock = p2(p.h) + ":" + p2(p.mi) + " (UTC+3)";
+      return uiLang() === "mn" ? p.y + " оны " + (p.mo + 1) + "-р сарын " + p.d + ", " + clock : p.d + " " + MONTHS_LONG[p.mo] + " " + p.y + ", " + clock;
+    },
     time: function (iso) { var p = parts(iso); return p ? p2(p.h) + ":" + p2(p.mi) + " (UTC+3)" : ""; },
-    /* event date chip: { month: "SEP", day: "15", year: "2026" } */
-    chip: function (iso) { var p = parts(iso); return p ? { month: MONTHS[p.mo], day: p2(p.d), year: String(p.y) } : null; },
+    /* event date chip: { month: "SEP", day: "15", year: "2026" }  ·  Mongolian month label: "9-р сар" */
+    chip: function (iso) {
+      var p = parts(iso);
+      if (!p) return null;
+      return { month: uiLang() === "mn" ? (p.mo + 1) + "-р сар" : MONTHS[p.mo], day: p2(p.d), year: String(p.y) };
+    },
     /* <input type="datetime-local"> value (UTC+3 wall clock) ⇄ ISO UTC */
     toInput: function (iso) { var p = parts(iso); return p ? p.y + "-" + p2(p.mo + 1) + "-" + p2(p.d) + "T" + p2(p.h) + ":" + p2(p.mi) : ""; },
     fromInput: function (v) {

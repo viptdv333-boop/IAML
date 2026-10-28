@@ -14,7 +14,7 @@
   "use strict";
 
   var IAML = window.IAML || {};
-  var el = IAML.el, ui = IAML.ui, fmt = IAML.fmt;
+  var el = IAML.el, ui = IAML.ui, fmt = IAML.fmt, t = IAML.t;
   var prefersReduced = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -58,8 +58,8 @@
   }
   function loadError(err, retry) {
     return el("div", { "class": "live-error", role: "alert" },
-      el("p", null, "We couldn’t load this content. " + IAML.errorText(err)),
-      el("button", { "class": "btn btn--o btn--sm", type: "button", on: { click: retry } }, "Try again"));
+      el("p", null, t("We couldn’t load this content. {reason}", { reason: IAML.errorText(err) })),
+      el("button", { "class": "btn btn--o btn--sm", type: "button", on: { click: retry } }, t("Try again")));
   }
   function emptyState(title, sub) {
     return el("div", { "class": "empty" }, el("p", { "class": "empty__t" }, title), sub ? el("p", { "class": "empty__s" }, sub) : null);
@@ -108,7 +108,7 @@
           pager = el("p", { "class": "carousel__pager", "data-carousel-pager": "", "aria-live": "polite" });
           c.parentNode.insertBefore(pager, c.nextSibling);
         }
-        if (pager) pager.textContent = "Page " + (i + 1) + " of " + ps.length;
+        if (pager) pager.textContent = t("Page {n} of {total}", { n: i + 1, total: ps.length });
       } else {
         atStart = track.scrollLeft <= 4;
         atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
@@ -174,7 +174,7 @@
       e.preventDefault();
       var msg = form.querySelector("[data-form-msg]");
       if (window.IAML && window.IAML.isLive) return; // live pages wire their own forms
-      if (msg) { msg.textContent = "Thanks — this will be delivered once the backend is connected."; msg.className = (msg.className.indexOf("cform__msg") > -1 ? "cform__msg" : "auth__msg") + " is-ok"; }
+      if (msg) { msg.textContent = t("Thanks — this will be delivered once the backend is connected."); msg.className = (msg.className.indexOf("cform__msg") > -1 ? "cform__msg" : "auth__msg") + " is-ok"; }
       try { form.reset(); } catch (x) {}
     });
   }
@@ -188,7 +188,7 @@
         return;
       }
       var rep = e.target.closest("[data-report]");
-      if (rep) { e.preventDefault(); rep.textContent = "Reported"; rep.disabled = true; }
+      if (rep) { e.preventDefault(); rep.textContent = t("Reported"); rep.disabled = true; }
     });
   }
 
@@ -201,7 +201,7 @@
       var f = inp.files[0];
       var msg = document.querySelector(".profile-form [data-form-msg]");
       if (f.size > 2 * 1024 * 1024) {
-        if (msg) { msg.textContent = "Image must be under 2 MB."; msg.className = "cform__msg is-error"; }
+        if (msg) { msg.textContent = t("Image must be under 2 MB."); msg.className = "cform__msg is-error"; }
         inp.value = ""; return;
       }
       var prev = document.getElementById("avatarPreview");
@@ -219,13 +219,13 @@
     var when = fmt.dateTime(item.published_at);
     var card = el("article", { "class": "card news-card", "data-card-open": "", tabindex: "0", role: "button" },
       el("time", { "class": "card__date", datetime: item.published_at }, when),
-      el("h3", { "class": "card__title" }, item.title),
+      el("h3", { "class": "card__title" }, item.title, IAML.langBadge(item)),
       el("p", { "class": "card__preview" }, item.preview || ""),
-      el("span", { "class": "card__more" }, "Read more →"));
+      el("span", { "class": "card__more" }, t("Read more →")));
     card.__open = function () {
       var frag = document.createDocumentFragment();
       frag.appendChild(el("time", { "class": "card__date", datetime: item.published_at }, when));
-      frag.appendChild(el("h2", null, item.title));
+      frag.appendChild(el("h2", null, item.title, IAML.langBadge(item)));
       frag.appendChild(IAML.paragraphs(item.body));
       IAML.openContentModal(frag);
     };
@@ -238,12 +238,12 @@
     withBackend(host, function () {
       return IAML.api.get("/news", { limit: 200 }).then(function (res) {
         var items = res.items || [];
-        if (!items.length) { showStatus(host, emptyState("No news yet.", "Announcements from the association will appear here.")); return; }
+        if (!items.length) { showStatus(host, emptyState(t("No news yet."), t("Announcements from the association will appear here."))); return; }
         showStatus(host, null);
         fillPaged(host.querySelector("[data-carousel-track]"), items.map(newsCard), 6);
         initCarousel(host);
         if (res.total > items.length) {
-          statusBox(host).appendChild(el("p", { "class": "live-note" }, "Showing the " + items.length + " most recent of " + res.total + " items."));
+          statusBox(host).appendChild(el("p", { "class": "live-note" }, t("Showing the {n} most recent of {total} items.", { n: items.length, total: res.total })));
         }
       });
     });
@@ -271,14 +271,14 @@
       el("div", { "class": "ev__date" },
         el("span", { "class": "ev__month" }, chip.month), el("span", { "class": "ev__day" }, chip.day), el("span", { "class": "ev__year" }, chip.year)),
       el("div", { "class": "ev__body" },
-        el("h3", null, ev.title),
+        el("h3", null, ev.title, IAML.langBadge(ev)),
         el("p", { "class": "ev__loc" }, meta),
         ev.summary ? el("p", { "class": "ev__desc" }, ev.summary) : null,
-        el("span", { "class": "btn btn--o btn--sm" }, "Details")));
+        el("span", { "class": "btn btn--o btn--sm" }, t("Details"))));
     node.__open = function () {
       var frag = document.createDocumentFragment();
-      if (ev.is_past) frag.appendChild(el("span", { "class": "pa__tag" }, "Past event"));
-      frag.appendChild(el("h2", null, ev.title));
+      if (ev.is_past) frag.appendChild(el("span", { "class": "pa__tag" }, t("Past event")));
+      frag.appendChild(el("h2", null, ev.title, IAML.langBadge(ev)));
       frag.appendChild(el("p", { "class": "ev__loc" }, [ev.location, evTimeLong(ev)].filter(Boolean).join(" · ")));
       if (ev.summary) frag.appendChild(el("p", { "class": "cmodal__lead pre-line" }, ev.summary));
       frag.appendChild(IAML.paragraphs(ev.body));
@@ -295,13 +295,13 @@
         var items = res.items || [];
         showStatus(host, null);
         clear(host);
-        if (!items.length) { host.appendChild(emptyState("No events yet.", "Conferences and workshops will be announced here.")); return; }
+        if (!items.length) { host.appendChild(emptyState(t("No events yet."), t("Conferences and workshops will be announced here."))); return; }
         var upcoming = items.filter(function (e) { return !e.is_past; });
         var past = items.filter(function (e) { return e.is_past; });
         if (upcoming.length) upcoming.forEach(function (e) { host.appendChild(eventNode(e)); });
-        else host.appendChild(emptyState("No upcoming events at the moment.", "Please check back soon."));
+        else host.appendChild(emptyState(t("No upcoming events at the moment."), t("Please check back soon.")));
         if (past.length) {
-          host.appendChild(el("h2", { "class": "ev-sub" }, "Past events"));
+          host.appendChild(el("h2", { "class": "ev-sub" }, t("Past events")));
           past.forEach(function (e) { host.appendChild(eventNode(e)); });
         }
       });
@@ -312,16 +312,16 @@
   function pubCard(p) {
     var card = el("article", { "class": "card pub-card", "data-card-open": "", tabindex: "0", role: "button" },
       p.topic ? el("span", { "class": "pa__tag" }, p.topic) : null,
-      el("h3", { "class": "card__title" }, p.title),
+      el("h3", { "class": "card__title" }, p.title, IAML.langBadge(p)),
       el("p", { "class": "card__authors" }, p.authors),
       el("p", { "class": "card__preview" }, p.preview || ""),
-      el("span", { "class": "card__more" }, "Read more →"));
+      el("span", { "class": "card__more" }, t("Read more →")));
     card.__open = function () {
       var frag = document.createDocumentFragment();
       if (p.topic) frag.appendChild(el("span", { "class": "pa__tag" }, p.topic));
-      frag.appendChild(el("h2", null, p.title));
+      frag.appendChild(el("h2", null, p.title, IAML.langBadge(p)));
       frag.appendChild(el("p", { "class": "card__authors" }, p.authors));
-      frag.appendChild(el("p", { "class": "card__date" }, "Announced " + fmt.date(p.published_at)));
+      frag.appendChild(el("p", { "class": "card__date" }, t("Announced {date}", { date: fmt.date(p.published_at) })));
       frag.appendChild(IAML.paragraphs(p.summary));
       IAML.openContentModal(frag);
     };
@@ -334,12 +334,12 @@
     withBackend(host, function () {
       return IAML.api.get("/publications", { limit: 200 }).then(function (res) {
         var items = res.items || [];
-        if (!items.length) { showStatus(host, emptyState("No publications yet.", "New articles and books will be announced here.")); return; }
+        if (!items.length) { showStatus(host, emptyState(t("No publications yet."), t("New articles and books will be announced here."))); return; }
         showStatus(host, null);
         fillPaged(host.querySelector("[data-carousel-track]"), items.map(pubCard), 6);
         initCarousel(host);
         if (res.total > items.length) {
-          statusBox(host).appendChild(el("p", { "class": "live-note" }, "Showing the " + items.length + " most recent of " + res.total + " items."));
+          statusBox(host).appendChild(el("p", { "class": "live-note" }, t("Showing the {n} most recent of {total} items.", { n: items.length, total: res.total })));
         }
       });
     });
@@ -387,16 +387,16 @@
         var missing = null;
         ["name", "email", "message"].forEach(function (k) {
           var c = form.elements[k];
-          if (c && !data[k]) { ui.fieldError(form, c, ui.fieldLabel(form, c) + " is required"); if (!missing) missing = c; }
+          if (c && !data[k]) { ui.fieldError(form, c, t("{field} is required", { field: ui.fieldLabel(form, c) })); if (!missing) missing = c; }
         });
-        if (missing) { ui.setStatus(msg, "Please fill in the highlighted fields.", "error"); ui.focus(missing); return; }
+        if (missing) { ui.setStatus(msg, t("Please fill in the highlighted fields."), "error"); ui.focus(missing); return; }
         if (!data.subject) delete data.subject;
         ui.busy(submit, true);
-        ui.setStatus(msg, "Sending…");
+        ui.setStatus(msg, t("Sending…"));
         IAML.api.post("/contact", data).then(function () {
           form.reset();
           prefill(IAML.api.session.user);
-          ui.setStatus(msg, "Thank you — your message has been sent. We will reply by e-mail.", "ok");
+          ui.setStatus(msg, t("Thank you — your message has been sent. We will reply by e-mail."), "ok");
         }, function (err) {
           ui.applyErrors(form, err, { status: msg });
         }).then(function () { ui.busy(submit, false); });
@@ -407,7 +407,7 @@
   /* ═══ Participants roster ═══ */
   function renderRoster(mount, positions) {
     clear(mount);
-    if (!positions.length) { mount.appendChild(emptyState("The participants list will appear here soon.")); return; }
+    if (!positions.length) { mount.appendChild(emptyState(t("The participants list will appear here soon."))); return; }
     positions.forEach(function (pos) {
       var role = pos.singular || pos.name;
       var cards = (pos.participants || []).map(function (p) {
@@ -426,7 +426,15 @@
 
   /* static roster from the members file (GitHub Pages draft without a backend) */
   var POSITIONS = ["President", "Honorary President", "Vice Presidents", "Executive Director", "Board Members"];
-  var ROLE_SINGULAR = { "Vice Presidents": "Vice President", "Board Members": "Board Member" };
+  /* the position names are the data keys below; these maps are what the page shows (names and organisations stay as written) */
+  var POSITION_LABEL = {
+    "President": t("President"), "Honorary President": t("Honorary President"), "Vice Presidents": t("Vice Presidents"),
+    "Executive Director": t("Executive Director"), "Board Members": t("Board Members")
+  };
+  var ROLE_LABEL = {
+    "President": t("President"), "Honorary President": t("Honorary President"), "Vice Presidents": t("Vice President"),
+    "Executive Director": t("Executive Director"), "Board Members": t("Board Member")
+  };
   var PARTICIPANTS = [
     { name: "Juha Janhunen", position: "President", org: "Institute for Linguistic Studies, Russian Academy of Sciences" },
     { name: "Tumurtogoo Domii", position: "Honorary President", org: "Institute of Language and Literature, Mongolian Academy of Sciences, Mongolia" },
@@ -473,11 +481,11 @@
         return '<article class="pcard">' +
           '<span class="pcard__avatar">' + esc(initials(p.name)) + '</span>' +
           '<div class="pcard__body"><h4>' + esc(p.name) + '</h4>' +
-          '<p class="pcard__role">' + esc(ROLE_SINGULAR[pos] || pos) + '</p>' +
+          '<p class="pcard__role">' + esc(ROLE_LABEL[pos] || pos) + '</p>' +
           (p.org ? '<p class="pcard__org">' + esc(p.org) + '</p>' : '') +
           '</div></article>';
       }).join("");
-      return '<div class="pgroup"><h3 class="pgroup__title">' + esc(pos) + '</h3><div class="pgrid">' + cards + '</div></div>';
+      return '<div class="pgroup"><h3 class="pgroup__title">' + esc(POSITION_LABEL[pos] || pos) + '</h3><div class="pgrid">' + cards + '</div></div>';
     }).join("");
   }
 
@@ -495,23 +503,24 @@
 
   /* ═══ Useful Links ═══ */
   var LINK_CATEGORIES = [
-    { id: "corpora",      title: "Corpora",      blurb: "Text and speech corpora of Mongolic languages." },
-    { id: "data-banks",   title: "Data banks",   blurb: "Databases and archives of linguistic data." },
-    { id: "dictionaries", title: "Dictionaries", blurb: "Dictionaries and lexical resources." },
-    { id: "textbooks",    title: "Textbooks",    blurb: "Learning and teaching materials." },
-    { id: "monographs",   title: "Monographs",   blurb: "Monographs and scholarly books available online." }
+    { id: "corpora",      title: t("Corpora"),      blurb: t("Text and speech corpora of Mongolic languages.") },
+    { id: "data-banks",   title: t("Data banks"),   blurb: t("Databases and archives of linguistic data.") },
+    { id: "dictionaries", title: t("Dictionaries"), blurb: t("Dictionaries and lexical resources.") },
+    { id: "textbooks",    title: t("Textbooks"),    blurb: t("Learning and teaching materials.") },
+    { id: "monographs",   title: t("Monographs"),   blurb: t("Monographs and scholarly books available online.") }
   ];
+  var RESOURCE_TITLE = t("Resource title"), RESOURCE_DESC = t("A short description of this resource will appear here.");
   var USEFUL_LINKS = [
-    { cat: "corpora",      title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
-    { cat: "corpora",      title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
-    { cat: "data-banks",   title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
-    { cat: "data-banks",   title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
-    { cat: "dictionaries", title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
-    { cat: "dictionaries", title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
-    { cat: "textbooks",    title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
-    { cat: "textbooks",    title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
-    { cat: "monographs",   title: "Resource title", desc: "A short description of this resource will appear here.", url: "" },
-    { cat: "monographs",   title: "Resource title", desc: "A short description of this resource will appear here.", url: "" }
+    { cat: "corpora",      title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" },
+    { cat: "corpora",      title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" },
+    { cat: "data-banks",   title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" },
+    { cat: "data-banks",   title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" },
+    { cat: "dictionaries", title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" },
+    { cat: "dictionaries", title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" },
+    { cat: "textbooks",    title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" },
+    { cat: "textbooks",    title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" },
+    { cat: "monographs",   title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" },
+    { cat: "monographs",   title: RESOURCE_TITLE, desc: RESOURCE_DESC, url: "" }
   ];
 
   function renderStaticLinks(mount) {
@@ -519,7 +528,7 @@
     function card(l) {
       var safe = /^https?:\/\//i.test(l.url || "");
       var body = '<h4>' + esc(l.title) + '</h4>' + (l.desc ? '<p>' + esc(l.desc) + '</p>' : '');
-      if (!safe) return '<div class="lcard lcard--soon">' + body + '<span class="lcard__tag">Link coming soon</span></div>';
+      if (!safe) return '<div class="lcard lcard--soon">' + body + '<span class="lcard__tag">' + esc(t("Link coming soon")) + '</span></div>';
       return '<a class="lcard" href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + body +
         '<span class="lcard__url">' + esc(host(l.url)) + ' ↗</span></a>';
     }
@@ -540,9 +549,9 @@
   function linkCard(l) {
     var url = IAML.safeUrl(l.url);
     var body = [el("h4", null, l.title), l.description ? el("p", null, l.description) : null];
-    if (!url) return el("div", { "class": "lcard lcard--soon" }, body, el("span", { "class": "lcard__tag" }, "Link coming soon"));
+    if (!url) return el("div", { "class": "lcard lcard--soon" }, body, el("span", { "class": "lcard__tag" }, t("Link coming soon")));
     return el("a", { "class": "lcard", href: url, target: "_blank", rel: "noopener noreferrer" }, body,
-      el("span", { "class": "lcard__url" }, linkHost(url) + " ", el("span", { "aria-hidden": "true" }, "↗"), el("span", { "class": "sr-only" }, " (opens in a new tab)")));
+      el("span", { "class": "lcard__url" }, linkHost(url) + " ", el("span", { "aria-hidden": "true" }, "↗"), el("span", { "class": "sr-only" }, " " + t("(opens in a new tab)"))));
   }
   function catId(c) { return "cat-" + String(c.slug || c.id).replace(/[^A-Za-z0-9_-]+/g, "-"); }
 
@@ -550,7 +559,7 @@
     clear(mount); if (cats) clear(cats);
     if (!categories.length) {
       if (cats) cats.hidden = true;
-      mount.appendChild(emptyState("Links will appear here soon."));
+      mount.appendChild(emptyState(t("Links will appear here soon.")));
       return;
     }
     if (cats) {
@@ -579,19 +588,19 @@
 
   /* ═══ Contacts ═══ */
   var CONTACT_PEOPLE = [
-    { position: "President", name: "Juha Janhunen", email: "" },
-    { position: "Executive Director", name: "Erdene-Ochir Tumen-Ochir", email: "" },
-    { position: "CTO (Chief Technology Officer)", name: "Denis Tikhomirov", email: "" }
+    { position: t("President"), name: "Juha Janhunen", email: "" },
+    { position: t("Executive Director"), name: "Erdene-Ochir Tumen-Ochir", email: "" },
+    { position: t("CTO (Chief Technology Officer)"), name: "Denis Tikhomirov", email: "" }
   ];
 
   function renderStaticContacts(mount) {
     mount.innerHTML = CONTACT_PEOPLE.map(function (p) {
       var mail = /^[^\s@<>]+@[^\s@<>]+$/.test(p.email || "")
         ? '<a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a>'
-        : '<span class="is-empty">Email to be added</span>';
+        : '<span class="is-empty">' + esc(t("Email to be added")) + '</span>';
       return '<article class="pcontact">' +
         '<p class="pcontact__pos">' + esc(p.position) + '</p>' +
-        '<h4 class="pcontact__name' + (p.name ? '' : ' is-empty') + '">' + esc(p.name || "First Last") + '</h4>' +
+        '<h4 class="pcontact__name' + (p.name ? '' : ' is-empty') + '">' + esc(p.name || t("First Last")) + '</h4>' +
         '<p class="pcontact__mail">' + mail + '</p></article>';
     }).join("");
   }
@@ -600,7 +609,7 @@
   function contactCard(p) {
     var mail = MAIL_RE.test(p.email || "")
       ? el("a", { href: "mailto:" + p.email }, p.email)
-      : el("span", { "class": "is-empty" }, "Email to be added");
+      : el("span", { "class": "is-empty" }, t("Email to be added"));
     return el("article", { "class": "pcontact" },
       el("p", { "class": "pcontact__pos" }, p.position),
       el("h4", { "class": "pcontact__name" }, p.name),
@@ -612,11 +621,11 @@
     (data.people || []).forEach(function (p) { mount.appendChild(contactCard(p)); });
     if (data.email || data.address) {
       mount.appendChild(el("article", { "class": "pcontact pcontact--general" },
-        el("p", { "class": "pcontact__pos" }, "General enquiries"),
+        el("p", { "class": "pcontact__pos" }, t("General enquiries")),
         data.email && MAIL_RE.test(data.email) ? el("p", { "class": "pcontact__mail" }, el("a", { href: "mailto:" + data.email }, data.email)) : null,
         data.address ? el("p", { "class": "pcontact__addr pre-line" }, data.address) : null));
     }
-    if (!mount.firstChild) mount.appendChild(emptyState("Contact details will appear here soon."));
+    if (!mount.firstChild) mount.appendChild(emptyState(t("Contact details will appear here soon.")));
   }
 
   function initContacts() {
@@ -635,27 +644,27 @@
   function initCustomPage() {
     if (document.body.getAttribute("data-page") !== "custom") return;
     var slug = new URLSearchParams(location.search).get("slug");
-    var t = $("customPageTitle");
+    var heading = $("customPageTitle");
     var body = $("customPageBody");
-    if (slug && t) {                      // static placeholder: a pretty version of the slug
+    if (slug && heading) {                // static placeholder: a pretty version of the slug
       var pretty = slug.replace(/[-_]+/g, " ").replace(/\b\w/g, function (m) { return m.toUpperCase(); });
-      t.textContent = pretty;
-      document.title = pretty + " — IAML";
+      heading.textContent = pretty;
+      document.title = t("{title} — IAML", { title: pretty });
     }
     if (!body) return;
 
     function notFound() {
-      if (t) t.textContent = "Page not found";
-      document.title = "Page not found — IAML";
+      if (heading) heading.textContent = t("Page not found");
+      document.title = t("Page not found — IAML");
       clear(body);
-      body.appendChild(el("p", { "class": "section__lead" }, "The page you are looking for doesn’t exist, has moved or is not published yet."));
-      body.appendChild(el("a", { "class": "btn btn--p", href: "index.html" }, "Return home"));
+      body.appendChild(el("p", { "class": "section__lead" }, t("The page you are looking for doesn’t exist, has moved or is not published yet.")));
+      body.appendChild(el("a", { "class": "btn btn--p", href: "index.html" }, t("Return home")));
     }
     withBackend(body, function () {
       if (!slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/i.test(slug)) { notFound(); return null; }
       return IAML.api.get("/pages/" + encodeURIComponent(slug.toLowerCase())).then(function (page) {
-        if (t) t.textContent = page.title;
-        document.title = page.title + " — IAML";
+        if (heading) { heading.textContent = page.title; var badge = IAML.langBadge(page); if (badge) heading.appendChild(badge); }
+        document.title = t("{title} — IAML", { title: page.title });
         if (IAML.md) IAML.md.into(body, page.body);
         else { clear(body); body.appendChild(IAML.paragraphs(page.body)); }
       }, function (err) {

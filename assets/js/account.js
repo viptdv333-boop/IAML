@@ -10,11 +10,11 @@
 
   var IAML = window.IAML;
   if (!IAML || !IAML.el) return;
-  var el = IAML.el, ui = IAML.ui, clear = IAML.clear;
+  var el = IAML.el, ui = IAML.ui, clear = IAML.clear, t = IAML.t;
   var page = document.body.getAttribute("data-page");
 
   function $(id) { return document.getElementById(id); }
-  function loadingNode() { return el("p", { "class": "live-loading" }, "Loading…"); }
+  function loadingNode() { return el("p", { "class": "live-loading" }, t("Loading…")); }
 
   /* ═══════════════ MY ACCOUNT ═══════════════ */
   function initAccount() {
@@ -74,15 +74,15 @@
       var first = null;
       ["first_name", "last_name", "workplace"].forEach(function (k) {
         var c = form.elements[k];
-        if (!data[k]) { ui.fieldError(form, c, ui.fieldLabel(form, c) + " is required"); if (!first) first = c; }
+        if (!data[k]) { ui.fieldError(form, c, t("{field} is required", { field: ui.fieldLabel(form, c) })); if (!first) first = c; }
       });
-      if (first) { ui.setStatus(profileMsg, "Please fill in the highlighted fields.", "error"); ui.focus(first); return; }
+      if (first) { ui.setStatus(profileMsg, t("Please fill in the highlighted fields."), "error"); ui.focus(first); return; }
       var btn = form.querySelector('button[type="submit"]');
       ui.busy(btn, true);
       IAML.api.patch("/me", data).then(function (res) {
         IAML.api.session.setUser(res.user);   // header name/avatar update immediately
         fillFields(res.user);
-        ui.setStatus(profileMsg, "Profile saved.", "ok");
+        ui.setStatus(profileMsg, t("Profile saved."), "ok");
       }, function (err) {
         sessionLost(err) || ui.applyErrors(form, err, { status: profileMsg });
       }).then(function () { ui.busy(btn, false); });
@@ -100,18 +100,18 @@
       fileIn.value = "";                  // allows choosing the same file again later
       if (!f) return;
       ui.setStatus(avatarMsg, "");
-      if (!allowedImage(f)) { ui.setStatus(avatarMsg, "Please choose a JPEG, PNG or WebP image.", "error"); return; }
-      if (f.size > MAX_BYTES) { ui.setStatus(avatarMsg, "The image must be 2 MB or smaller.", "error"); return; }
+      if (!allowedImage(f)) { ui.setStatus(avatarMsg, t("Please choose a JPEG, PNG or WebP image."), "error"); return; }
+      if (f.size > MAX_BYTES) { ui.setStatus(avatarMsg, t("The image must be 2 MB or smaller."), "error"); return; }
       // client-side preview while the upload runs
       var url = URL.createObjectURL(f);
       clear(preview);
       preview.appendChild(el("img", { src: url, alt: "" }));
-      ui.setStatus(avatarMsg, "Uploading…");
+      ui.setStatus(avatarMsg, t("Uploading…"));
       var fd = new FormData();
       fd.append("avatar", f);
       IAML.api.upload("/me/avatar", fd).then(function (res) {
         IAML.api.session.setUser(res.user);   // header avatar updates immediately
-        ui.setStatus(avatarMsg, "Photo updated.", "ok");
+        ui.setStatus(avatarMsg, t("Photo updated."), "ok");
       }, function (err) {
         if (!sessionLost(err)) ui.setStatus(avatarMsg, IAML.errorText(err), "error");
         if (IAML.api.session.user) renderAvatar(IAML.api.session.user);
@@ -124,7 +124,7 @@
       ui.busy(removeBtn, true);
       IAML.api.del("/me/avatar").then(function (res) {
         IAML.api.session.setUser(res.user);
-        ui.setStatus(avatarMsg, "Photo removed.", "ok");
+        ui.setStatus(avatarMsg, t("Photo removed."), "ok");
       }, function (err) {
         if (!sessionLost(err)) ui.setStatus(avatarMsg, IAML.errorText(err), "error");
       }).then(function () { ui.busy(removeBtn, false); });
@@ -138,14 +138,14 @@
       ui.setStatus(pwMsg, "");
       var cur = pwForm.elements.current_password, nw = pwForm.elements.new_password;
       var bad = null;
-      if (!cur.value) { ui.fieldError(pwForm, cur, "Current password is required"); bad = cur; }
-      if (nw.value.length < 8) { ui.fieldError(pwForm, nw, "New password must be at least 8 characters"); bad = bad || nw; }
-      if (bad) { ui.setStatus(pwMsg, "Please check the highlighted fields.", "error"); ui.focus(bad); return; }
+      if (!cur.value) { ui.fieldError(pwForm, cur, t("Current password is required")); bad = cur; }
+      if (nw.value.length < 8) { ui.fieldError(pwForm, nw, t("New password must be at least 8 characters")); bad = bad || nw; }
+      if (bad) { ui.setStatus(pwMsg, t("Please check the highlighted fields."), "error"); ui.focus(bad); return; }
       var btn = pwForm.querySelector('button[type="submit"]');
       ui.busy(btn, true);
       IAML.api.post("/me/password", { current_password: cur.value, new_password: nw.value }).then(function () {
         pwForm.reset();
-        ui.setStatus(pwMsg, "Password changed. You were logged out on your other devices.", "ok");
+        ui.setStatus(pwMsg, t("Password changed. You were logged out on your other devices."), "ok");
       }, function (err) {
         sessionLost(err) || ui.applyErrors(pwForm, err, { status: pwMsg });
       }).then(function () { ui.busy(btn, false); });
@@ -155,10 +155,10 @@
     $("deleteAccountBtn").addEventListener("click", function () {
       if (!IAML.isLive) return;
       IAML.dialog.form({
-        title: "Delete your account?",
-        intro: "This permanently deletes your account, your Mongolist subscriptions and your photo. Your Discuss posts stay, shown as “Deleted user”. This can’t be undone.",
-        fields: [{ name: "password", type: "password", label: "Your password", help: "Enter your password to confirm.", required: true, autocomplete: "current-password" }],
-        submitLabel: "Delete my account", danger: true,
+        title: t("Delete your account?"),
+        intro: t("This permanently deletes your account, your Mongolist subscriptions and your photo. Your Discuss posts stay, shown as “Deleted user”. This can’t be undone."),
+        fields: [{ name: "password", type: "password", label: t("Your password"), help: t("Enter your password to confirm."), required: true, autocomplete: "current-password" }],
+        submitLabel: t("Delete my account"), danger: true,
         onSubmit: function (v) { return IAML.api.del("/me", { password: v.password }); }
       }).then(function (done) {
         if (!done) return;
@@ -190,13 +190,13 @@
 
   /* ═══════════════ MONGOLIST SUBSCRIPTIONS ═══════════════ */
   var TOPICS = [
-    { key: "news", label: "News" },
-    { key: "events", label: "Events" },
-    { key: "publications", label: "Publications" },
-    { key: "participants", label: "New participants" },
-    { key: "discuss", label: "New Discuss questions" }
+    { key: "news", label: t("News") },
+    { key: "events", label: t("Events") },
+    { key: "publications", label: t("Publications") },
+    { key: "participants", label: t("New participants") },
+    { key: "discuss", label: t("New Discuss questions") }
   ];
-  var FREQS = [["instant", "Instant"], ["daily", "Daily digest"], ["weekly", "Weekly digest"]];
+  var FREQS = [["instant", t("Instant")], ["daily", t("Daily digest")], ["weekly", t("Weekly digest")]];
 
   function initMongolist() {
     var box = $("mlistBox"), gate = $("mlistGate"), form = $("subForm");
@@ -208,7 +208,7 @@
     function topicRow(topic, data) {
       var cb = el("input", { type: "checkbox", name: topic.key });
       cb.checked = !!data.enabled;
-      var sel = el("select", { name: topic.key + "_freq", "aria-label": topic.label + " — how often" },
+      var sel = el("select", { name: topic.key + "_freq", "aria-label": t("{topic} — how often", { topic: topic.label }) },
         FREQS.map(function (f) { return el("option", { value: f[0] }, f[1]); }));
       sel.value = data.frequency || "daily";
       sel.disabled = !data.enabled;
@@ -223,18 +223,18 @@
 
     function renderForm(res) {
       var byTopic = {};
-      (res.topics || []).forEach(function (t) { byTopic[t.topic] = t; });
+      (res.topics || []).forEach(function (tp) { byTopic[tp.topic] = tp; });
       clear(form);
       var hint = el("p", { "class": "sub-hint", id: "subHint", hidden: res.configured ? "" : null },
-        "These are suggested defaults — nothing is e-mailed until you save.");
+        t("These are suggested defaults — nothing is e-mailed until you save."));
       var msg = el("p", { "class": "cform__msg", "aria-live": "polite", "data-form-msg": "" });
-      var save = el("button", { "class": "btn btn--p", type: "submit" }, "Save preferences");
+      var save = el("button", { "class": "btn btn--p", type: "submit" }, t("Save preferences"));
       form.appendChild(hint);
-      form.appendChild(el("p", { "class": "sub-form__intro" }, "Choose topics and how often you want to hear about each."));
-      TOPICS.forEach(function (t) { form.appendChild(topicRow(t, byTopic[t.key] || { enabled: false, frequency: "daily" })); });
+      form.appendChild(el("p", { "class": "sub-form__intro" }, t("Choose topics and how often you want to hear about each.")));
+      TOPICS.forEach(function (tp) { form.appendChild(topicRow(tp, byTopic[tp.key] || { enabled: false, frequency: "daily" })); });
       form.appendChild(save);
       form.appendChild(msg);
-      form.appendChild(el("p", { "class": "sub-note" }, "Every e-mail from Mongolist includes an unsubscribe link, so you can opt out at any time."));
+      form.appendChild(el("p", { "class": "sub-note" }, t("Every e-mail from Mongolist includes an unsubscribe link, so you can opt out at any time.")));
     }
 
     function load(u) {
@@ -249,8 +249,8 @@
         clear(form);
         if (err && err.code === "unauthenticated") { IAML.api.session.me(true).then(null, function () {}); return; }
         form.appendChild(el("div", { "class": "live-error", role: "alert" },
-          el("p", null, "We couldn’t load your preferences. " + IAML.errorText(err)),
-          el("button", { "class": "btn btn--o btn--sm", type: "button", on: { click: function () { load(u); } } }, "Try again")));
+          el("p", null, t("We couldn’t load your preferences. {reason}", { reason: IAML.errorText(err) })),
+          el("button", { "class": "btn btn--o btn--sm", type: "button", on: { click: function () { load(u); } } }, t("Try again"))));
       });
     }
 
@@ -270,16 +270,16 @@
       var msg = form.querySelector("[data-form-msg]");
       var save = form.querySelector('button[type="submit"]');
       if (!msg || !save) return;
-      var topics = TOPICS.map(function (t) {
-        return { topic: t.key, enabled: form.elements[t.key].checked, frequency: form.elements[t.key + "_freq"].value };
+      var topics = TOPICS.map(function (tp) {
+        return { topic: tp.key, enabled: form.elements[tp.key].checked, frequency: form.elements[tp.key + "_freq"].value };
       });
       ui.setStatus(msg, "");
       ui.busy(save, true);
       IAML.api.put("/me/subscriptions", { topics: topics }).then(function (res) {
         var hint = $("subHint");
         if (hint && res.configured) hint.hidden = true;
-        ui.setStatus(msg, "Preferences saved.", "ok");
-        IAML.toast("Your Mongolist preferences are saved.", "ok");
+        ui.setStatus(msg, t("Preferences saved."), "ok");
+        IAML.toast(t("Your Mongolist preferences are saved."), "ok");
       }, function (err) {
         if (err && err.code === "unauthenticated") {
           IAML.api.session.me(true).then(null, function () {});

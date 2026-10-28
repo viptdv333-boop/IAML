@@ -13,9 +13,8 @@
 
   var IAML = window.IAML;
   if (!IAML || !IAML.el || !IAML.ui) return;
-  var el = IAML.el, qsa = IAML.qsa, ui = IAML.ui;
+  var el = IAML.el, qsa = IAML.qsa, ui = IAML.ui, esc = IAML.esc, t = IAML.t, tServer = IAML.tServer;
 
-  var GATED = "Accounts are opening soon — the member system is being connected.";
   var RESEND_SECONDS = 60;
   var VIEWS = { login: "authLogin", register: "authRegister", verify: "authVerify", forgot: "authForgot", reset: "authReset" };
 
@@ -24,98 +23,100 @@
 
   function $(id) { return document.getElementById(id); }
 
-  /* ═══ Auth modal markup (static strings only — no API data) ═══ */
+  /* ═══ Auth modal markup — our own strings, translated by the dictionary (a trusted file), never API data.
+     Plain texts are escaped; the two with markup (link / <strong>) are inserted as the dictionary has them. ═══ */
   function pwField(id, name, label, autocomplete, hint) {
     return '<div class="field"><label for="' + id + '">' + label + '</label>' +
       '<div class="pw"><input id="' + id + '" type="password" name="' + name + '" autocomplete="' + autocomplete + '" maxlength="128" required' +
         (hint ? ' aria-describedby="' + id + 'Hint"' : '') + '/>' +
-        '<button class="pw__toggle" type="button" data-pw-toggle aria-label="Show password" aria-pressed="false">Show</button></div>' +
+        '<button class="pw__toggle" type="button" data-pw-toggle aria-label="' + esc(t("Show password")) + '" aria-pressed="false">' + esc(t("Show")) + '</button></div>' +
       (hint ? '<p class="field-hint" id="' + id + 'Hint">' + hint + '</p>' : '') + '</div>';
   }
   function codeField(id) {
-    return '<div class="field"><label for="' + id + '">6-digit code</label>' +
+    return '<div class="field"><label for="' + id + '">' + esc(t("6-digit code")) + '</label>' +
       '<input id="' + id + '" class="code-input" type="text" name="code" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" spellcheck="false" required/></div>';
   }
 
-  var MODAL_HTML =
-    '<div class="auth" id="authModal" hidden>' +
+  function modalHtml() {
+    return '<div class="auth" id="authModal" hidden>' +
       '<div class="auth__backdrop" data-modal-close></div>' +
       '<div class="auth__dialog" role="dialog" aria-modal="true" aria-labelledby="authHeading" tabindex="-1">' +
-        '<button class="auth__close" type="button" data-modal-close aria-label="Close">×</button>' +
-        '<div class="auth__tabs" role="tablist" aria-label="Account">' +
-          '<button class="auth__tab is-active" type="button" role="tab" id="authTabLogin" aria-selected="true" aria-controls="authLogin" data-auth-tab="login">Log in</button>' +
-          '<button class="auth__tab" type="button" role="tab" id="authTabRegister" aria-selected="false" aria-controls="authRegister" tabindex="-1" data-auth-tab="register">Sign up</button>' +
+        '<button class="auth__close" type="button" data-modal-close aria-label="' + esc(t("Close")) + '">×</button>' +
+        '<div class="auth__tabs" role="tablist" aria-label="' + esc(t("Account")) + '">' +
+          '<button class="auth__tab is-active" type="button" role="tab" id="authTabLogin" aria-selected="true" aria-controls="authLogin" data-auth-tab="login">' + esc(t("Log in")) + '</button>' +
+          '<button class="auth__tab" type="button" role="tab" id="authTabRegister" aria-selected="false" aria-controls="authRegister" tabindex="-1" data-auth-tab="register">' + esc(t("Sign up")) + '</button>' +
         '</div>' +
 
         /* log in */
         '<form class="auth__form is-active" id="authLogin" role="tabpanel" aria-labelledby="authTabLogin" novalidate>' +
-          '<h3 id="authHeading">Welcome back</h3>' +
-          '<div class="field"><label for="authLoginEmail">Email</label><input id="authLoginEmail" type="email" name="email" autocomplete="email" required/></div>' +
-          pwField("authLoginPw", "password", "Password", "current-password") +
-          '<button class="btn btn--p" type="submit">Log in</button>' +
+          '<h3 id="authHeading">' + esc(t("Welcome back")) + '</h3>' +
+          '<div class="field"><label for="authLoginEmail">' + esc(t("Email")) + '</label><input id="authLoginEmail" type="email" name="email" autocomplete="email" required/></div>' +
+          pwField("authLoginPw", "password", esc(t("Password")), "current-password") +
+          '<button class="btn btn--p" type="submit">' + esc(t("Log in")) + '</button>' +
           '<p class="auth__msg" data-auth-msg aria-live="polite"></p>' +
-          '<p class="auth__alt" data-live-only><button class="linkbtn" type="button" data-auth-go="forgot">Forgot your password?</button></p>' +
+          '<p class="auth__alt" data-live-only><button class="linkbtn" type="button" data-auth-go="forgot">' + esc(t("Forgot your password?")) + '</button></p>' +
         '</form>' +
 
         /* sign up */
         '<form class="auth__form" id="authRegister" role="tabpanel" aria-labelledby="authTabRegister" novalidate>' +
-          '<h3 id="authRegHeading">Create your account</h3>' +
+          '<h3 id="authRegHeading">' + esc(t("Create your account")) + '</h3>' +
           '<div class="auth__row">' +
-            '<div class="field"><label for="authRegFirst">First name</label><input id="authRegFirst" type="text" name="first_name" autocomplete="given-name" maxlength="80" required/></div>' +
-            '<div class="field"><label for="authRegLast">Last name</label><input id="authRegLast" type="text" name="last_name" autocomplete="family-name" maxlength="80" required/></div>' +
+            '<div class="field"><label for="authRegFirst">' + esc(t("First name")) + '</label><input id="authRegFirst" type="text" name="first_name" autocomplete="given-name" maxlength="80" required/></div>' +
+            '<div class="field"><label for="authRegLast">' + esc(t("Last name")) + '</label><input id="authRegLast" type="text" name="last_name" autocomplete="family-name" maxlength="80" required/></div>' +
           '</div>' +
-          '<div class="field"><label for="authRegWork">Place of work</label>' +
-            '<input id="authRegWork" type="text" name="workplace" autocomplete="organization" maxlength="200" placeholder="University / institution" aria-describedby="authRegWorkHint" required/>' +
-            '<p class="field-hint" id="authRegWorkHint">Visible to administrators only.</p></div>' +
-          '<div class="field"><label for="authRegEmail">Email</label><input id="authRegEmail" type="email" name="email" autocomplete="email" required/></div>' +
-          pwField("authRegPw", "password", "Password", "new-password", "At least 8 characters.") +
+          '<div class="field"><label for="authRegWork">' + esc(t("Place of work")) + '</label>' +
+            '<input id="authRegWork" type="text" name="workplace" autocomplete="organization" maxlength="200" placeholder="' + esc(t("University / institution")) + '" aria-describedby="authRegWorkHint" required/>' +
+            '<p class="field-hint" id="authRegWorkHint">' + esc(t("Visible to administrators only.")) + '</p></div>' +
+          '<div class="field"><label for="authRegEmail">' + esc(t("Email")) + '</label><input id="authRegEmail" type="email" name="email" autocomplete="email" required/></div>' +
+          pwField("authRegPw", "password", esc(t("Password")), "new-password", esc(t("At least 8 characters."))) +
           '<div class="hp" aria-hidden="true"><label for="authRegWebsite">Website</label><input id="authRegWebsite" type="text" name="website" tabindex="-1" autocomplete="off"/></div>' +
-          '<p class="auth__fineprint">Your name and avatar are shown publicly in Discuss. Place of work is visible only to admins. See our <a href="privacy.html">Privacy Policy</a>.</p>' +
-          '<button class="btn btn--p" type="submit">Create account</button>' +
+          '<p class="auth__fineprint">' + t('Your name and avatar are shown publicly in Discuss. Place of work is visible only to admins. See our <a href="privacy.html">Privacy Policy</a>.') + '</p>' +
+          '<button class="btn btn--p" type="submit">' + esc(t("Create account")) + '</button>' +
           '<p class="auth__msg" data-auth-msg aria-live="polite"></p>' +
         '</form>' +
 
         /* confirm e-mail */
         '<form class="auth__form" id="authVerify" novalidate>' +
-          '<h3 id="authVerifyHeading">Confirm your email</h3>' +
-          '<p class="auth__fineprint">We sent a 6-digit code to <strong data-auth-email></strong>. Enter it below to activate your account. The code is valid for 15 minutes.</p>' +
+          '<h3 id="authVerifyHeading">' + esc(t("Confirm your email")) + '</h3>' +
+          '<p class="auth__fineprint">' + t('We sent a 6-digit code to <strong data-auth-email></strong>. Enter it below to activate your account. The code is valid for 15 minutes.') + '</p>' +
           codeField("authVerifyCode") +
-          '<button class="btn btn--p" type="submit">Confirm</button>' +
+          '<button class="btn btn--p" type="submit">' + esc(t("Confirm")) + '</button>' +
           '<p class="auth__msg" data-auth-msg aria-live="polite"></p>' +
-          '<p class="auth__alt"><button class="linkbtn" type="button" data-resend="verify_email">Resend code</button><span aria-hidden="true"> · </span><button class="linkbtn" type="button" data-auth-go="register">Use a different e-mail</button></p>' +
-          '<p class="auth__alt">Already have an account? <button class="linkbtn" type="button" data-auth-go="login">Log in</button></p>' +
+          '<p class="auth__alt"><button class="linkbtn" type="button" data-resend="verify_email">' + esc(t("Resend code")) + '</button><span aria-hidden="true"> · </span><button class="linkbtn" type="button" data-auth-go="register">' + esc(t("Use a different e-mail")) + '</button></p>' +
+          '<p class="auth__alt">' + esc(t("Already have an account?")) + ' <button class="linkbtn" type="button" data-auth-go="login">' + esc(t("Log in")) + '</button></p>' +
         '</form>' +
 
         /* forgot password */
         '<form class="auth__form" id="authForgot" novalidate>' +
-          '<h3 id="authForgotHeading">Reset your password</h3>' +
-          '<p class="auth__fineprint">Enter the e-mail address of your account. We will send you a 6-digit code to choose a new password.</p>' +
-          '<div class="field"><label for="authForgotEmail">Email</label><input id="authForgotEmail" type="email" name="email" autocomplete="email" required/></div>' +
-          '<button class="btn btn--p" type="submit">Send code</button>' +
+          '<h3 id="authForgotHeading">' + esc(t("Reset your password")) + '</h3>' +
+          '<p class="auth__fineprint">' + esc(t("Enter the e-mail address of your account. We will send you a 6-digit code to choose a new password.")) + '</p>' +
+          '<div class="field"><label for="authForgotEmail">' + esc(t("Email")) + '</label><input id="authForgotEmail" type="email" name="email" autocomplete="email" required/></div>' +
+          '<button class="btn btn--p" type="submit">' + esc(t("Send code")) + '</button>' +
           '<p class="auth__msg" data-auth-msg aria-live="polite"></p>' +
-          '<p class="auth__alt"><button class="linkbtn" type="button" data-auth-go="login">Back to log in</button></p>' +
+          '<p class="auth__alt"><button class="linkbtn" type="button" data-auth-go="login">' + esc(t("Back to log in")) + '</button></p>' +
         '</form>' +
 
         /* new password */
         '<form class="auth__form" id="authReset" novalidate>' +
-          '<h3 id="authResetHeading">Choose a new password</h3>' +
-          '<p class="auth__fineprint">If an account exists for <strong data-auth-email></strong>, we have sent it a 6-digit code. Enter the code and your new password.</p>' +
+          '<h3 id="authResetHeading">' + esc(t("Choose a new password")) + '</h3>' +
+          '<p class="auth__fineprint">' + t('If an account exists for <strong data-auth-email></strong>, we have sent it a 6-digit code. Enter the code and your new password.') + '</p>' +
           codeField("authResetCode") +
-          pwField("authResetPw", "password", "New password", "new-password", "At least 8 characters.") +
-          '<button class="btn btn--p" type="submit">Change password</button>' +
+          pwField("authResetPw", "password", esc(t("New password")), "new-password", esc(t("At least 8 characters."))) +
+          '<button class="btn btn--p" type="submit">' + esc(t("Change password")) + '</button>' +
           '<p class="auth__msg" data-auth-msg aria-live="polite"></p>' +
-          '<p class="auth__alt"><button class="linkbtn" type="button" data-resend="reset_password">Resend code</button><span aria-hidden="true"> · </span><button class="linkbtn" type="button" data-auth-go="login">Back to log in</button></p>' +
+          '<p class="auth__alt"><button class="linkbtn" type="button" data-resend="reset_password">' + esc(t("Resend code")) + '</button><span aria-hidden="true"> · </span><button class="linkbtn" type="button" data-auth-go="login">' + esc(t("Back to log in")) + '</button></p>' +
         '</form>' +
       '</div>' +
     '</div>';
+  }
 
   function ensureModal() {
     if (modal) return modal;
     modal = $("authModal");
     if (!modal) {
-      var t = document.createElement("template");
-      t.innerHTML = MODAL_HTML.trim();
-      modal = t.content.firstChild;
+      var tpl = document.createElement("template");
+      tpl.innerHTML = modalHtml().trim();
+      modal = tpl.content.firstChild;
       document.body.appendChild(modal);
     }
     wireModal();
@@ -140,7 +141,7 @@
     var left = Math.max(0, Math.ceil((state.resendAt - Date.now()) / 1000));
     qsa(modal, "[data-resend]").forEach(function (b) {
       b.disabled = left > 0;
-      b.textContent = left > 0 ? "Resend code (" + left + " s)" : "Resend code";
+      b.textContent = left > 0 ? t("Resend code ({n} s)", { n: left }) : t("Resend code");
     });
     if (left <= 0 && state.timer) { window.clearInterval(state.timer); state.timer = null; }
   }
@@ -164,11 +165,11 @@
     });
     var isTab = view === "login" || view === "register";
     modal.querySelector(".auth__tabs").hidden = !isTab;
-    qsa(modal, "[data-auth-tab]").forEach(function (t) {
-      var on = t.getAttribute("data-auth-tab") === view;
-      t.classList.toggle("is-active", on);
-      t.setAttribute("aria-selected", on ? "true" : "false");
-      t.tabIndex = on ? 0 : -1;
+    qsa(modal, "[data-auth-tab]").forEach(function (tab) {
+      var on = tab.getAttribute("data-auth-tab") === view;
+      tab.classList.toggle("is-active", on);
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+      tab.tabIndex = on ? 0 : -1;
     });
     var form = $(activeId);
     var heading = form.querySelector("h3");
@@ -187,8 +188,8 @@
     qsa(modal, "[data-pw-toggle]").forEach(function (b) {
       var input = b.parentNode.querySelector("input");
       if (input) input.type = "password";
-      b.textContent = "Show";
-      b.setAttribute("aria-label", "Show password");
+      b.textContent = t("Show");
+      b.setAttribute("aria-label", t("Show password"));
       b.setAttribute("aria-pressed", "false");
     });
     qsa(modal, ".auth__form").forEach(function (f) { ui.clearErrors(f); setMsg(f, "", ""); });
@@ -209,12 +210,12 @@
     qsa(form, "input[required]").forEach(function (c) {
       if (c.closest(".hp")) return;
       if (!String(c.value).trim()) {
-        ui.fieldError(form, c, ui.fieldLabel(form, c) + " is required");
+        ui.fieldError(form, c, t("{field} is required", { field: ui.fieldLabel(form, c) }));
         if (!first) first = c;
       }
     });
     if (first) {
-      setMsg(form, "Please fill in the highlighted fields.", "error");
+      setMsg(form, t("Please fill in the highlighted fields."), "error");
       ui.focus(first);
       return false;
     }
@@ -224,8 +225,8 @@
   function checkPassword(form, name) {
     var c = form.querySelector('[name="' + name + '"]');
     if (c && c.value.length < 8) {
-      ui.fieldError(form, c, ui.fieldLabel(form, c) + " must be at least 8 characters");
-      setMsg(form, "Please check the highlighted fields.", "error");
+      ui.fieldError(form, c, t("{field} must be at least 8 characters", { field: ui.fieldLabel(form, c) }));
+      setMsg(form, t("Please check the highlighted fields."), "error");
       ui.focus(c);
       return false;
     }
@@ -240,7 +241,7 @@
       var code = form.querySelector('[name="code"]');
       if (code) {
         ui.clearErrors(form);
-        ui.fieldError(form, code, err.message);
+        ui.fieldError(form, code, tServer(err.message));
         setMsg(form, "", "");
         ui.focus(code);
         try { code.select(); } catch (e) {}
@@ -273,11 +274,11 @@
     var email = value(form, "email").trim();
     busy(form, true);
     IAML.api.post("/auth/login", { email: email, password: value(form, "password") }).then(
-      function (res) { success(res.user, "Welcome back, " + (res.user.first_name || "member") + "."); },
+      function (res) { success(res.user, t("Welcome back, {name}.", { name: res.user.first_name || t("member") })); },
       function (err) {
         if (err && err.code === "email_not_verified") {
           state.secret = value(form, "password");
-          gotoVerify((err.extra && err.extra.email) || email, err.message);
+          gotoVerify((err.extra && err.extra.email) || email, tServer(err.message));
           return;
         }
         fail(form, err);
@@ -310,17 +311,17 @@
     if (!checkRequired(form)) return;
     var code = value(form, "code").replace(/\D/g, "");
     if (code.length !== 6) {
-      ui.fieldError(form, form.querySelector('[name="code"]'), "Enter the 6-digit code from the e-mail");
+      ui.fieldError(form, form.querySelector('[name="code"]'), t("Enter the 6-digit code from the e-mail"));
       ui.focus(form.querySelector('[name="code"]'));
       return;
     }
     if (!state.secret) {   // e.g. the page was reloaded: log in again, which sends a fresh code and brings us back here
-      show("login", { message: "Please log in with your password to finish confirming your e-mail.", kind: "" });
+      show("login", { message: t("Please log in with your password to finish confirming your e-mail."), kind: "" });
       return;
     }
     busy(form, true);
     IAML.api.post("/auth/verify", { email: state.email, code: code, password: state.secret }).then(
-      function (res) { success(res.user, "Your e-mail is confirmed — welcome, " + (res.user.first_name || "member") + "."); },
+      function (res) { success(res.user, t("Your e-mail is confirmed — welcome, {name}.", { name: res.user.first_name || t("member") })); },
       function (err) { fail(form, err); }
     ).then(function () { busy(form, false); });
   }
@@ -333,7 +334,7 @@
       function () {
         state.email = email.toLowerCase();
         startCountdown();
-        show("reset", { message: "If an account exists for this address, a code is on its way.", kind: "ok" });
+        show("reset", { message: t("If an account exists for this address, a code is on its way."), kind: "ok" });
       },
       function (err) { fail(form, err); }
     ).then(function () { busy(form, false); });
@@ -343,13 +344,13 @@
     if (!checkRequired(form) || !checkPassword(form, "password")) return;
     var code = value(form, "code").replace(/\D/g, "");
     if (code.length !== 6) {
-      ui.fieldError(form, form.querySelector('[name="code"]'), "Enter the 6-digit code from the e-mail");
+      ui.fieldError(form, form.querySelector('[name="code"]'), t("Enter the 6-digit code from the e-mail"));
       ui.focus(form.querySelector('[name="code"]'));
       return;
     }
     busy(form, true);
     IAML.api.post("/auth/reset", { email: state.email, code: code, password: value(form, "password") }).then(
-      function (res) { success(res.user, "Your password has been changed — you are logged in."); },
+      function (res) { success(res.user, t("Your password has been changed — you are logged in.")); },
       function (err) { fail(form, err); }
     ).then(function () { busy(form, false); });
   }
@@ -362,9 +363,9 @@
     IAML.api.post("/auth/resend", { email: state.email, purpose: purpose }).then(
       function () {
         startCountdown();
-        setMsg(form, "A new code is on its way — it can take a minute to arrive.", "ok");
+        setMsg(form, t("A new code is on its way — it can take a minute to arrive."), "ok");
       },
-      function (err) { tick(); setMsg(form, err.message, "error"); }
+      function (err) { tick(); setMsg(form, tServer(err.message), "error"); }
     );
   }
 
@@ -380,7 +381,7 @@
       if (!form) return;
       e.preventDefault();
       IAML.live().then(function (ok) {
-        if (!ok) { setMsg(form, GATED, "error"); return; }
+        if (!ok) { setMsg(form, t("Accounts are opening soon — the member system is being connected."), "error"); return; }
         if (HANDLERS[form.id]) HANDLERS[form.id](form);
       });
     });
@@ -415,21 +416,21 @@
   /* ═══ Header, footer and "guest only" bits ═══ */
   function guestButtons() {
     return [
-      el("button", { "class": "nav__btn", type: "button", "data-auth": "login" }, "Log in"),
-      el("button", { "class": "nav__link nav__link--cta", type: "button", "data-auth": "register" }, "Sign up")
+      el("button", { "class": "nav__btn", type: "button", "data-auth": "login" }, t("Log in")),
+      el("button", { "class": "nav__link nav__link--cta", type: "button", "data-auth": "register" }, t("Sign up"))
     ];
   }
 
   function userMenu(user) {
     var fullName = ((user.first_name || "") + " " + (user.last_name || "")).trim() || user.email;
-    var items = [el("a", { role: "menuitem", href: "account.html", "class": "umenu__item" }, "My account")];
-    if (user.role === "admin") items.push(el("a", { role: "menuitem", href: "admin.html", "class": "umenu__item" }, "Admin panel"));
-    items.push(el("button", { role: "menuitem", type: "button", "class": "umenu__item", "data-logout": "" }, "Log out"));
+    var items = [el("a", { role: "menuitem", href: "account.html", "class": "umenu__item" }, t("My account"))];
+    if (user.role === "admin") items.push(el("a", { role: "menuitem", href: "admin.html", "class": "umenu__item" }, t("Admin panel")));
+    items.push(el("button", { role: "menuitem", type: "button", "class": "umenu__item", "data-logout": "" }, t("Log out")));
     return el("div", { "class": "umenu" },
       el("button", {
         "class": "umenu__btn", type: "button", id: "userMenuBtn",
         "aria-haspopup": "menu", "aria-expanded": "false", "aria-controls": "userMenuPanel",
-        "aria-label": "Account menu — " + fullName
+        "aria-label": t("Account menu — {name}", { name: fullName })
       }, ui.avatar(user, "sm"), el("span", { "class": "umenu__name" }, user.first_name || user.email), el("span", { "class": "umenu__caret", "aria-hidden": "true" }, "▾")),
       el("div", { "class": "umenu__panel", id: "userMenuPanel", role: "menu", "aria-labelledby": "userMenuBtn", hidden: "" }, items));
   }
@@ -456,13 +457,13 @@
     IAML.clear(ul);
     function li(child) { var n = document.createElement("li"); n.appendChild(child); ul.appendChild(n); }
     if (!user) {
-      li(el("button", { "class": "footer__linkbtn", type: "button", "data-auth": "register" }, "Sign up"));
-      li(el("button", { "class": "footer__linkbtn", type: "button", "data-auth": "login" }, "Log in"));
-      li(el("a", { href: "account.html" }, "My account"));
+      li(el("button", { "class": "footer__linkbtn", type: "button", "data-auth": "register" }, t("Sign up")));
+      li(el("button", { "class": "footer__linkbtn", type: "button", "data-auth": "login" }, t("Log in")));
+      li(el("a", { href: "account.html" }, t("My account")));
     } else {
-      li(el("a", { href: "account.html" }, "My account"));
-      if (user.role === "admin") li(el("a", { href: "admin.html" }, "Admin panel"));
-      li(el("button", { "class": "footer__linkbtn", type: "button", "data-logout": "" }, "Log out"));
+      li(el("a", { href: "account.html" }, t("My account")));
+      if (user.role === "admin") li(el("a", { href: "admin.html" }, t("Admin panel")));
+      li(el("button", { "class": "footer__linkbtn", type: "button", "data-logout": "" }, t("Log out")));
     }
   }
 
@@ -493,7 +494,7 @@
 
   function doLogout() {
     IAML.api.session.logout().then(
-      function () { IAML.toast("You have been logged out.", "ok"); },
+      function () { IAML.toast(t("You have been logged out."), "ok"); },
       function (err) { IAML.toast(IAML.errorText(err), "error"); }
     );
   }
