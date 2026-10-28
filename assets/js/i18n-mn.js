@@ -157,6 +157,7 @@
     "Upcoming": "Удахгүй",
     "Conferences & Events": "Бага хурал ба арга хэмжээ",
     "Conferences, workshops, and symposia. Times shown in UTC+3.": "Бага хурал, сургалт, симпозиум. Цагийг UTC+3-аар харуулав.",
+    "Demonstration entries for testing the event layout. These are not real event announcements.": "Арга хэмжээний хуудасны загварыг турших зорилготой жишээ бичлэгүүд. Эдгээр нь бодит арга хэмжээний зар биш юм.",
     "Details": "Дэлгэрэнгүй",
 
     /* ── publications.html ── */

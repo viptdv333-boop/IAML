@@ -29,11 +29,18 @@
 
   /* ═══ Live-section plumbing ═══ */
 
+  /* Draft-only notes ([data-static-note], e.g. "these are test entries") give way to their live twins ([data-live-note]). */
+  function liveNotes() {
+    qsa(document, "[data-static-note]").forEach(function (n) { n.hidden = true; });
+    qsa(document, "[data-live-note]").forEach(function (n) { n.hidden = false; });
+  }
+
   /* The static placeholders stay hidden (no flash of fake content) until we know whether a backend answers. */
   function withBackend(host, onLive, onStatic) {
     host.classList.add("live-pending");
     IAML.live().then(function (ok) {
       if (!ok) { if (onStatic) onStatic(); return null; }
+      liveNotes();
       return Promise.resolve().then(onLive);
     }).then(null, function (err) {
       showStatus(host, loadError(err, function () { withBackend(host, onLive, onStatic); }));
