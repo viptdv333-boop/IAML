@@ -101,7 +101,7 @@ jobs:
           docker run -d --name iaml-ci --network host \
             -e DATABASE_URL=postgres://postgres:postgres@localhost:5432/iaml_smoke \
             -e SITE_URL=http://localhost:3000 \
-            -e SESSION_SECRET=ci-only-session-secret-0123456789abcdef0 \
+            -e SESSION_SECRET="$(openssl rand -hex 32)" \
             iaml-app:ci
           for _ in $(seq 1 30); do
             if curl -fsS http://localhost:3000/api/health; then
