@@ -13,7 +13,7 @@
 
    Language (docs/I18N.md): every visible string goes through t() = IAML.t
    (assets/js/i18n.js); server messages through IAML.tServer(); the header
-   carries the EN | МН switcher.
+   carries the English | Монгол switcher.
    ═══════════════════════════════════════════════════ */
 (function () {
   "use strict";
@@ -247,8 +247,9 @@
     document.body.insertBefore(svg, document.body.firstChild);
   }
 
-  /* EN | МН — the language names stay in their own language (never translated). Two copies: one in the bar, one as the first
-     item of the burger menu (shown instead of the bar copy when the bar has no room: body.nav-lang-menu, see fitNav). */
+  /* English | Монгол — the full language names, each in its own language (never translated). Two copies: one in the bar
+     (left, right after the seal), one as the first item of the burger menu (shown instead of the bar copy when the bar has
+     no room: body.nav-lang-menu, see fitNav). */
   function langSwitch(extraClass) {
     var i18n = window.IAML.i18n;
     if (!i18n || typeof i18n.setLang !== "function") return null;
@@ -260,7 +261,7 @@
       }, label);
     }
     return el("div", { "class": "langsw " + extraClass, role: "group", "aria-label": t("Language") },
-      btn("en", "EN", "English"), el("span", { "class": "langsw__sep", "aria-hidden": "true" }), btn("mn", "МН", "Монгол хэл"));
+      btn("en", "English", "English"), btn("mn", "Монгол", "Монгол хэл"));
   }
 
   /* ── Render top nav ── */
@@ -291,8 +292,15 @@
     var cl = document.body.classList;
     cl.remove("nav-compact", "nav-collapsed", "nav-lang-menu");
     function over() { return inner.scrollWidth > inner.clientWidth + 1; }
-    if (window.innerWidth <= 1000) {             // the stylesheet shows the burger menu there; on phones the EN | МН switcher
-      if (over()) cl.add("nav-lang-menu");       // moves from the bar into the burger menu when the bar has no room for it
+    if (window.innerWidth <= 1000) {             // the stylesheet shows the burger menu there
+      if (!over()) return;
+      if (window.innerWidth > 600) {             // tablets: the association name gives way first (on phones it stays)
+        cl.add("nav-compact");
+        if (!over()) return;
+        cl.remove("nav-compact");
+      }
+      cl.add("nav-lang-menu");                   // still no room: the language switcher moves from the bar into the burger menu
+      if (over()) cl.add("nav-compact");         // phones with a long (Mongolian) name: seal only, so the burger is never pushed off-screen
       return;
     }
     if (!over()) return;
@@ -310,11 +318,13 @@
     if (!mount) return;
     mount.innerHTML =
       '<nav class="nav" aria-label="' + esc(t("Main")) + '"><div class="nav__in">' +
-        '<a href="index.html" class="nav__brand" aria-label="' + esc(t("IAML — home")) + '">' +
-          brandLockup() +
-          '<span class="nav__brand-sep"></span>' +
-          '<span class="nav__brand-text"><span>' + esc(t("The International Association")) + '</span><span>' + esc(t("for Mongolic Linguistics")) + '</span></span>' +
-        '</a>' +
+        '<div class="nav__left">' +
+          '<a href="index.html" class="nav__brand" aria-label="' + esc(t("IAML — home")) + '">' +
+            brandLockup() +
+            '<span class="nav__brand-sep"></span>' +
+            '<span class="nav__brand-text"><span>' + esc(t("The International Association")) + '</span><span>' + esc(t("for Mongolic Linguistics")) + '</span></span>' +
+          '</a>' +
+        '</div>' +
         '<div class="nav__links" id="navLinks"></div>' +
         '<div class="nav__ctrls">' +
           '<span class="nav__auth" id="navAuth">' +
@@ -324,8 +334,8 @@
           '<button class="burger" id="burger" type="button" aria-label="' + esc(t("Menu")) + '" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>' +
         '</div>' +
       '</div></nav>';
-    var ctrls = mount.querySelector(".nav__ctrls"), barSwitch = langSwitch("langsw--bar");
-    if (ctrls && barSwitch) ctrls.insertBefore(barSwitch, ctrls.firstChild);
+    var left = mount.querySelector(".nav__left"), barSwitch = langSwitch("langsw--bar");
+    if (left && barSwitch) left.appendChild(barSwitch);
     renderNavLinks();
   }
 

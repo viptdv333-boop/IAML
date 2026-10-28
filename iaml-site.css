@@ -1436,7 +1436,7 @@ input[readonly] { background: var(--bg-alt); color: var(--text2); }
 /* ═══════════════════════════════════════════════════════════════════
    i18n / Mongolian   (docs/I18N.md)
    · no flash of English while the Mongolian text is applied (assets/js/i18n.js sets html[data-i18n-pending])
-   · language switcher EN | МН (bar copy + burger-menu copy) and the "EN" tag of untranslated items
+   · language switcher English | Монгол (bar copy + burger-menu copy) and the "EN" tag of untranslated items
    · Cyrillic typography: calmer tracking on upper-case labels, headings, wider date chips, longer words
    Nothing here changes the English pages except the switcher itself.
    ═══════════════════════════════════════════════════════════════════ */
@@ -1445,33 +1445,33 @@ input[readonly] { background: var(--bg-alt); color: var(--text2); }
 html[data-i18n-pending] body { visibility: hidden; animation: i18nReveal .01s linear 1.2s forwards; }
 @keyframes i18nReveal { to { visibility: visible; } }
 
-/* ── Language switcher ── */
-.langsw { display: inline-flex; align-items: center; flex-shrink: 0; }
+/* ── Language switcher: English | Монгол (full names, segmented pill) ──
+   bar copy: left side of the header, right after the seal (.nav__left); burger copy: first item of the burger menu */
+.nav__left { display: flex; align-items: center; gap: clamp(14px, 1.4vw, 28px); flex-shrink: 0; }
+.langsw {
+  display: inline-flex; align-items: center; flex-shrink: 0; gap: 2px; padding: 3px;
+  border: 1px solid var(--border); border-radius: 999px; background: var(--card-bg);
+}
 .langsw__btn {
-  position: relative; background: none; border: none; cursor: pointer;
-  padding: 8px 5px; font: 600 11px/1 'DM Sans', 'Inter', sans-serif; letter-spacing: .4px;
-  color: var(--text2); transition: color .2s;
+  background: none; border: none; cursor: pointer; border-radius: 999px; white-space: nowrap;
+  padding: 7px 13px; font: 600 15px/1 'DM Sans', 'Inter', sans-serif; letter-spacing: 0;
+  color: var(--text2); transition: color .2s, background .2s;
 }
-.langsw__btn::after {
-  content: ''; position: absolute; left: 5px; right: 5px; bottom: 3px; height: 2px;
-  background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .25s cubic-bezier(.22,1,.36,1);
-}
-.langsw__btn:hover { color: var(--text); }
-.langsw__btn.is-current { color: var(--blue); cursor: default; }
-.langsw__btn.is-current::after { transform: scaleX(1); }
-.langsw__btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 0; border-radius: 4px; }
-.langsw__sep { width: 1px; height: 12px; background: var(--text2); opacity: .35; }
-/* full-width header: a little tighter, so the nine English menu items keep their room right above 1000 px */
-@media (min-width: 1001px) {
-  .langsw__btn { padding-left: 4px; padding-right: 4px; }
-  .langsw__btn::after { left: 4px; right: 4px; }
-  .langsw--bar { margin-right: -3px; }
-}
-/* the copy in the burger menu exists for phones: shown only when app.js (fitNav) finds no room for the one in the bar */
+.langsw__btn:hover { color: var(--text); background: var(--bg-alt); }
+.langsw__btn.is-current, .langsw__btn.is-current:hover { background: var(--blue); color: #fff; cursor: default; }
+[data-theme="dark"] .langsw__btn.is-current, [data-theme="dark"] .langsw__btn.is-current:hover { background: var(--sky); }
+.langsw__btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+/* the copy in the burger menu exists for phones and tablets: shown only when app.js (fitNav) finds no room for the one in the bar */
 .nav__links > .langsw--menu { display: none; }
 @media (max-width: 1000px) {
   body.nav-lang-menu .langsw--bar { display: none; }
-  body.nav-lang-menu .nav__links.open > .langsw--menu { display: inline-flex; align-self: flex-start; margin: -8px 0 -4px -5px; }
+  body.nav-lang-menu .nav__links.open > .langsw--menu { display: inline-flex; align-self: flex-start; margin: 0 0 4px; }
+}
+@media (max-width: 600px) { .nav__left { gap: 10px; } }
+/* Cyrillic labels are longer: slightly smaller menu type and tighter gaps keep the nine entries inline next to the wider switcher */
+@media (min-width: 1001px) {
+  :lang(mn) .nav__links { gap: clamp(10px, 1vw, 24px); }
+  :lang(mn) .nav__links .nav__link { font-size: clamp(13px, .95vw, 15px); }
 }
 
 /* ── "EN" tag: this item has no Mongolian text yet (shown only in the Mongolian UI) ── */
